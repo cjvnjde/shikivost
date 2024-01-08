@@ -1,0 +1,16 @@
+{
+  "name": "shikivost",
+  "short_name": "SV",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "description": "Shikimori integration on the animevost site",
+  "icons": {
+    "48": "./icons/icon-48.png",
+    "96": "./icons/icon-96.png"
+  },
+  "browser_action": {
+    "default_icon": "./icons/icon-48.png",
+    "default_title": "shikivost",
+    "default_popup": "./popup/index.html"
+  }
+}

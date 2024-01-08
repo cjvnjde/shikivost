@@ -1,0 +1,19 @@
+{
+  "name": "extension/static",
+  "sourceRoot": "extension/static",
+  "root": "extension",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "mkdir -p dist/extension",
+          "cp -R extension/static/assets/* dist/extension"
+        ],
+        "parallel": false
+      }
+    }
+  },
+  "tags": ["extension"]
+}

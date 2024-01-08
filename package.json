@@ -2,7 +2,9 @@
   "name": "@shikivost/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build:extension:static": "nx run extension/static:build --skip-nx-cache"
+  },
   "private": true,
   "dependencies": {},
   "devDependencies": {
