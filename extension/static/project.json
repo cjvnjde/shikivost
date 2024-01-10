@@ -1,7 +1,7 @@
 {
-  "name": "extension/static",
+  "name": "static",
   "sourceRoot": "extension/static",
-  "root": "extension",
+  "root": "extension/static",
   "projectType": "library",
   "targets": {
     "build": {
