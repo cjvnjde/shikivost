@@ -5,7 +5,7 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "command": "tsc --project ./extension/content/tsconfig.json"
+      "command": "rollup -c extension/content/rollup.config.mjs"
     }
   },
   "tags": ["extension"],

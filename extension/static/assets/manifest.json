@@ -10,8 +10,9 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://animevost.org/*"],
-      "js": ["content/index.js"]
+      "matches": ["*://animevost.org/*"],
+      "js": ["content/index.js"],
+      "run_at": "document_end"
     }
   ]
 }

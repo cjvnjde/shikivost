@@ -1,4 +1,3 @@
-import herr from "./helle"
+import hello from "./helle"
 
-
-herr()
+hello()
