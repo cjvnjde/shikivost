@@ -1,0 +1,13 @@
+{
+  "name": "content",
+  "sourceRoot": "extension/content",
+  "root": "extension/content",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "command": "tsc --project ./extension/content/tsconfig.json"
+    }
+  },
+  "tags": ["extension"],
+  "implicitDependencies": ["static"]
+}
