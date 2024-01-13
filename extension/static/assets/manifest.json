@@ -16,6 +16,9 @@
   "background": {
     "scripts": ["background/index.js"]
   },
+  "permissions": [
+    "storage"
+  ],
   "content_scripts": [
     {
       "matches": ["*://animevost.org/*", "*://v2.vost.pw/*"],

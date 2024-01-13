@@ -1,3 +1,3 @@
-import hello from "./helle"
+import { tokenChecker} from './tokenChecker';
 
-hello()
+tokenChecker()

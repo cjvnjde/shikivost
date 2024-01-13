@@ -1,20 +1,16 @@
-import { Bridge } from '@shikivost/bridge';
-import React, { useRef } from 'react';
+import React  from 'react';
 import { createRoot } from 'react-dom/client';
 
+const url = 'https://shikimori.one/oauth/authorize?client_id=ZYV_3N5DBDQWDhJYbWUq1YMcatv9nUI-xG51xsaXGAA&redirect_uri=https%3A%2F%2Fanimevost.org%2F&response_type=code&scope=user_rates';
+
 function App() {
-  const bridge = useRef(new Bridge())
-
   return <div>
-
-    <button onClick={() => {
-      bridge.current.send("log")
-    }}>log</button>
+    <a href={url} target="_blank">login</a>
   </div>;
 }
 
-const element = document.createElement("div")
-document.body.appendChild(element)
+const element = document.createElement('div');
+document.body.appendChild(element);
 
 const root = createRoot(element);
 
