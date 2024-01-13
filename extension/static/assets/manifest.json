@@ -13,6 +13,9 @@
     "default_title": "Shikivost",
     "default_popup": "./popup/index.html"
   },
+  "background": {
+    "scripts": ["background/index.js"]
+  },
   "content_scripts": [
     {
       "matches": ["*://animevost.org/*", "*://v2.vost.pw/*"],

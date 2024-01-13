@@ -1,0 +1,16 @@
+{
+  "name": "background",
+  "sourceRoot": "extension/background",
+  "root": "extension/background",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "command": "rollup -c extension/background/rollup.config.mjs"
+    },
+    "watch": {
+      "command": "rollup -c extension/background/rollup.config.mjs -w"
+    }
+  },
+  "tags": ["extension"],
+  "implicitDependencies": ["static"]
+}
