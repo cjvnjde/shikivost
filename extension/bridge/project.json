@@ -1,26 +1,15 @@
 {
   "name": "bridge",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "extension/bridge/src",
+  "sourceRoot": "extension/bridge",
+  "root": "extension/bridge",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nx/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/extension/bridge",
-        "main": "extension/bridge/src/index.ts",
-        "tsConfig": "extension/bridge/tsconfig.lib.json",
-        "assets": [],
-        "project": "extension/bridge/package.json",
-        "compiler": "swc",
-        "format": ["cjs", "esm"]
-      }
+      "command": "rollup -c extension/bridge/rollup.config.mjs"
     },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+    "watch": {
+      "command": "rollup -c extension/bridge/rollup.config.mjs -w"
     }
   },
-  "tags": []
+  "tags": ["extension"]
 }

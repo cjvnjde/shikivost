@@ -1,6 +1,11 @@
-import hello from "./helle"
+import { BackgroundBridge } from '@shikivost/bridge';
 
-setInterval(() => {
+const bridge = new BackgroundBridge()
 
-  hello()
-}, 5000)
+function init() {
+  bridge.on('log', ({ data: { payload } }) => {
+    console.log(`log`)
+  })
+}
+
+init()

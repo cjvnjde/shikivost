@@ -1,5 +1,7 @@
 import typescript from '@rollup/plugin-typescript';
 import terser from '@rollup/plugin-terser';
+import commonjs from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
   input: 'extension/content/src/index.ts',
@@ -7,5 +9,11 @@ export default {
     dir: 'dist/extension/content',
     format: 'cjs'
   },
-  plugins: [typescript(), terser()]
+  plugins: [
+    nodeResolve(),
+    commonjs(),
+    typescript({
+      tsconfig: 'extension/content/tsconfig.json'
+    }), terser()
+  ]
 };

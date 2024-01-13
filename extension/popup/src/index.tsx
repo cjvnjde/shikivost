@@ -1,8 +1,16 @@
-import React from "react"
+import { Bridge } from '@shikivost/bridge';
+import React, { useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 
 function App() {
-  return <div>Hello World</div>;
+  const bridge = useRef(new Bridge())
+
+  return <div>
+
+    <button onClick={() => {
+      bridge.current.send("log")
+    }}>log</button>
+  </div>;
 }
 
 const element = document.createElement("div")
