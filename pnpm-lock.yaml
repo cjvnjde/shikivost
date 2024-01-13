@@ -13,6 +13,9 @@ devDependencies:
   '@nx/workspace':
     specifier: 17.2.8
     version: 17.2.8
+  '@rollup/plugin-html':
+    specifier: ^1.0.3
+    version: 1.0.3(rollup@4.9.5)
   '@rollup/plugin-typescript':
     specifier: ^11.1.6
     version: 11.1.6(rollup@4.9.5)(tslib@2.6.2)(typescript@5.2.2)
@@ -383,6 +386,18 @@ packages:
       '@pnpm/config.env-replace': 1.1.0
       '@pnpm/network.ca-file': 1.0.2
       config-chain: 1.1.13
+    dev: true
+
+  /@rollup/plugin-html@1.0.3(rollup@4.9.5):
+    resolution: {integrity: sha512-bbjQciNXitHX+Bgk0xsW3/0wFWih/356/r7/kvmdz4wzWhAU/a0zYBWTczihrlzz/6Qpw/kZ0yXqOJwsETgg7A==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      rollup: 4.9.5
     dev: true
 
   /@rollup/plugin-typescript@11.1.6(rollup@4.9.5)(tslib@2.6.2)(typescript@5.2.2):

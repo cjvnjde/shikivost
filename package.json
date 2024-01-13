@@ -6,12 +6,15 @@
     "build:extension:static": "nx run static:build --skip-nx-cache",
     "build:extension:content": "nx run content:build --skip-nx-cache",
     "watch:extension:content": "nx run content:watch --skip-nx-cache",
+    "build:extension:popup": "nx run popup:build --skip-nx-cache",
+    "watch:extension:popup": "nx run popup:watch --skip-nx-cache",
     "start:extesion:firefox": "web-ext run -t firefox-desktop --source-dir ./dist/extension --start-url=https://animevost.org/",
-    "serve:extension:firefox": "pnpm run build:extension:content && concurrently --kill-others 'pnpm run watch:extension:content' 'pnpm run start:extesion:firefox'"
+    "serve:extension:firefox": "pnpm run build:extension:content && pnpm run build:extension:popup  && concurrently --kill-others 'pnpm run watch:extension:content' 'pnpm run watch:extension:popup' 'pnpm run start:extesion:firefox'"
   },
   "private": true,
   "devDependencies": {
     "@nx/workspace": "17.2.8",
+    "@rollup/plugin-html": "^1.0.3",
     "@rollup/plugin-typescript": "^11.1.6",
     "concurrently": "^8.2.2",
     "nx": "17.2.8",
