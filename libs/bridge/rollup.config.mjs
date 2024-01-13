@@ -4,17 +4,17 @@ import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
-  input: 'extension/bridge/src/lib/index.ts',
+  input: 'libs/bridge/src/lib/index.ts',
   output: {
-    dir: 'dist/extension/bridge',
+    dir: 'dist/libs/bridge',
     format: 'cjs'
   },
   plugins: [
     nodeResolve(),
     commonjs(),
     typescript({
-    tsconfig: 'extension/bridge/tsconfig.json'
-  }),
+      tsconfig: 'libs/bridge/tsconfig.json'
+    }),
     terser()
   ]
 };

@@ -1,0 +1,15 @@
+{
+  "name": "bridge",
+  "sourceRoot": "libs/bridge",
+  "root": "libs/bridge",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "command": "rollup -c libs/bridge/rollup.config.mjs"
+    },
+    "watch": {
+      "command": "rollup -c libs/bridge/rollup.config.mjs -w"
+    }
+  },
+  "tags": []
+}

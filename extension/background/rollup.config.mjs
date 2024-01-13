@@ -13,6 +13,8 @@ export default {
     nodeResolve(),
     commonjs(),
     typescript({
-    tsconfig: 'extension/background/tsconfig.json'
-  }), terser()]
+      tsconfig: 'extension/background/tsconfig.json'
+    }),
+    terser()
+  ]
 };
