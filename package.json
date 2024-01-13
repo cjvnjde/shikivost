@@ -34,6 +34,7 @@
     "web-ext": "^7.10.0"
   },
   "dependencies": {
+    "@preact/signals": "^1.2.2",
     "preact": "^10.19.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -1,12 +1,25 @@
 import { h, render } from 'preact';
-import { useState } from 'preact/hooks';
+import { signal } from '@preact/signals';
+
+const count = signal(0);
 
 function App() {
-  const [st, sotSt] = useState(1)
-  return (
-    <button onClick={() => sotSt(t => t+1)}>test {st}</button>
-  )
+  const value = count.value;
+  const increment = () => {
+    count.value++;
+  };
+
+  return <button onClick={increment}>test {value}</button>;
 }
 
-const testElement = document.querySelector(".present")
-render(<App />, testElement);
+function App2() {
+  const value = count.value;
+  const increment = () => {
+    count.value++;
+  };
+
+  return <button onClick={increment}>test2 {value}</button>;
+}
+
+render(<App />, document.querySelector('.present'));
+render(<App2 />, document.querySelector('#moduleLeft-1'));
