@@ -11,10 +11,15 @@
     "build:extension:background": "nx run background:build --skip-nx-cache",
     "watch:extension:background": "nx run background:watch --skip-nx-cache",
     "start:extension:firefox": "web-ext run -t firefox-desktop --source-dir ./dist/extension --start-url=https://animevost.org/",
-    "serve:extension:firefox": "pnpm run build:extension:content && pnpm run build:extension:popup  && pnpm run build:extension:background && concurrently --kill-others 'pnpm run watch:extension:popup' 'pnpm run watch:extension:background' 'pnpm run start:extension:firefox'"
+    "serve:extension:firefox": "pnpm run build:extension:content && pnpm run build:extension:popup  && pnpm run build:extension:background && concurrently --kill-others 'pnpm run watch:extension:popup' 'pnpm run watch:extension:background' 'pnpm run start:extension:firefox'",
+    "build:extension:bridge": "nx run bridge:build --skip-nx-cache"
   },
   "private": true,
   "devDependencies": {
+    "@nx/eslint": "17.2.8",
+    "@nx/eslint-plugin": "17.2.8",
+    "@nx/js": "^17.2.8",
+    "@nx/rollup": "17.2.8",
     "@nx/workspace": "17.2.8",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-html": "^1.0.3",
@@ -22,9 +27,18 @@
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@swc-node/register": "~1.6.7",
+    "@swc/cli": "~0.1.62",
+    "@swc/core": "~1.3.85",
+    "@types/node": "18.7.1",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
+    "@types/webextension-polyfill": "^0.10.7",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
     "concurrently": "^8.2.2",
+    "eslint": "~8.48.0",
+    "eslint-config-prettier": "^9.0.0",
     "nx": "17.2.8",
     "prettier": "^2.6.2",
     "react": "^18.2.0",
@@ -35,6 +49,7 @@
     "webextension-polyfill": "^0.10.0"
   },
   "dependencies": {
+    "@swc/helpers": "~0.5.2",
     "tslib": "^2.6.2"
   }
 }
