@@ -3,6 +3,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import html from '@rollup/plugin-html';
 import replace from '@rollup/plugin-replace';
+import terser from '@rollup/plugin-terser';
 
 export default {
   input: 'extension/popup/src/index.tsx',
@@ -19,6 +20,7 @@ export default {
     replace({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
+    terser(),
     html({ title: 'Popup' })
   ]
 };
