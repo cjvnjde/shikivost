@@ -17,7 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@shikivost/bridge": ["libs/bridge/src/index.ts"],
-      "@shikivost/api": ["extension/api/index.ts"]
+      "@shikivost/api": ["extension/api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

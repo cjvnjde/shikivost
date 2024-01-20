@@ -1,37 +1,23 @@
+import { Api } from '../../api/src';
 import { Bridge } from '@shikivost/bridge';
 
 const bridge = Bridge.create();
+const api = Api.create();
 
-export function tokenChecker() {
+export async function tokenChecker() {
   const url = new URL(window.location.href);
 
   if (url.searchParams.has('code')) {
-    const token = url.searchParams.get('code');
+    const code = url.searchParams.get('code');
     url.searchParams.delete('code');
 
     history.replaceState(null, '', url.toString());
-    const form = new FormData();
-    form.append('grant_type', 'authorization_code');
-    form.append('client_id', 'ZYV_3N5DBDQWDhJYbWUq1YMcatv9nUI-xG51xsaXGAA');
-    form.append('client_secret', 'vLW-Ppm52Qcel50kyXDLp0GxKt6Uc7xMahaLAHskNFg');
-    form.append('code', token);
-    form.append('redirect_uri', 'https://animevost.org/');
+    const { access_token, refresh_token } = await api.getTokens(code);
 
-    fetch('https://shikimori.one/oauth/token', {
-      method: 'POST',
-      headers: {
-        'User-Agent': 'Shikivost',
-      },
-      body: form,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((token) => {
-        if (token.access_token && token.refresh_token) {
-          bridge.send('set.access_token', { payload: token.access_token });
-          bridge.send('set.refresh_token', { payload: token.refresh_token });
-        }
-      });
+    await bridge.send('background.store.access_token', access_token);
+    await bridge.send('background.store.refresh_token', access_token);
+
+    api.accessToken = access_token;
+    api.refreshToken = refresh_token;
   }
 }

@@ -1,6 +1,6 @@
 import { h, render } from 'preact';
 import '../main.css';
-import { authorizationUrl } from '@shikivost/api';
+import { authorizationUrl } from '../../../api/src';
 import { css } from '../../styled-system/css';
 
 function Header() {
