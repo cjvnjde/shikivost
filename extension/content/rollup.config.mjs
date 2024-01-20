@@ -10,7 +10,7 @@ export default {
     format: 'cjs'
   },
   plugins: [
-    nodeResolve(),
+    nodeResolve({ browser: true }),
     commonjs(),
     typescript({
       tsconfig: 'extension/content/tsconfig.json'

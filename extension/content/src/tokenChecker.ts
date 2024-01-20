@@ -1,13 +1,13 @@
 import { Bridge } from '@shikivost/bridge';
 
-const bridge = new Bridge()
+const bridge = Bridge.create();
 
 export function tokenChecker() {
-  const url = new URL(window.location.href)
+  const url = new URL(window.location.href);
 
-  if (url.searchParams.has("code")) {
-    const token = url.searchParams.get("code")
-    url.searchParams.delete("code")
+  if (url.searchParams.has('code')) {
+    const token = url.searchParams.get('code');
+    url.searchParams.delete('code');
 
     history.replaceState(null, '', url.toString());
     const form = new FormData();
@@ -20,16 +20,18 @@ export function tokenChecker() {
     fetch('https://shikimori.one/oauth/token', {
       method: 'POST',
       headers: {
-        'User-Agent': 'Shikivost'
+        'User-Agent': 'Shikivost',
       },
-      body: form
-    }).then((res) => {
-      return res.json()
-    }).then(token => {
-      if (token.access_token && token.refresh_token) {
-        bridge.send("set.access_token", { payload: token.access_token })
-        bridge.send("set.refresh_token", { payload: token.refresh_token })
-      }
+      body: form,
     })
+      .then((res) => {
+        return res.json();
+      })
+      .then((token) => {
+        if (token.access_token && token.refresh_token) {
+          bridge.send('set.access_token', { payload: token.access_token });
+          bridge.send('set.refresh_token', { payload: token.refresh_token });
+        }
+      });
   }
 }

@@ -12,7 +12,7 @@ export default {
     format: 'cjs'
   },
   plugins: [
-    nodeResolve(),
+    nodeResolve({ browser: true }),
     commonjs(),
     typescript({
       tsconfig: 'extension/popup/tsconfig.json'
