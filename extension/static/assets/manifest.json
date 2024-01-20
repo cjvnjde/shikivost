@@ -23,6 +23,7 @@
     {
       "matches": ["*://animevost.org/*", "*://v2.vost.pw/*"],
       "js": ["content/index.js"],
+      "css": ["content/index.css"],
       "run_at": "document_end"
     }
   ]

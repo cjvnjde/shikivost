@@ -35,3 +35,5 @@ testem.log
 Thumbs.db
 
 .nx/cache
+
+styled-system
