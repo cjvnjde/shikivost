@@ -32,6 +32,7 @@ function StatusSelect() {
         {Object.entries(statusText).map(([key, value]) => {
           return (
             <div
+              className="status-select-item"
               key={key}
               onClick={async () => {
                 if (account.value?.id && anime.value?.id) {
