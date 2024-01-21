@@ -1,7 +1,7 @@
 @import "reset.css";
 
 .extension {
-    .test {
+    .common-block {
         margin-top: 12px;
         display: inline-block;
         background-color: #fcdaab;
@@ -13,4 +13,20 @@
 
 .top-line {
     height: auto !important;
+}
+
+
+.status-select {
+    .status-select-button {
+        transition: max-heigth 0.5s;
+    }
+
+    .status-select-list {
+        overflow: hidden;
+        max-height: 0;
+
+        &--open {
+            max-height: inherit;
+        }
+    }
 }

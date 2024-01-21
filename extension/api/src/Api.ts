@@ -152,7 +152,7 @@ export class Api {
   }
 
   async request(url: string, data: Partial<RequestOptions> = {}) {
-    console.log(this.headers(data.headers),);
+    console.log(this.headers(data.headers));
     const resp = await fetch(url, {
       ...data,
       headers: this.headers(data.headers),
@@ -175,16 +175,56 @@ export class Api {
   }
 
   async searchAnimes(search: string): Promise<Anime[]> {
-    return this.request(buildUrl('/api/animes', {
-      search
-    }));
+    return this.request(
+      buildUrl('/api/animes', {
+        search,
+      })
+    );
   }
 
-  async showRate(animeId: string | number, userId: number): Promise<[Rate]> {
-    return this.request(buildUrl(`/api/v2/user_rates`, {
-      target_id: animeId,
-      target_type: 'Anime',
-      user_id: userId
-    }));
+  async showRate(animeId: number, userId: number): Promise<[Rate]> {
+    return this.request(
+      buildUrl(`/api/v2/user_rates`, {
+        target_id: animeId,
+        target_type: 'Anime',
+        user_id: userId,
+      })
+    );
+  }
+
+  async setRate(
+    status: string,
+    {
+      id,
+      animeId,
+      userId,
+    }: {
+      id?: number;
+      userId: number;
+      animeId: number;
+    }
+  ): Promise<Rate> {
+    if (id) {
+      return this.request(buildUrl(`/api/v2/user_rates/${id}`), {
+        method: 'PATCH',
+        body: JSON.stringify({
+          user_rate: {
+            status,
+          },
+        }),
+      });
+    }
+
+    return this.request(buildUrl('/api/v2/user_rates'), {
+      method: 'POST',
+      body: JSON.stringify({
+        user_rate: {
+          status,
+          user_id: userId,
+          target_id: animeId,
+          target_type: 'Anime',
+        },
+      }),
+    });
   }
 }

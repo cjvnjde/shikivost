@@ -1,32 +1,19 @@
+import { authorizationUrl } from '@shikivost/api';
 import { h, render } from 'preact';
-import { Api, authorizationUrl } from '@shikivost/api';
-import { useEffect, useState } from 'preact/hooks';
 import { Account } from '../../../api/src/types/Account';
 import { account, fetchAccount } from '../state';
 
-const api = Api.create();
-
 function Account() {
-  useEffect(() => {
-    fetchAccount();
-  }, []);
-
-  return <div className="test">{account.value?.nickname || ''}</div>;
+  return <div className="common-block">{account.value?.nickname || ''}</div>;
 }
 
 function Header() {
-  const [isAuthorized, setIsAuthorized] = useState(false);
-
-  useEffect(() => {
-    setIsAuthorized(api.isAuthorized);
-  });
-
-  if (isAuthorized) {
+  if (account.value?.id) {
     return <Account />;
   }
 
   return (
-    <a href={authorizationUrl} className="test">
+    <a href={authorizationUrl} className="common-block">
       Войти
     </a>
   );
@@ -41,5 +28,6 @@ export function renderHeader() {
 
   topLine.appendChild(topLineBottomBlock);
 
+  fetchAccount();
   render(<Header />, topLineBottomBlock);
 }
