@@ -1,0 +1,16 @@
+@import "reset.css";
+
+.extension {
+    .test {
+        margin-top: 12px;
+        display: inline-block;
+        background-color: #fcdaab;
+        padding: 4px;
+        border-radius: 4px;
+        color: #e68d19;
+    }
+}
+
+.top-line {
+    height: auto !important;
+}

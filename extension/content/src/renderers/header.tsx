@@ -1,9 +1,7 @@
 import { h, render } from 'preact';
-import '../main.css';
 import { Api, authorizationUrl } from '@shikivost/api';
 import { useEffect, useState } from 'preact/hooks';
 import { Account } from '../../../api/src/types/Account';
-import { css } from '../../styled-system/css';
 
 const api = Api.create();
 
@@ -18,14 +16,7 @@ function Account() {
 
   return (
     <div
-      className={css({
-        marginTop: '12px !important',
-        display: 'inline-block',
-        bg: '#fcdaab !important',
-        padding: '4px !important',
-        borderRadius: '4px !important',
-        color: '#e68d19',
-      })}
+      className="test"
     >
       {account?.nickname || ''}
     </div>
@@ -46,14 +37,7 @@ function Header() {
   return (
     <a
       href={authorizationUrl}
-      className={css({
-        marginTop: '12px !important',
-        display: 'inline-block',
-        bg: '#fcdaab !important',
-        padding: '4px !important',
-        borderRadius: '4px !important',
-        color: '#e68d19',
-      })}
+      className="test"
     >
       Войти
     </a>
@@ -63,9 +47,7 @@ function Header() {
 export function renderHeader() {
   const topLine = document.querySelector('.topLine');
   topLine.classList.add(
-    css({
-      height: 'auto !important',
-    })
+'top-line'
   );
 
   const topLineBottomBlock = document.createElement('div');

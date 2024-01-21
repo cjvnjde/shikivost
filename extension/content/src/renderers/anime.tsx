@@ -2,7 +2,6 @@ import { Api } from '@shikivost/api';
 import { h, render } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { Anime } from '../../../api/src/types/Anime';
-import { css } from '../../styled-system/css';
 import { getTitle } from '../titleParser';
 
 const api = Api.create();
@@ -22,14 +21,7 @@ function AnimeTitle() {
 
   return (
     <div
-      className={css({
-        marginTop: '12px !important',
-        display: 'inline-block',
-        bg: '#fcdaab !important',
-        padding: '4px !important',
-        borderRadius: '4px !important',
-        color: '#e68d19',
-      })}
+      className="test"
     >
       {anime?.name || ''}
     </div>

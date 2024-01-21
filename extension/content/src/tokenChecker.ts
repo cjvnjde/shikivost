@@ -1,5 +1,4 @@
 import { Api } from '../../api/src';
-import { Bridge } from '@shikivost/bridge';
 
 const api = Api.create();
 
