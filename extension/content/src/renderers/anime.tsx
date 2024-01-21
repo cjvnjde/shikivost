@@ -27,7 +27,6 @@ effect(() => {
   if (anime.value?.id, account.value?.id) {
     api.showRate(anime.value.id, account.value.id).then(([rate]) => {
       if (rate) {
-
         currentRate.value = rate;
       }
     });
