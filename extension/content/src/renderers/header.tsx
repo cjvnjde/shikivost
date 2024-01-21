@@ -1,27 +1,17 @@
-import { signal } from '@preact/signals';
 import { h, render } from 'preact';
 import { Api, authorizationUrl } from '@shikivost/api';
 import { useEffect, useState } from 'preact/hooks';
 import { Account } from '../../../api/src/types/Account';
+import { account, fetchAccount } from '../state';
 
 const api = Api.create();
 
-export const account = signal<Account | null>(null)
-
 function Account() {
   useEffect(() => {
-    api.whoami().then((accountData) => {
-      account.value = accountData
-    });
+    fetchAccount();
   }, []);
 
-  return (
-    <div
-      className="test"
-    >
-      {account.value?.nickname || ''}
-    </div>
-  );
+  return <div className="test">{account.value?.nickname || ''}</div>;
 }
 
 function Header() {
@@ -36,10 +26,7 @@ function Header() {
   }
 
   return (
-    <a
-      href={authorizationUrl}
-      className="test"
-    >
+    <a href={authorizationUrl} className="test">
       Войти
     </a>
   );
@@ -47,9 +34,7 @@ function Header() {
 
 export function renderHeader() {
   const topLine = document.querySelector('.topLine');
-  topLine.classList.add(
-'top-line'
-  );
+  topLine.classList.add('top-line');
 
   const topLineBottomBlock = document.createElement('div');
   topLineBottomBlock.className = 'extension';

@@ -1,54 +1,21 @@
-import { effect, signal } from '@preact/signals';
-import { Api } from '@shikivost/api';
 import { h, render } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
-import { Anime } from '../../../api/src/types/Anime';
-import { Rate } from '../../../api/src/types/Rate';
+import { useEffect } from 'preact/hooks';
+import { anime, currentRate, fetchAnime } from '../state';
+import { statusText } from '../status';
 import { getTitle } from '../titleParser';
-import { account } from './header';
-
-const api = Api.create();
-
-const anime = signal<Anime | null>(null);
 
 function AnimeTitle() {
-  return (
-    <div
-      className="test"
-    >
-      {anime.value?.name || ''}
-    </div>
-  );
+  return <div className="test">{anime.value?.name || ''}</div>;
 }
 
-const currentRate = signal<null | Rate>(null);
-
-effect(() => {
-  if (anime.value?.id, account.value?.id) {
-    api.showRate(anime.value.id, account.value.id).then(([rate]) => {
-      if (rate) {
-        currentRate.value = rate;
-      }
-    });
-  }
-});
-
 function AnimeRating() {
-  return (
-    <div>
-      {currentRate.value?.status}
-    </div>
-  );
+  return <div>{statusText[currentRate.value?.status] || ''}</div>;
 }
 
 function AnimeBlock({ title }: { title: string }) {
   useEffect(() => {
-    api.searchAnimes(title).then(([animeData]) => {
-      if (anime) {
-        anime.value = animeData;
-      }
-    });
-  }, []);
+    fetchAnime(title);
+  }, [title]);
 
   return (
     <div>
@@ -64,7 +31,9 @@ export function renderAnime() {
     return null;
   }
 
-  const leftAnimeBlock = document.querySelector('.shortstoryContent .imgRadius').parentNode;
+  const leftAnimeBlock = document.querySelector(
+    '.shortstoryContent .imgRadius'
+  ).parentNode;
   const topLineBottomBlock = document.createElement('div');
   topLineBottomBlock.className = 'extension';
 
