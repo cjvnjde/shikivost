@@ -1,6 +1,6 @@
 import { Api } from '@shikivost/api';
 import { Bridge } from '@shikivost/bridge';
-import { renderContent } from './renderers/renderer';
+import { renderContent } from './renderers';
 import { tokenChecker } from './tokenChecker';
 
 const bridge = Bridge.create();

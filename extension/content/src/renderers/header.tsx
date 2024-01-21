@@ -12,12 +12,24 @@ function Account() {
 
   useEffect(() => {
     api.whoami().then((account) => {
-      console.log(account);
       setAccount(account);
     });
   }, []);
 
-  return <div>{account?.nickname || ''}</div>;
+  return (
+    <div
+      className={css({
+        marginTop: '12px !important',
+        display: 'inline-block',
+        bg: '#fcdaab !important',
+        padding: '4px !important',
+        borderRadius: '4px !important',
+        color: '#e68d19',
+      })}
+    >
+      {account?.nickname || ''}
+    </div>
+  );
 }
 
 function Header() {
