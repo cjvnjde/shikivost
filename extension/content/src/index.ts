@@ -13,12 +13,15 @@ async function init() {
 
   bridge.on('content.set.refresh_token', (value) => {
     api.refreshToken = value || '';
-    renderContent();
+
   });
 
   bridge.on('content.set.access_token', (value) => {
     api.accessToken = value || '';
+    renderContent();
   });
 }
 
-init();
+setTimeout(() => {
+  init();
+}, 3000)

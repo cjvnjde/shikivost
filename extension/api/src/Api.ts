@@ -1,6 +1,7 @@
 import { Bridge } from '@shikivost/bridge';
 import queryString from 'qs';
 import { Account } from './types/Account';
+import { Anime } from './types/Anime';
 
 const clientId = 'ZYV_3N5DBDQWDhJYbWUq1YMcatv9nUI-xG51xsaXGAA';
 const clientSecret = 'vLW-Ppm52Qcel50kyXDLp0GxKt6Uc7xMahaLAHskNFg';
@@ -77,11 +78,11 @@ export class Api {
   }
 
   set accessToken(accessToken: string) {
+    this.isInitialized = true;
     this._accessToken = accessToken;
   }
 
   set refreshToken(refreshToken: string) {
-    this.isInitialized = true;
     this._refreshToken = refreshToken;
   }
 
@@ -150,6 +151,7 @@ export class Api {
   }
 
   async request(url: string, data: Partial<RequestOptions> = {}) {
+    console.log(this.headers(data.headers),);
     const resp = await fetch(url, {
       ...data,
       headers: this.headers(data.headers),
@@ -169,5 +171,11 @@ export class Api {
 
   async whoami(): Promise<Account> {
     return this.request(buildUrl('/api/users/whoami'));
+  }
+
+  async animes(search: string): Promise<Anime[]> {
+    return this.request(buildUrl('/api/animes', {
+      search
+    }));
   }
 }
