@@ -1,3 +1,4 @@
+import { signal } from '@preact/signals';
 import { h, render } from 'preact';
 import { Api, authorizationUrl } from '@shikivost/api';
 import { useEffect, useState } from 'preact/hooks';
@@ -5,12 +6,12 @@ import { Account } from '../../../api/src/types/Account';
 
 const api = Api.create();
 
-function Account() {
-  const [account, setAccount] = useState<Account | null>(null);
+export const account = signal<Account | null>(null)
 
+function Account() {
   useEffect(() => {
-    api.whoami().then((account) => {
-      setAccount(account);
+    api.whoami().then((accountData) => {
+      account.value = accountData
     });
   }, []);
 
@@ -18,7 +19,7 @@ function Account() {
     <div
       className="test"
     >
-      {account?.nickname || ''}
+      {account.value?.nickname || ''}
     </div>
   );
 }

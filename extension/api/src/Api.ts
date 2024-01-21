@@ -2,6 +2,7 @@ import { Bridge } from '@shikivost/bridge';
 import queryString from 'qs';
 import { Account } from './types/Account';
 import { Anime } from './types/Anime';
+import { Rate } from './types/Rate';
 
 const clientId = 'ZYV_3N5DBDQWDhJYbWUq1YMcatv9nUI-xG51xsaXGAA';
 const clientSecret = 'vLW-Ppm52Qcel50kyXDLp0GxKt6Uc7xMahaLAHskNFg';
@@ -173,9 +174,17 @@ export class Api {
     return this.request(buildUrl('/api/users/whoami'));
   }
 
-  async animes(search: string): Promise<Anime[]> {
+  async searchAnimes(search: string): Promise<Anime[]> {
     return this.request(buildUrl('/api/animes', {
       search
+    }));
+  }
+
+  async showRate(animeId: string | number, userId: number): Promise<[Rate]> {
+    return this.request(buildUrl(`/api/v2/user_rates`, {
+      target_id: animeId,
+      target_type: 'Anime',
+      user_id: userId
     }));
   }
 }
