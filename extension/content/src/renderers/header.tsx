@@ -1,32 +1,18 @@
-import { authorizationUrl } from '@shikivost/api';
 import { h, render } from 'preact';
-import { Account } from '../../../api/src/types/Account';
-import { account, fetchAccount } from '../state';
-
-function Account() {
-  return <div className="common-block">{account.value?.nickname || ''}</div>;
-}
+import { fetchAccount } from '../state';
+import { ShikimoriLogin } from './ShikimoriLogin';
 
 function Header() {
-  if (account.value?.id) {
-    return <Account />;
-  }
-
-  return (
-    <a href={authorizationUrl} className="common-block">
-      Войти
-    </a>
-  );
+  return <ShikimoriLogin />;
 }
 
 export function renderHeader() {
-  const topLine = document.querySelector('.topLine');
-  topLine.classList.add('top-line');
+  const searchNode = document.querySelector('.search');
 
   const topLineBottomBlock = document.createElement('div');
-  topLineBottomBlock.className = 'extension';
+  topLineBottomBlock.className = 'extension login-wrapper';
 
-  topLine.appendChild(topLineBottomBlock);
+  searchNode.parentNode.insertBefore(topLineBottomBlock, searchNode);
 
   fetchAccount();
   render(<Header />, topLineBottomBlock);

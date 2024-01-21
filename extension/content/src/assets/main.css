@@ -1,4 +1,5 @@
 @import "reset.css";
+@import "theme.css";
 
 .extension {
     .common-block {
@@ -9,6 +10,25 @@
         border-radius: 4px;
         color: #e68d19;
     }
+
+    .login-btn {
+        height: 34px;
+        width: 34px;
+        background-color: var(--orange-300);
+        border-radius: 4px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--amber-600);
+    }
+
+}
+
+.login-wrapper {
+    width: 34px;
+    position: absolute;
+    top: 0;
+    right: 307px;
 }
 
 .top-line {
