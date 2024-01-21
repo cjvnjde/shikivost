@@ -22,10 +22,10 @@ export class BridgeStrategy {
   }
 
   private listener: Listener = (data) => {
-    const { type, payload } = decodeData(data);
+    const { event: eventType, payload } = decodeData(data);
 
     this.listeners.forEach((event, fn) => {
-      if (type === event) {
+      if (eventType === event) {
         fn(payload);
       }
     });

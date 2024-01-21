@@ -1,5 +1,6 @@
 import { Bridge } from '@shikivost/bridge';
 import queryString from 'qs';
+import { Account } from './types/Account';
 
 const clientId = 'ZYV_3N5DBDQWDhJYbWUq1YMcatv9nUI-xG51xsaXGAA';
 const clientSecret = 'vLW-Ppm52Qcel50kyXDLp0GxKt6Uc7xMahaLAHskNFg';
@@ -31,6 +32,7 @@ export class Api {
   private _accessToken: string;
   private _refreshToken: string;
   static api: Api;
+  public isInitialized: boolean = false;
 
   static create() {
     if (this.api) {
@@ -70,6 +72,8 @@ export class Api {
 
     await bridge.send('background.store.access_token', access_token);
     await bridge.send('background.store.refresh_token', refresh_token);
+
+    this.isInitialized = true;
   }
 
   set accessToken(accessToken: string) {
@@ -77,10 +81,11 @@ export class Api {
   }
 
   set refreshToken(refreshToken: string) {
+    this.isInitialized = true;
     this._refreshToken = refreshToken;
   }
 
-  get isInitialized() {
+  get isAuthorized() {
     return Boolean(this._refreshToken);
   }
 
@@ -118,6 +123,8 @@ export class Api {
 
     await bridge.send('background.store.access_token', access_token);
     await bridge.send('background.store.refresh_token', refresh_token);
+
+    this.isInitialized = true;
   }
 
   private headers(extraHeaders: CustomHeaders = {}, isPublic = false) {
@@ -158,5 +165,9 @@ export class Api {
     }
 
     return resp.json();
+  }
+
+  async whoami(): Promise<Account> {
+    return this.request(buildUrl('/api/users/whoami'));
   }
 }

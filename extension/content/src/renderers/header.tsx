@@ -1,9 +1,36 @@
 import { h, render } from 'preact';
 import '../main.css';
-import { authorizationUrl } from '../../../api/src';
+import { Api, authorizationUrl } from '@shikivost/api';
+import { useEffect, useState } from 'preact/hooks';
+import { Account } from '../../../api/src/types/Account';
 import { css } from '../../styled-system/css';
 
+const api = Api.create();
+
+function Account() {
+  const [account, setAccount] = useState<Account | null>(null);
+
+  useEffect(() => {
+    api.whoami().then((account) => {
+      console.log(account);
+      setAccount(account);
+    });
+  }, []);
+
+  return <div>{account?.nickname || ''}</div>;
+}
+
 function Header() {
+  const [isAuthorized, setIsAuthorized] = useState(false);
+
+  useEffect(() => {
+    setIsAuthorized(api.isAuthorized);
+  });
+
+  if (isAuthorized) {
+    return <Account />;
+  }
+
   return (
     <a
       href={authorizationUrl}
