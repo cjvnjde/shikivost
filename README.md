@@ -31,3 +31,11 @@ pnpm run build
 ```bash
 pnpm run bundle
 ```
+
+## TODO
+
+- [ ] add ability to remove from the list
+- [ ] add link to the anime page on shikimori site
+- [ ] add shikimori rating
+- [ ] add shikimori episode selection
+- [ ] auto add episode
