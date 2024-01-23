@@ -1,7 +1,7 @@
 import { Api } from '@shikivost/api';
 import { h, render } from 'preact';
 import { useState } from 'preact/hooks';
-import { account, anime, currentRate, fetchAnime } from '../state';
+import { account, anime, currentRate, fetchAnime, hasRate } from '../state';
 import { statusText } from '../status';
 import { getTitle } from '../titleParser';
 
@@ -49,6 +49,20 @@ function StatusSelect() {
             </div>
           );
         })}
+        {hasRate.value && (
+          <div
+            className="status-select-item status-select-item--red"
+            onClick={async () => {
+              if (currentRate.value?.id) {
+                await api.deleteRate(currentRate.value.id);
+                currentRate.value = null;
+                setIsOpen(false);
+              }
+            }}
+          >
+            Удалить из списка
+          </div>
+        )}
       </div>
     </div>
   );

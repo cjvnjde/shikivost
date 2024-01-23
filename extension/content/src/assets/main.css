@@ -32,52 +32,56 @@
 
 .extension {
 
-.status-select {
-    margin-top: 4px;
+    .status-select {
+        margin-top: 4px;
 
-    .status-select-button {
-        width: 100%;
-        background-color: var(--orange-300);
-        border: none;
-        border-radius: 4px;
-        transition: background-color 0.2s;
-        padding: 4px;
-        color: var(--yellow-700);
+        .status-select-button {
+            width: 100%;
+            background-color: var(--orange-300);
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            padding: 4px;
+            color: var(--yellow-700);
 
-        &:hover {
-            background-color: var(--amber-300);
+            &:hover {
+                background-color: var(--amber-300);
+            }
+        }
+
+        .status-select-list {
+            transition: max-height 0.2s cubic-bezier(0, 1, 0, 1);
+            overflow: hidden;
+            width: 100%;
+            max-height: 0;
+            border-radius: 4px;
+            margin-top: 2px;
+
+            &--open {
+                transition: max-height 1s ease-in-out;
+                max-height: 600px;
+            }
+
+            & > * + * {
+                border-top: 1px solid var(--amber-600);
+            }
+        }
+
+        .status-select-item {
+            width: 100%;
+            background-color: var(--orange-300);
+            transition: background-color 0.2s;
+            padding: 4px;
+            color: var(--yellow-700);
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--amber-300);
+            }
+        }
+
+        .status-select-item.status-select-item--red {
+            color: red;
         }
     }
-
-    .status-select-list {
-        transition: max-height 0.2s cubic-bezier(0, 1, 0, 1);
-        overflow: hidden;
-        width: 100%;
-        max-height: 0;
-        border-radius: 4px;
-        margin-top: 2px;
-
-        &--open {
-            transition: max-height 1s ease-in-out;
-            max-height: 600px;
-        }
-
-        & > * + * {
-            border-top: 1px solid var(--amber-600);
-        }
-    }
-
-    .status-select-item {
-        width: 100%;
-        background-color: var(--orange-300);
-        transition: background-color 0.2s;
-        padding: 4px;
-        color: var(--yellow-700);
-        cursor: pointer;
-
-        &:hover {
-            background-color: var(--amber-300);
-        }
-    }
-}
 }

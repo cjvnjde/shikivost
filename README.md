@@ -34,8 +34,10 @@ pnpm run bundle
 
 ## TODO
 
-- [ ] add ability to remove from the list
+- [x] add ability to add to the list
+- [x] add ability to remove from the list
 - [ ] add link to the anime page on shikimori site
 - [ ] add shikimori rating
 - [ ] add shikimori episode selection
-- [ ] auto add episode
+- [ ] auto add episode to the list during watching
+- [ ] add chrome support

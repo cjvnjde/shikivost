@@ -1,4 +1,4 @@
-import { effect, signal } from '@preact/signals';
+import { computed, effect, signal } from '@preact/signals';
 import { Api } from '@shikivost/api';
 import { Account } from '../../api/src/types/Account';
 import { Anime } from '../../api/src/types/Anime';
@@ -9,6 +9,7 @@ const api = Api.create();
 export const account = signal<Account | null>(null);
 export const anime = signal<Anime | null>(null);
 export const currentRate = signal<null | Rate>(null);
+export const hasRate = computed(() => Boolean(currentRate.value?.status));
 
 effect(() => {
   if (anime.value?.id && account.value?.id) {

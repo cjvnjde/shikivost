@@ -129,7 +129,7 @@ export class Api {
     this.isInitialized = true;
   }
 
-  private headers(extraHeaders: CustomHeaders = {}, isPublic = false) {
+  private headers(extraHeaders: CustomHeaders = {}) {
     const defaultHeaders = new Headers();
     defaultHeaders.append('accept', '*/*');
 
@@ -152,7 +152,6 @@ export class Api {
   }
 
   async request(url: string, data: Partial<RequestOptions> = {}) {
-    console.log(this.headers(data.headers));
     const resp = await fetch(url, {
       ...data,
       headers: this.headers(data.headers),
@@ -167,7 +166,10 @@ export class Api {
       throw new Error('Request failed');
     }
 
-    return resp.json();
+    return resp
+      .json()
+      .catch(() => resp.text())
+      .catch(() => null);
   }
 
   async whoami(): Promise<Account> {
@@ -225,6 +227,12 @@ export class Api {
           target_type: 'Anime',
         },
       }),
+    });
+  }
+
+  async deleteRate(rateId: number): Promise<void> {
+    return this.request(buildUrl(`/api/v2/user_rates/${rateId}`), {
+      method: 'DELETE',
     });
   }
 }
