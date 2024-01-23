@@ -4,5 +4,5 @@ import { renderHeader } from './header';
 
 export function renderContent() {
   renderHeader();
-  renderAnime()
+  renderAnime();
 }

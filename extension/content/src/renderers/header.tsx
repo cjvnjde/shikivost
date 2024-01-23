@@ -1,10 +1,6 @@
 import { h, render } from 'preact';
 import { fetchAccount } from '../state';
-import { ShikimoriLogin } from './ShikimoriLogin';
-
-function Header() {
-  return <ShikimoriLogin />;
-}
+import { ShikimoriLogin } from '../components/ShikimoriLogin';
 
 export function renderHeader() {
   const searchNode = document.querySelector('.search');
@@ -15,5 +11,5 @@ export function renderHeader() {
   searchNode.parentNode.insertBefore(topLineBottomBlock, searchNode);
 
   fetchAccount();
-  render(<Header />, topLineBottomBlock);
+  render(<ShikimoriLogin />, topLineBottomBlock);
 }

@@ -10,6 +10,7 @@ export const account = signal<Account | null>(null);
 export const anime = signal<Anime | null>(null);
 export const currentRate = signal<null | Rate>(null);
 export const hasRate = computed(() => Boolean(currentRate.value?.status));
+export const isAuthorized = computed(() => Boolean(account.value?.id));
 
 effect(() => {
   if (anime.value?.id && account.value?.id) {

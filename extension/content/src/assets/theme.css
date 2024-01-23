@@ -1,6 +1,10 @@
 :root {
-    --amber-300: #fdb94e;
-    --amber-600: #c47504;
-    --orange-300: #fbc182;
-    --yellow-700: #A3721C;
+    --amber-300: #FCD34D;
+    --amber-500: #F59E0B;
+    --amber-600: #D97706;
+
+    --orange-200: #FED7AA;
+    --orange-300: #FDBA74;
+
+    --yellow-700: #A16207;
 }

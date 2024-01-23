@@ -32,7 +32,7 @@ function ShikimoriIcon() {
   );
 }
 
-function ShikimoriLoginButton() {
+function ShikimoriLoginIcon() {
   return (
     <svg
       width="24"
@@ -74,7 +74,7 @@ export function ShikimoriLogin() {
 
   return (
     <a href={authorizationUrl} className="login-btn">
-      <ShikimoriLoginButton />
+      <ShikimoriLoginIcon />
     </a>
   );
 }
