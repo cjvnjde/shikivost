@@ -8,7 +8,15 @@ import { getTitle } from '../titleParser';
 const api = Api.create();
 
 function AnimeTitle() {
-  return <div className="common-block">{anime.value?.name || ''}</div>;
+  return (
+    <a
+      href={`https://shikimori.one${anime.value?.url}`}
+      target="_blank"
+      className="common-block"
+    >
+      {anime.value?.name || ''}
+    </a>
+  );
 }
 
 function StatusSelect() {
