@@ -1,6 +1,25 @@
 @import "reset.css";
 @import "theme.css";
 
+
+.login-wrapper {
+    width: 34px;
+    position: absolute;
+    top: 0;
+    right: 307px;
+}
+
+.anime-title-wrapper {
+    display: inherit;
+}
+
+.anime-rating-wrapper {
+    display: inline;
+    margin-left: 8px;
+    color: var(--amber-600);
+    font-weight: bold;
+}
+
 .extension {
     .rating-select {
         display: flex;
@@ -8,6 +27,7 @@
         flex-direction: row;
         width: min-content;
         color: var(--amber-600);
+        cursor: pointer;
     }
 
     .rating-select-container {
@@ -107,22 +127,42 @@
         text-align: center;
         margin-bottom: 4px;
     }
-}
 
-.login-wrapper {
-    width: 34px;
-    position: absolute;
-    top: 0;
-    right: 307px;
-}
+    .episode-incrementer {
+        margin-top: 4px;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--orange-200);
+        padding-bottom: 2px;
 
-.anime-title-wrapper {
-    display: inherit;
-}
+        & > span {
+            font-weight: bold;
+        }
 
-.anime-rating-wrapper {
-    display: inline;
-    margin-left: 8px;
-    color: var(--amber-600);
-    font-weight: bold;
+        div {
+            display: flex;
+            flex-direction: row;
+            gap: 6px;
+            align-items: center;
+            line-height: 20px;
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            padding: 0;
+            background-color: var(--amber-600);
+            color: var(--orange-200);
+
+            &:hover {
+                background-color: var(--yellow-700);
+            }
+        }
+    }
 }

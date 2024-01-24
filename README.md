@@ -1,12 +1,12 @@
 # Shikivost
 
 ## Description
-Shikivost is a project that integrates Shikimori features into the Animevost website, delivering enhanced user experiences for Anime enthusiasts.
+Shikivost is a project that integrates Shikimori features into the Animevost website, delivering enhanced user experiences for anime enthusiasts.
 
 ## Usage
 Follow the instructions below to set up and run the project.
 
-Please note that you need to have pnpm installed globally to execute the above commands.
+Please note that you need to have pnpm installed globally to execute the commands above.
 
 **Installation**
 
@@ -38,6 +38,7 @@ pnpm run bundle
 - [x] add ability to remove from the list
 - [x] add link to the anime page on shikimori site
 - [x] add shikimori rating
-- [ ] add shikimori episode selection
+- [x] add shikimori episode selection (simple increment)
 - [ ] auto add episode to the list during watching
+- [ ] add extended rating editing form
 - [ ] add chrome support

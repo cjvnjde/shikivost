@@ -237,14 +237,20 @@ export class Api {
     });
   }
 
-  async setScore(id: number, score: Score): Promise<Rate> {
-    return this.request(buildUrl(`/api/v2/user_rates/${id}`), {
+  async setScore(rateId: number, score: Score): Promise<Rate> {
+    return this.request(buildUrl(`/api/v2/user_rates/${rateId}`), {
       method: 'PATCH',
       body: JSON.stringify({
         user_rate: {
           score,
         },
       }),
+    });
+  }
+
+  async incrementEpisode(rateId: number) {
+    return this.request(buildUrl(`/api/v2/user_rates/${rateId}/increment`), {
+      method: 'POST',
     });
   }
 }

@@ -1,6 +1,7 @@
 import { Api } from '@shikivost/api';
 import { h } from 'preact';
 import { currentRate, isAuthorized } from '../state';
+import { EpisodeIncrementer } from './EpisodeIncrementer';
 import { RatingSelect } from './RatingSelect';
 import { StatusSelect } from './StatusSelect';
 
@@ -27,6 +28,7 @@ export function AnimeInfo() {
           }}
         />
       )}
+      {currentRate.value?.id && <EpisodeIncrementer />}
     </div>
   );
 }
