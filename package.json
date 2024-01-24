@@ -10,7 +10,7 @@
     "watch:extension:background": "nx run background:watch --skip-nx-cache",
     "start:extension:firefox": "web-ext run -t firefox-desktop --source-dir ./dist/extension --start-url=https://v2.vost.pw/ --keep-profile-changes",
     "serve:extension:firefox": "pnpm run build && concurrently --kill-others 'pnpm run watch:extension:content' 'pnpm run watch:extension:background' 'pnpm run start:extension:firefox'",
-    "bundle": "web-ext build -s ./dist/extension -a ./dist",
+    "bundle": "web-ext build -s ./dist/extension -a ./dist --overwrite-dest",
     "build": "pnpm run build:extension:content && pnpm run build:extension:background",
     "build:libs:bridge": "nx run bridge:build --skip-nx-cache"
   },
