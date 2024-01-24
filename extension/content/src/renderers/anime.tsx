@@ -1,8 +1,22 @@
 import { h, render } from 'preact';
 import { AnimeInfo } from '../components/AnimeInfo';
+import { AnimeRating } from '../components/AnimeRating';
 import { AnimeTitle } from '../components/AnimeTitle';
 import { fetchAnime } from '../state';
 import { getTitle } from '../titleParser';
+
+export function renderRating() {
+  const ratingBlock = document.querySelector(
+    '.shortstoryContent div > strong'
+  ).parentNode;
+
+  const shikiRatingContainer = document.createElement('div');
+  shikiRatingContainer.className = 'extension anime-rating-wrapper';
+
+  ratingBlock.appendChild(shikiRatingContainer);
+
+  render(<AnimeRating />, shikiRatingContainer);
+}
 
 export function renderAnimeInfo() {
   const leftAnimeBlock = document.querySelector(
@@ -41,6 +55,8 @@ export function renderAnime() {
 
   fetchAnime(title);
   removeTitle();
+
+  renderRating();
 
   renderAnimeInfo();
   renderAnimeTitle();
