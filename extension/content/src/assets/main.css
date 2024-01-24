@@ -2,6 +2,29 @@
 @import "theme.css";
 
 .extension {
+    .rating-select {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        width: min-content;
+        color: var(--amber-600);
+    }
+
+    .rating-select-container {
+        margin-top: 4px;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .rating-select-text {
+        margin-left: 8px;
+        width: 18px;
+        text-align: center;
+        color: var(--amber-600);
+    }
+
     .common-block {
         margin-top: 12px;
         display: inline-block;
@@ -9,7 +32,6 @@
         padding: 4px;
         border-radius: 4px;
         color: var(--amber-500);
-
     }
 
     .login-btn {
@@ -101,4 +123,6 @@
 .anime-rating-wrapper {
     display: inline;
     margin-left: 8px;
+    color: var(--amber-600);
+    font-weight: bold;
 }

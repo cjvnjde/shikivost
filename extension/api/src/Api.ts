@@ -3,6 +3,7 @@ import queryString from 'qs';
 import { Account } from './types/Account';
 import { Anime } from './types/Anime';
 import { Rate } from './types/Rate';
+import { Score } from './types/Score';
 
 const clientId = 'ZYV_3N5DBDQWDhJYbWUq1YMcatv9nUI-xG51xsaXGAA';
 const clientSecret = 'vLW-Ppm52Qcel50kyXDLp0GxKt6Uc7xMahaLAHskNFg';
@@ -233,6 +234,17 @@ export class Api {
   async deleteRate(rateId: number): Promise<void> {
     return this.request(buildUrl(`/api/v2/user_rates/${rateId}`), {
       method: 'DELETE',
+    });
+  }
+
+  async setScore(id: number, score: Score): Promise<Rate> {
+    return this.request(buildUrl(`/api/v2/user_rates/${id}`), {
+      method: 'PATCH',
+      body: JSON.stringify({
+        user_rate: {
+          score,
+        },
+      }),
     });
   }
 }
