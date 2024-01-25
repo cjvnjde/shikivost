@@ -253,4 +253,15 @@ export class Api {
       method: 'POST',
     });
   }
+
+  async setEpisode(rateId: number, episodes: number) {
+    return this.request(buildUrl(`/api/v2/user_rates/${rateId}`), {
+      method: 'PATCH',
+      body: JSON.stringify({
+        user_rate: {
+          episodes,
+        },
+      }),
+    });
+  }
 }

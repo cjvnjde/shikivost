@@ -2,6 +2,7 @@ import { Api } from '@shikivost/api';
 import { Bridge } from '@shikivost/bridge';
 import { renderContent } from './renderers';
 import { tokenChecker } from './tokenChecker';
+import './assets/main.css';
 
 const bridge = Bridge.create();
 const api = Api.create();
@@ -14,7 +15,6 @@ async function init() {
   });
 
   bridge.on('content.set.access_token', (value) => {
-    console.log("test");
     api.accessToken = value || '';
     renderContent();
   });

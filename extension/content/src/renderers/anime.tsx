@@ -4,6 +4,7 @@ import { AnimeRating } from '../components/AnimeRating';
 import { AnimeTitle } from '../components/AnimeTitle';
 import { fetchAnime } from '../state';
 import { getTitle } from '../titleParser';
+import { videoWatchChecker } from '../videoWatchChecker';
 
 export function renderRating() {
   const ratingBlock = document.querySelector(
@@ -49,6 +50,7 @@ export function renderAnimeTitle() {
 
 export function renderAnime() {
   const title = getTitle();
+
   if (!title) {
     return null;
   }
@@ -60,4 +62,6 @@ export function renderAnime() {
 
   renderAnimeInfo();
   renderAnimeTitle();
+
+  videoWatchChecker();
 }

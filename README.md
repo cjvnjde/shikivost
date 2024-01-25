@@ -39,6 +39,10 @@ pnpm run bundle
 - [x] add link to the anime page on shikimori site
 - [x] add shikimori rating
 - [x] add shikimori episode selection (simple increment)
-- [ ] auto add episode to the list during watching
+- [x] auto add episode to the list during watching
 - [ ] add extended rating editing form
+- [ ] add settings page
+- [ ] add shikimori logout button
+- [ ] add watched/unwatched button to the episodes list block
+- [ ] update algo to detect wathed episodes
 - [ ] add chrome support
