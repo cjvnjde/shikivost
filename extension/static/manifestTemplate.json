@@ -1,9 +1,9 @@
 {
   "name": "shikivost",
   "short_name": "SV",
-  "version": "0.0.2",
+  "version": "{{VERSION}}",
+  "description": "{{DESCRIPTION}}",
   "manifest_version": 3,
-  "description": "Shikimori integration on the animevost site",
   "browser_specific_settings": {
     "gecko": {
       "id": "shikivost@cjvnjde.com",

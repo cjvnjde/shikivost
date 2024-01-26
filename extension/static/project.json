@@ -8,6 +8,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
+          "node extension/static/generateManifest.js",
           "mkdir -p dist/extension",
           "cp -R extension/static/assets/* dist/extension"
         ],
