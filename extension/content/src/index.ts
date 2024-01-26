@@ -9,6 +9,7 @@ const api = Api.create();
 
 async function init() {
   await tokenChecker();
+  let isRendered = false;
 
   bridge.on('content.set.refresh_token', (value) => {
     api.refreshToken = value || '';
@@ -16,7 +17,11 @@ async function init() {
 
   bridge.on('content.set.access_token', (value) => {
     api.accessToken = value || '';
-    renderContent();
+
+    if (!isRendered) {
+      renderContent();
+      isRendered = true;
+    }
   });
 
   await bridge.send('background.get.access_token');
