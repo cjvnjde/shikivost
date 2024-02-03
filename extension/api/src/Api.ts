@@ -55,28 +55,32 @@ export class Api {
     form.append('code', code);
     form.append('redirect_uri', 'https://animevost.org/');
 
-    const resp = await fetch(buildUrl('/oauth/token'), {
-      method: 'POST',
-      headers: {
-        'User-Agent': 'Shikivost',
-      },
-      body: form,
-    });
+    try {
+      const resp = await fetch(buildUrl('/oauth/token'), {
+        method: 'POST',
+        headers: {
+          'User-Agent': 'Shikivost',
+        },
+        body: form,
+      });
 
-    if (!resp.ok) {
-      throw new Error('Request failed');
+      if (!resp.ok) {
+        throw new Error('Request failed');
+      }
+
+      const bridge = Bridge.create();
+      const { access_token, refresh_token } = await resp.json();
+
+      this._refreshToken = refresh_token;
+      this._accessToken = access_token;
+
+      await bridge.send('background.store.access_token', access_token);
+      await bridge.send('background.store.refresh_token', refresh_token);
+
+      this.isInitialized = true;
+    } catch (e: unknown) {
+      console.error(e);
     }
-
-    const bridge = Bridge.create();
-    const { access_token, refresh_token } = await resp.json();
-
-    this._refreshToken = refresh_token;
-    this._accessToken = access_token;
-
-    await bridge.send('background.store.access_token', access_token);
-    await bridge.send('background.store.refresh_token', refresh_token);
-
-    this.isInitialized = true;
   }
 
   set accessToken(accessToken: string) {
