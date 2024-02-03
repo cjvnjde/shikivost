@@ -1,17 +1,14 @@
-const parse = require('json-templates');
-const fs = require('fs');
+const fs = require('node:fs');
 const data = require('./manifestTemplate.json');
 const packageJson = require('../../package.json');
 
-const template = parse(data);
+data.version = packageJson.version;
+data.description = packageJson.description;
+data.manifest_version = 2;
 
-const manifest = template({
-  VERSION: packageJson.version,
-  DESCRIPTION: packageJson.description,
-});
 const pathToFile = 'extension/static/assets/manifest.json';
 
-fs.writeFile(pathToFile, JSON.stringify(manifest, null, 2), function (err) {
+fs.writeFile(pathToFile, JSON.stringify(data, null, 2), function (err) {
   if (err) {
     console.log('Error occurred while writing to file: ', err);
   } else {

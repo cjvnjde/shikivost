@@ -1,8 +1,9 @@
 import { Api } from '@shikivost/api';
 import { Bridge } from '@shikivost/bridge';
+import browser from 'webextension-polyfill';
 import { renderContent } from './renderers';
 import { tokenChecker } from './tokenChecker';
-import './assets/main.css';
+import '../../assets/content.css';
 
 const bridge = Bridge.create();
 const api = Api.create();
@@ -22,6 +23,10 @@ async function init() {
       renderContent();
       isRendered = true;
     }
+  });
+
+  bridge.on('content.reload', () => {
+    window.location.reload();
   });
 
   await bridge.send('background.get.access_token');

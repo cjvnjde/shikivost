@@ -13,6 +13,9 @@ export default {
   plugins: [
     postcss({
       extract: true,
+      config: {
+        path: 'extension/content/postcss.config.cjs'
+      }
     }),
     nodeResolve({ browser: true }),
     commonjs(),
