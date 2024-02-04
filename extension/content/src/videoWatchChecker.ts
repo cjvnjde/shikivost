@@ -3,8 +3,6 @@ import { currentRate } from './state';
 
 const videoWatchedPercentCap = 80;
 
-let timeout: ReturnType<typeof setTimeout>;
-
 const api = Api.create();
 
 function getCurrentEpisode() {
@@ -16,13 +14,6 @@ function getCurrentEpisode() {
   }
 
   return null;
-}
-
-function getVideoElement() {
-  const iframe = document.querySelector<HTMLIFrameElement>('#anime iframe');
-  const innerDoc = iframe?.contentDocument || iframe?.contentWindow?.document;
-
-  return innerDoc?.querySelector('video');
 }
 
 let isUpdating = false;
@@ -52,58 +43,87 @@ function onTimeUpdate(e: Event) {
   }
 }
 
-function connectVideoListener() {
-  const videoElement = getVideoElement();
+function onPlayerFrameLoaded(cb: (e: HTMLIFrameElement) => unknown) {
+  let playerFrame: HTMLIFrameElement | null =
+    document.querySelector<HTMLIFrameElement>('#anime iframe');
 
-  clearTimeout(timeout);
-
-  if (videoElement) {
-    videoElement.addEventListener('timeupdate', onTimeUpdate);
-  } else {
-    timeout = setTimeout(() => {
-      connectVideoListener();
-    }, 1000);
-  }
-}
-
-const PAGE_UPDATE_TIME = 2000;
-
-export function videoWatchChecker() {
-  connectVideoListener();
-
-  const items = document.querySelector('#items');
-
-  let timeout: ReturnType<typeof setTimeout>;
-
-  function connectPlayerChangeListeners() {
-    const iframe = document.querySelector<HTMLIFrameElement>('#anime iframe');
-    const innerDoc = iframe?.contentDocument || iframe?.contentWindow?.document;
-    const player1Btn = innerDoc?.getElementById('pl1');
-    const player2Btn = innerDoc?.getElementById('pl2');
-
-    player1Btn?.addEventListener('click', () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        connectVideoListener();
-      }, PAGE_UPDATE_TIME);
-    });
-
-    player2Btn?.addEventListener('click', () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        connectVideoListener();
-      }, PAGE_UPDATE_TIME);
-    });
+  if (playerFrame) {
+    cb(playerFrame);
   }
 
-  items.addEventListener('click', () => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      connectVideoListener();
+  const observer = new MutationObserver((mutations) => {
+    let iframeChanged = null;
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (iframeChanged === null && node instanceof HTMLIFrameElement) {
+          iframeChanged = node;
+        }
+      });
+    });
 
-      connectPlayerChangeListeners();
-    }, PAGE_UPDATE_TIME);
+    if (iframeChanged) {
+      cb(iframeChanged);
+    }
   });
 
-  connectPlayerChangeListeners();
+  const playerbox = document.querySelector<HTMLDivElement>('#playerbox');
+
+  observer.observe(playerbox, {
+    subtree: true,
+    childList: true,
+  });
+}
+
+function onPlayerLoaded(
+  container: HTMLIFrameElement,
+  cb: (e: HTMLVideoElement) => unknown
+) {
+  const video = container.contentDocument.querySelector('video');
+
+  if (video) {
+    cb(video);
+  }
+
+  const observer = new MutationObserver((mutations) => {
+    let iframeChanged = null;
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (iframeChanged === null && node.nodeName.toLowerCase() === 'video') {
+          iframeChanged = node;
+        }
+      });
+    });
+
+    if (iframeChanged) {
+      cb(iframeChanged);
+    }
+  });
+
+  observer.observe(container.contentDocument.body, {
+    subtree: true,
+    childList: true,
+    attributes: true,
+  });
+}
+
+export function videoWatchChecker() {
+  onPlayerFrameLoaded((e) => {
+    const onContentLoaded = () => {
+      e.contentWindow.addEventListener('unload', () => {
+        setTimeout(() => {
+          e.contentWindow.addEventListener('DOMContentLoaded', () => {
+            setTimeout(onContentLoaded);
+          });
+        });
+      });
+
+      onPlayerLoaded(e, (videoElement) => {
+        videoElement.addEventListener('timeupdate', onTimeUpdate);
+      });
+    };
+
+    e.contentWindow.addEventListener('DOMContentLoaded', () => {
+      setTimeout(onContentLoaded);
+    });
+  });
 }
