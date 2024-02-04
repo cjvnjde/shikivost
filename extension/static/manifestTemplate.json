@@ -3,7 +3,7 @@
   "short_name": "SV",
   "version": "{{VERSION}}",
   "description": "{{DESCRIPTION}}",
-  "manifest_version": 3,
+  "manifest_version": "{{MANIFEST_VERSION}}",
   "browser_specific_settings": {
     "gecko": {
       "id": "shikivost@cjvnjde.com",
@@ -14,7 +14,7 @@
     "48": "./icons/icon-48.jpg",
     "96": "./icons/icon-96.jpg"
   },
-  "action": {
+  "browser_action": {
     "default_icon": "./icons/icon-48.jpg",
     "default_title": "Shikivost"
   },
@@ -22,11 +22,12 @@
     "scripts": ["background/index.js"]
   },
   "permissions": [
-    "storage"
+    "storage",
+    "https://shikimori.one/*"
   ],
   "content_scripts": [
     {
-      "matches": ["*://animevost.org/*", "*://v2.vost.pw/*"],
+      "matches": ["https://animevost.org/*", "https://v2.vost.pw/*"],
       "js": ["content/index.js"],
       "css": ["content/index.css"],
       "run_at": "document_end"
