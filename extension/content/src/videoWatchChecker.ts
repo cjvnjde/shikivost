@@ -17,6 +17,8 @@ function getCurrentEpisode() {
 }
 
 let isUpdating = false;
+let isVideoElementUpdating = false;
+
 function onTimeUpdate(e: Event) {
   const videoElement = e.target as HTMLVideoElement;
   const percentageWatched =
@@ -28,7 +30,8 @@ function onTimeUpdate(e: Event) {
     if (
       currentRate.value?.id &&
       (currentRate.value?.episodes || 0) < currentEpisode &&
-      !isUpdating
+      !isUpdating &&
+      !isVideoElementUpdating
     ) {
       isUpdating = true;
       api
@@ -110,6 +113,8 @@ export function videoWatchChecker() {
   onPlayerFrameLoaded((e) => {
     const onContentLoaded = () => {
       e.contentWindow.addEventListener('unload', () => {
+        isVideoElementUpdating = true;
+
         setTimeout(() => {
           e.contentWindow.addEventListener('DOMContentLoaded', () => {
             setTimeout(onContentLoaded);
@@ -118,11 +123,13 @@ export function videoWatchChecker() {
       });
 
       onPlayerLoaded(e, (videoElement) => {
+        isVideoElementUpdating = false;
         videoElement.addEventListener('timeupdate', onTimeUpdate);
       });
     };
 
     e.contentWindow.addEventListener('DOMContentLoaded', () => {
+      isVideoElementUpdating = false;
       setTimeout(onContentLoaded);
     });
   });
