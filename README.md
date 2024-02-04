@@ -1,4 +1,5 @@
 # Shikivost
+![Shikivost](https://img.shields.io/amo/v/shikivost)
 
 ## Description
 Tired of juggling between Animevost.org and Shikimori.one to keep track of your anime progress? Introducing Shikivost – your go-to extension for a hassle-free anime-watching experience. This nifty tool effortlessly syncs your watched episodes on Animevost.org with your Shikimori.one account. No more manual updates, no more confusion about where you left off – Shikivost does it all in the background.
