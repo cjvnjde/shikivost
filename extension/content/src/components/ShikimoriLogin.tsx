@@ -1,6 +1,23 @@
 import { authorizationUrl } from '@shikivost/api';
 import { account } from '../state';
 
+export function ShikimoriLogin() {
+  if (account.value?.id) {
+    return (
+      <div className="login-btn">
+        <ShikimoriIcon />
+      </div>
+    );
+  }
+
+  return (
+    <a href={authorizationUrl} className="login-btn tooltip">
+      <ShikimoriLoginIcon />
+      <span className="tooltiptext">Вход в Shikivost</span>
+    </a>
+  );
+}
+
 function ShikimoriIcon() {
   return (
     <svg
@@ -60,21 +77,5 @@ function ShikimoriLoginIcon() {
         stroke-linejoin="round"
       />
     </svg>
-  );
-}
-
-export function ShikimoriLogin() {
-  if (account.value?.id) {
-    return (
-      <div className="login-btn">
-        <ShikimoriIcon />
-      </div>
-    );
-  }
-
-  return (
-    <a href={authorizationUrl} className="login-btn">
-      <ShikimoriLoginIcon />
-    </a>
   );
 }

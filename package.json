@@ -1,6 +1,6 @@
 {
   "name": "@shikivost/source",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Effortlessly sync your Animevost.org progress with Shikimori.one using Shikivost. No more manual updates – just install, connect, and enjoy uninterrupted anime watching!",
   "license": "MIT",
   "scripts": {
