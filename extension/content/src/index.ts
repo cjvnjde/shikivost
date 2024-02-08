@@ -1,7 +1,7 @@
 import { Api } from '@shikivost/api';
 import { Bridge } from '@shikivost/bridge';
-import browser from 'webextension-polyfill';
 import { renderContent } from './renderers';
+import { settings } from './state';
 import { tokenChecker } from './tokenChecker';
 import '../../assets/content.css';
 
@@ -14,6 +14,12 @@ async function init() {
 
   bridge.on('content.set.refresh_token', (value) => {
     api.refreshToken = value || '';
+  });
+  bridge.on('content.set.settings', (value) => {
+    settings.value = {
+      autotrackingType: value?.autotrackingType ?? 'watchedProgress',
+      progressValue: value?.progressValue ?? 60,
+    };
   });
 
   bridge.on('content.set.access_token', (value) => {
@@ -31,6 +37,7 @@ async function init() {
 
   await bridge.send('background.get.access_token');
   await bridge.send('background.get.refresh_token');
+  await bridge.send('background.get.settings');
 }
 
 init();
