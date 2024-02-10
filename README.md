@@ -42,8 +42,8 @@ pnpm run bundle
 - [x] add shikimori episode selection (simple increment)
 - [x] auto add episode to the list during watching
 - [ ] add extended rating editing form
-- [ ] add settings page
+- [x] add settings page
 - [ ] add shikimori logout button
 - [ ] add watched/unwatched button to the episodes list block
-- [ ] update algo to detect wathed episodes
+- [x] update algo to detect wathed episodes
 - [ ] add chrome support
