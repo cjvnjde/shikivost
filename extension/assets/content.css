@@ -19,6 +19,10 @@
     font-weight: bold;
 }
 
+.scroll-none {
+    overflow: hidden;
+}
+
 .extension {
     .rating-select {
         display: flex;
@@ -190,5 +194,32 @@
     /* Show the tooltip text when you mouse over the tooltip container */
     .tooltip:hover .tooltiptext {
         visibility: visible;
+    }
+
+    .drawer-backdrop {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .drawer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 999;
+    }
+
+    .drawer-sidepanel {
+        z-index: 10;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: white;
+        padding: 4px;
     }
 }
