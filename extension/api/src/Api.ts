@@ -181,12 +181,15 @@ export class Api {
     return this.request(buildUrl('/api/users/whoami'));
   }
 
-  async searchAnimes(search: string): Promise<Anime[]> {
-    return this.request(
-      buildUrl('/api/animes', {
+  async searchAnimes(search: string, year?: string): Promise<Anime[]> {
+    const query = Object.fromEntries(
+      Object.entries({
         search,
-      })
+        season: year,
+      }).filter(([_, value]) => value)
     );
+
+    return this.request(buildUrl('/api/animes', query));
   }
 
   async showRate(animeId: number, userId: number): Promise<[Rate]> {
