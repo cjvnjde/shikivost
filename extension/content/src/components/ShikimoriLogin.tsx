@@ -1,20 +1,35 @@
 import { authorizationUrl } from '@shikivost/api';
+import { useState } from 'preact/hooks';
 import { account } from '../state';
+import { Settings } from './Settings';
 
 export function ShikimoriLogin() {
+  const [isOpen, setIsOpen] = useState(false);
+
   if (account.value?.id) {
     return (
-      <div className="login-btn">
-        <ShikimoriIcon />
-      </div>
+      <>
+        <Settings isOpen={isOpen} onClose={() => setIsOpen(false)} />
+        <div
+          className="login-btn"
+          style={{
+            cursor: 'pointer',
+          }}
+          onClick={() => setIsOpen(true)}
+        >
+          <ShikimoriIcon />
+        </div>
+      </>
     );
   }
 
   return (
-    <a href={authorizationUrl} className="login-btn tooltip">
-      <ShikimoriLoginIcon />
-      <span className="tooltiptext">Вход в Shikivost</span>
-    </a>
+    <>
+      <a href={authorizationUrl} className="login-btn tooltip">
+        <ShikimoriLoginIcon />
+        <span className="tooltiptext">Вход в Shikivost</span>
+      </a>
+    </>
   );
 }
 

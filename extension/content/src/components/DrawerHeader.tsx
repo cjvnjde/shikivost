@@ -8,6 +8,7 @@ export function DrawerHeader({ children, onClose }) {
         position: 'relative',
         borderBottom: '1px solid grey',
         padding: '8px 8px 12px',
+        marginBottom: '8px',
       }}
     >
       <span
