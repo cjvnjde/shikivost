@@ -13,12 +13,12 @@ export function Settings({ isOpen, onClose }) {
         <DrawerHeader onClose={onClose}>Настройки</DrawerHeader>
         <form className="form-container">
           <div>
-            <label htmlFor="location" className="form-label">
+            <label htmlFor="autotrackingType" className="form-label">
               Тип автотрекинга видео
             </label>
             <select
-              id="location"
-              name="location"
+              id="autotrackingType"
+              name="autotrackingType"
               className="form-select"
               defaultValue="wachedProgress"
               value={settings.value?.autotrackingType}
@@ -31,19 +31,19 @@ export function Settings({ isOpen, onClose }) {
             >
               <option value="none">Не использовать</option>
               <option value="videoProgress">Прогресс видео</option>
-              <option value="wachedProgress">Прогресс просмотра</option>
+              <option value="watchedProgress">Прогресс просмотра</option>
             </select>
           </div>
 
           <div>
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="progressValue" className="form-label">
               Лимит прогресса
             </label>
             <div className="mt-2">
               <input
                 type="number"
-                name="email"
-                id="email"
+                name="progressValue"
+                id="progressValue"
                 className="form-input"
                 value={settings.value.progressValue}
                 onChange={(e) => {

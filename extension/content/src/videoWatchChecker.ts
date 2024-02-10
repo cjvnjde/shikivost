@@ -1,9 +1,7 @@
 import { Api } from '@shikivost/api';
 import { Chunk } from './ChunkType';
-import { currentRate } from './state';
+import { currentRate, settings } from './state';
 import { getTotalWatchedTime } from './utils/getTotalWatchedTime';
-
-const videoWatchedPercentCap = 60;
 
 const api = Api.create();
 
@@ -39,7 +37,11 @@ function addVideoTracking(
         }
       }
 
-      cb((getTotalWatchedTime(chunks) * 100) / videoElement.duration);
+      if (settings.value.autotrackingType === 'watchedProgress') {
+        cb((getTotalWatchedTime(chunks) * 100) / videoElement.duration);
+      } else if (settings.value.autotrackingType === 'videoProgress') {
+        cb((videoElement.currentTime * 100) / videoElement.duration);
+      }
     }
   });
   videoElement.addEventListener('seeking', () => {
@@ -70,7 +72,7 @@ let currentEpisodeCache = -1;
 let frameDelayCounter = 0;
 
 function onProgressUpdate(percentageWatched: number) {
-  if (percentageWatched >= videoWatchedPercentCap) {
+  if (percentageWatched >= (settings.value?.progressValue || 60)) {
     const currentEpisode = getCurrentEpisode();
 
     if (frameDelayCounter >= 4) {
