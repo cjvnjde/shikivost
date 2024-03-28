@@ -1,10 +1,18 @@
 const fs = require('node:fs');
-const data = require('./manifestTemplate.json');
 const packageJson = require('../../package.json');
+
+const args = process.argv;
+
+let data;
+
+if (args[2] === '--chrome') {
+  data = require('./manifestTemplateChrome.json');
+} else {
+  data = require('./manifestTemplate.json');
+}
 
 data.version = packageJson.version;
 data.description = packageJson.description;
-data.manifest_version = 2;
 
 const pathToFile = 'extension/static/assets/manifest.json';
 
