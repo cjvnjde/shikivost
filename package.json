@@ -1,10 +1,11 @@
 {
   "name": "@shikivost/source",
   "version": "0.0.6",
-  "description": "Effortlessly sync your Animevost.org progress with Shikimori.one using Shikivost. No more manual updates – just install, connect, and enjoy uninterrupted anime watching!",
+  "description": "Effortlessly sync your Animevost.org progress with Shikimori.one using Shikivost",
   "license": "MIT",
   "scripts": {
     "build:extension:static": "nx run static:build --skip-nx-cache",
+    "build:extension:static:chrome": "nx run static:build_chrome --skip-nx-cache",
     "build:extension:content": "nx run content:build --skip-nx-cache",
     "watch:extension:content": "nx run content:watch --skip-nx-cache",
     "build:extension:background": "nx run background:build --skip-nx-cache",
@@ -13,6 +14,7 @@
     "serve:extension:firefox": "pnpm run build && concurrently --kill-others 'pnpm run watch:extension:content' 'pnpm run watch:extension:background' 'pnpm run start:extension:firefox'",
     "bundle": "web-ext build -s ./dist/extension -a ./dist --overwrite-dest",
     "build": "pnpm run build:extension:content && pnpm run build:extension:background",
+    "build:chrome": "pnpm run build && pnpm run build:extension:static:chrome",
     "build:libs:bridge": "nx run bridge:build --skip-nx-cache"
   },
   "private": true,

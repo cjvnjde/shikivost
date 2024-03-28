@@ -14,6 +14,17 @@
         ],
         "parallel": false
       }
+    },
+    "build_chrome": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node extension/static/generateManifest.js --chrome",
+          "mkdir -p dist/extension",
+          "cp -R extension/static/assets/* dist/extension"
+        ],
+        "parallel": false
+      }
     }
   },
   "tags": ["extension"]
