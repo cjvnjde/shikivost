@@ -1,8 +1,9 @@
+import { effect } from '@preact/signals';
 import { h, render } from 'preact';
 import { AnimeInfo } from '../components/AnimeInfo';
 import { AnimeRating } from '../components/AnimeRating';
 import { AnimeTitle } from '../components/AnimeTitle';
-import { fetchAnime } from '../state';
+import { currentRate, fetchAnime } from '../state';
 import { getTitle, getYear } from '../titleParser';
 import { videoWatchChecker } from '../videoWatchChecker';
 
@@ -51,6 +52,29 @@ export function renderAnimeTitle() {
   render(<AnimeTitle />, topLineBottomBlock);
 }
 
+export function highlightWatchedEpisodes() {
+  const episodes = document.querySelectorAll('#items > .epizode');
+
+  effect(() => {
+    if (currentRate.value?.episodes) {
+      episodes.forEach((episode) => {
+        const id = episode.getAttribute('id');
+
+        if (id) {
+          const episodeNumber =
+            Number.parseInt(id.replaceAll(/\D/g, ''), 10) + 1;
+
+          if (episodeNumber <= (currentRate.value?.episodes || 0)) {
+            episode.classList.add('watched');
+          } else {
+            episode.classList.remove('watched');
+          }
+        }
+      });
+    }
+  });
+}
+
 export function renderAnime() {
   const title = getTitle();
 
@@ -68,4 +92,5 @@ export function renderAnime() {
   renderAnimeTitle();
 
   videoWatchChecker();
+  highlightWatchedEpisodes();
 }
