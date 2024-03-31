@@ -13,7 +13,11 @@ export class BackgroundBridgeStrategy extends BridgeStrategy {
 
     return Promise.allSettled([
       browser.runtime.sendMessage(encodedData.data),
-      ...allTabIds.map((tabId) => this.sendToTab(tabId, encodedData.data)),
+      ...allTabIds.map((tabId) => {
+        if (tabId) {
+          return this.sendToTab(tabId, encodedData.data);
+        }
+      }),
     ]);
   }
 

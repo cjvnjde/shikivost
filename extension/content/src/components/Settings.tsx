@@ -2,7 +2,12 @@ import { settings } from '../state';
 import { Drawer } from './Drawer';
 import { DrawerHeader } from './DrawerHeader';
 
-export function Settings({ isOpen, onClose }) {
+type SettingsProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+export function Settings({ isOpen, onClose }: SettingsProps) {
   if (!settings.value) {
     return null;
   }
@@ -23,10 +28,15 @@ export function Settings({ isOpen, onClose }) {
               defaultValue="wachedProgress"
               value={settings.value?.autotrackingType}
               onChange={(e) => {
-                settings.value = {
-                  ...settings.value,
-                  autotrackingType: e.currentTarget.value as any,
-                };
+                if (settings.value) {
+                  settings.value = {
+                    ...settings.value,
+                    autotrackingType: e.currentTarget.value as
+                      | 'none'
+                      | 'videoProgress'
+                      | 'watchedProgress',
+                  };
+                }
               }}
             >
               <option value="none">Не использовать</option>
@@ -52,10 +62,12 @@ export function Settings({ isOpen, onClose }) {
                     Math.min(Number.isNaN(val) ? 60 : val, 100),
                     0
                   );
-                  settings.value = {
-                    ...settings.value,
-                    progressValue: data,
-                  };
+                  if (settings.value) {
+                    settings.value = {
+                      ...settings.value,
+                      progressValue: dat,
+                    };
+                  }
                 }}
               />
             </div>

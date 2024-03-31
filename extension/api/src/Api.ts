@@ -32,8 +32,8 @@ export function buildUrl(
 }
 
 export class Api {
-  private _accessToken: string;
-  private _refreshToken: string;
+  private _accessToken: string = '';
+  private _refreshToken: string = '';
   static api: Api;
   public isInitialized: boolean = false;
 
@@ -47,12 +47,12 @@ export class Api {
     return this.api;
   }
 
-  public async fetchTokens(code: string) {
+  public async fetchTokens(code: string | null) {
     const form = new FormData();
     form.append('grant_type', 'authorization_code');
     form.append('client_id', clientId);
     form.append('client_secret', clientSecret);
-    form.append('code', code);
+    form.append('code', code || '');
     form.append('redirect_uri', 'https://animevost.org/');
 
     try {
@@ -156,7 +156,10 @@ export class Api {
     return defaultHeaders;
   }
 
-  async request(url: string, data: Partial<RequestOptions> = {}) {
+  async request<T = unknown>(
+    url: string,
+    data: Partial<RequestOptions> = {}
+  ): Promise<T> {
     const resp = await fetch(url, {
       ...data,
       headers: this.headers(data.headers),
@@ -181,7 +184,7 @@ export class Api {
     return this.request(buildUrl('/api/users/whoami'));
   }
 
-  async searchAnimes(search: string, year?: string): Promise<Anime[]> {
+  async searchAnimes(search: string, year?: string | null): Promise<Anime[]> {
     const query = Object.fromEntries(
       Object.entries({
         search,
@@ -256,13 +259,16 @@ export class Api {
   }
 
   async incrementEpisode(rateId: number) {
-    return this.request(buildUrl(`/api/v2/user_rates/${rateId}/increment`), {
-      method: 'POST',
-    });
+    return this.request<Rate>(
+      buildUrl(`/api/v2/user_rates/${rateId}/increment`),
+      {
+        method: 'POST',
+      }
+    );
   }
 
   async setEpisode(rateId: number, episodes: number) {
-    return this.request(buildUrl(`/api/v2/user_rates/${rateId}`), {
+    return this.request<Rate>(buildUrl(`/api/v2/user_rates/${rateId}`), {
       method: 'PATCH',
       body: JSON.stringify({
         user_rate: {

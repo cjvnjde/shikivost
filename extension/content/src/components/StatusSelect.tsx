@@ -16,7 +16,9 @@ export function StatusSelect() {
         onClick={() => setIsOpen((io) => !io)}
       >
         <span className="status-name">
-          {statusText[currentRate.value?.status] || 'Добавить в список'}
+          {currentRate.value?.status
+            ? statusText[currentRate.value.status]
+            : 'Добавить в список'}
         </span>
       </button>
       <div

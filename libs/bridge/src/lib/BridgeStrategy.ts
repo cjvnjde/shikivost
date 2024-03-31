@@ -17,12 +17,12 @@ export class BridgeStrategy {
     this.listeners.set(listener, eventName);
   }
 
-  public off(eventName: string, listener: ListenerCallback) {
+  public off(listener: ListenerCallback) {
     this.listeners.delete(listener);
   }
 
   private listener: Listener = (data) => {
-    const { event: eventType, payload } = decodeData(data);
+    const { event: eventType, payload } = decodeData(data) || {};
 
     this.listeners.forEach((event, fn) => {
       if (eventType === event) {

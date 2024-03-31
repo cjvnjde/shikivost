@@ -6,9 +6,9 @@ const args = process.argv;
 let data;
 
 if (args[2] === '--chrome') {
-  data = require('./manifestTemplateChrome.json');
+  data = require('./manifestChrome.json');
 } else {
-  data = require('./manifestTemplate.json');
+  data = require('./manifestFirefox.json');
 }
 
 data.version = packageJson.version;

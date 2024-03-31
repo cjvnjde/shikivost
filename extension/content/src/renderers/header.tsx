@@ -1,6 +1,6 @@
 import { h, render } from 'preact';
-import { fetchAccount } from '../state';
 import { ShikimoriLogin } from '../components/ShikimoriLogin';
+import { fetchAccount } from '../state';
 
 export function renderHeader() {
   const searchNode = document.querySelector('.search');
@@ -8,7 +8,7 @@ export function renderHeader() {
   const topLineBottomBlock = document.createElement('div');
   topLineBottomBlock.className = 'extension login-wrapper';
 
-  searchNode.parentNode.insertBefore(topLineBottomBlock, searchNode);
+  searchNode?.parentNode?.insertBefore(topLineBottomBlock, searchNode);
 
   fetchAccount();
   render(<ShikimoriLogin />, topLineBottomBlock);

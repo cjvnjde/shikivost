@@ -37,9 +37,9 @@ function addVideoTracking(
         }
       }
 
-      if (settings.value.autotrackingType === 'watchedProgress') {
+      if (settings.value?.autotrackingType === 'watchedProgress') {
         cb((getTotalWatchedTime(chunks) * 100) / videoElement.duration);
-      } else if (settings.value.autotrackingType === 'videoProgress') {
+      } else if (settings.value?.autotrackingType === 'videoProgress') {
         cb((videoElement.currentTime * 100) / videoElement.duration);
       }
     }
@@ -63,7 +63,7 @@ function getCurrentEpisode() {
     return Number.parseInt(id.replaceAll(/\D/g, ''), 10) + 1;
   }
 
-  return null;
+  return 0;
 }
 
 let isUpdating = false;
@@ -112,7 +112,7 @@ function onPlayerFrameLoaded(cb: (e: HTMLIFrameElement) => unknown) {
   }
 
   const observer = new MutationObserver((mutations) => {
-    let iframeChanged = null;
+    let iframeChanged: null | HTMLIFrameElement = null;
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
         if (iframeChanged === null && node instanceof HTMLIFrameElement) {
@@ -128,24 +128,26 @@ function onPlayerFrameLoaded(cb: (e: HTMLIFrameElement) => unknown) {
 
   const playerbox = document.querySelector<HTMLDivElement>('#playerbox');
 
-  observer.observe(playerbox, {
-    subtree: true,
-    childList: true,
-  });
+  if (playerbox) {
+    observer.observe(playerbox, {
+      subtree: true,
+      childList: true,
+    });
+  }
 }
 
 function onPlayerLoaded(
   container: HTMLIFrameElement,
   cb: (e: HTMLVideoElement) => unknown
 ) {
-  const video = container.contentDocument.querySelector('video');
+  const video = container.contentDocument?.querySelector('video');
 
   if (video) {
     cb(video);
   }
 
   const observer = new MutationObserver((mutations) => {
-    let iframeChanged = null;
+    let iframeChanged: null | Node = null;
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
         if (iframeChanged === null && node.nodeName.toLowerCase() === 'video') {
@@ -159,19 +161,21 @@ function onPlayerLoaded(
     }
   });
 
-  observer.observe(container.contentDocument.body, {
-    subtree: true,
-    childList: true,
-    attributes: true,
-  });
+  if (container.contentDocument?.body) {
+    observer.observe(container.contentDocument.body, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+    });
+  }
 }
 
 export function videoWatchChecker() {
   onPlayerFrameLoaded((e) => {
     const onContentLoaded = () => {
-      e.contentWindow.addEventListener('unload', () => {
+      e.contentWindow?.addEventListener('unload', () => {
         setTimeout(() => {
-          e.contentWindow.addEventListener('DOMContentLoaded', () => {
+          e.contentWindow?.addEventListener('DOMContentLoaded', () => {
             setTimeout(onContentLoaded);
           });
         });
@@ -182,7 +186,7 @@ export function videoWatchChecker() {
       });
     };
 
-    e.contentWindow.addEventListener('DOMContentLoaded', () => {
+    e.contentWindow?.addEventListener('DOMContentLoaded', () => {
       setTimeout(onContentLoaded);
     });
   });

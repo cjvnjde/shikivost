@@ -1,4 +1,12 @@
+import { PropsWithChildren } from 'preact/compat';
 import { useEffect, useRef, useState } from 'preact/hooks';
+
+type DrawerProps = PropsWithChildren<{
+  width?: number;
+  duration?: number;
+  isOpen: boolean;
+  onClose: () => void;
+}>;
 
 export function Drawer({
   width = 300,
@@ -6,11 +14,11 @@ export function Drawer({
   isOpen,
   onClose,
   children,
-}) {
+}: DrawerProps) {
   const [isFullyOpen, setIsFullyOpen] = useState(false);
   const [isOpenAnimation, setIsOpenAnimation] = useState(false);
-  const timeout = useRef<number | null>(null);
-  const timeoutAnimation = useRef<number | null>(null);
+  const timeout = useRef<number | undefined>(undefined);
+  const timeoutAnimation = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     if (isOpen) {

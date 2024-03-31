@@ -1,4 +1,10 @@
-export function DrawerHeader({ children, onClose }) {
+import { PropsWithChildren } from 'preact/compat';
+
+type DrawerHeaderProps = PropsWithChildren<{
+  onClose: () => void;
+}>;
+
+export function DrawerHeader({ children, onClose }: DrawerHeaderProps) {
   return (
     <div
       style={{

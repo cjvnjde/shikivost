@@ -8,13 +8,13 @@ import { videoWatchChecker } from '../videoWatchChecker';
 
 export function renderRating() {
   const ratingBlock = document.querySelector(
-    '.shortstoryContent div > strong'
-  ).parentNode;
+    '.shortstoryContent table div > strong'
+  )?.parentNode;
 
   const shikiRatingContainer = document.createElement('div');
   shikiRatingContainer.className = 'extension anime-rating-wrapper';
 
-  ratingBlock.appendChild(shikiRatingContainer);
+  ratingBlock?.appendChild(shikiRatingContainer);
 
   render(<AnimeRating />, shikiRatingContainer);
 }
@@ -22,11 +22,11 @@ export function renderRating() {
 export function renderAnimeInfo() {
   const leftAnimeBlock = document.querySelector(
     '.shortstoryContent .imgRadius'
-  ).parentNode;
+  )?.parentNode;
   const topLineBottomBlock = document.createElement('div');
   topLineBottomBlock.className = 'extension';
 
-  leftAnimeBlock.appendChild(topLineBottomBlock);
+  leftAnimeBlock?.appendChild(topLineBottomBlock);
 
   render(<AnimeInfo />, topLineBottomBlock);
 }
@@ -35,7 +35,7 @@ function removeTitle() {
   const title = document.querySelector('.shortstoryContent h4[itemprop=name]');
 
   if (title) {
-    title.parentNode.removeChild(title);
+    title.parentNode?.removeChild(title);
   }
 }
 
@@ -44,7 +44,10 @@ export function renderAnimeTitle() {
   const topLineBottomBlock = document.createElement('div');
   topLineBottomBlock.className = 'extension anime-title-wrapper';
 
-  startAnimeBlock.parentNode.insertBefore(topLineBottomBlock, startAnimeBlock);
+  startAnimeBlock?.parentNode?.insertBefore(
+    topLineBottomBlock,
+    startAnimeBlock
+  );
   render(<AnimeTitle />, topLineBottomBlock);
 }
 
