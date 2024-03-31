@@ -49,7 +49,7 @@ export function fetchAccount() {
   }
 }
 
-export function fetchAnime(title: string, year?: string) {
+export function fetchAnime(title: string, year?: string | null) {
   api.searchAnimes(title, year).then(([animeData]) => {
     if (anime && animeData) {
       anime.value = animeData;

@@ -1,5 +1,6 @@
 import { Api } from '@shikivost/api';
 import { Bridge } from '@shikivost/bridge';
+import { checkIsRendered } from './checkIsRendered';
 import { renderContent } from './renderers';
 import { settings } from './state';
 import { tokenChecker } from './tokenChecker';
@@ -25,7 +26,7 @@ async function init() {
   bridge.on('content.set.access_token', (value) => {
     api.accessToken = value || '';
 
-    if (!isRendered) {
+    if (!isRendered && !checkIsRendered()) {
       renderContent();
       isRendered = true;
     }

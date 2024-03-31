@@ -4,7 +4,6 @@
   "short_name": "SV",
   "version": "{{VERSION}}",
   "description": "{{DESCRIPTION}}",
-  "manifest_version": "{{MANIFEST_VERSION}}",
   "browser_specific_settings": {
     "gecko": {
       "id": "shikivost@cjvnjde.com",

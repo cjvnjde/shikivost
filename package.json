@@ -1,6 +1,6 @@
 {
   "name": "@shikivost/source",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Effortlessly sync your Animevost.org progress with Shikimori.one using Shikivost",
   "license": "MIT",
   "scripts": {

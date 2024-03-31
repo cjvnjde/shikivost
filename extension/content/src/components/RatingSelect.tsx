@@ -36,10 +36,10 @@ export function RatingSelect({ rating, setRating }: RatingSelectProps) {
         onClick={() => setRating(localRating as Score)}
         onMouseLeave={() => setLocalRating(rating)}
         onMouseMove={(event) => {
-          const rect = container.current.getBoundingClientRect();
+          const rect = container.current?.getBoundingClientRect();
 
-          const x = event.clientX - rect.left;
-          const p = (x * 100) / rect.width;
+          const x = event.clientX - (rect?.left || 0);
+          const p = (x * 100) / (rect?.width || 1);
 
           const percent = Math.ceil(p / 10) * 10;
 
