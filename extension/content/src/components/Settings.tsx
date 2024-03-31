@@ -65,7 +65,7 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                   if (settings.value) {
                     settings.value = {
                       ...settings.value,
-                      progressValue: dat,
+                      progressValue: data,
                     };
                   }
                 }}
