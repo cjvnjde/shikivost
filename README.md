@@ -9,6 +9,14 @@ Tired of juggling between Animevost.org and Shikimori.one to keep track of your 
 
 ## Usage
 
+1. Install extension
+2. Login to the Shikimori.one
+   ![Login page](https://raw.githubusercontent.com/cjvnjde/shikivost/main/docs/img/1.png")
+3. Open the anime page on Animevost.org
+   ![Anime page](https://raw.githubusercontent.com/cjvnjde/shikivost/main/docs/img/2.png")
+
+## Development
+
 Follow the instructions below to set up and run the project.
 
 Please note that you need to have pnpm installed globally to execute the commands above.
