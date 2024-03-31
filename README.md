@@ -1,6 +1,7 @@
 # Shikivost
 
 [![Shikivost](https://img.shields.io/amo/v/shikivost)](https://addons.mozilla.org/ru/firefox/addon/shikivost/)
+[![Shikivost](https://img.shields.io/chrome-web-store/v/alfpkdagonppegpjijmcgcccafchklmc)](https://chromewebstore.google.com/detail/alfpkdagonppegpjijmcgcccafchklmc)
 
 ## Description
 
