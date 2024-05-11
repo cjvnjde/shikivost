@@ -4,7 +4,7 @@ import { checkIsRendered } from './checkIsRendered';
 import { renderContent } from './renderers';
 import { settings } from './state';
 import { tokenChecker } from './tokenChecker';
-import '../../assets/content.css';
+import '../../assets/index.css';
 
 const bridge = Bridge.create();
 const api = Api.create();

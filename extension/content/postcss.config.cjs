@@ -1,8 +1,9 @@
 module.exports = {
-  plugins: {
-    'postcss-import': {},
-    'postcss-nested': {},
-    'autoprefixer': {},
-    'cssnano': {}
-  },
+  plugins: [
+    require('tailwindcss')('./extension/content/tailwind.config.js'),
+    require('postcss-import'),
+    require('postcss-nested'),
+    require('autoprefixer'),
+    require('cssnano')
+  ]
 };
