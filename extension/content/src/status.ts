@@ -5,7 +5,7 @@ export const status = {
   COMPLETED: 'completed',
   ON_HOLD: 'on_hold',
   DROPPED: 'dropped',
-};
+} as const;
 
 export const statusText = {
   [status.PLANNED]: 'Запланировано',

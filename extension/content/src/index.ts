@@ -23,11 +23,9 @@ async function init() {
     });
   });
 
-  console.log('herereree');
   bridge.on('content.set.access_token', (value) => {
     api.accessToken = value || '';
 
-    console.log('herereree');
     if (!isRendered && !checkIsRendered()) {
       renderContent();
       isRendered = true;

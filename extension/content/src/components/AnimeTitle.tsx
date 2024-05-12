@@ -8,7 +8,7 @@ export function AnimeTitle() {
     <a
       href={`https://shikimori.one${animeData?.url}`}
       target="_blank"
-      className="anime-title"
+      className="inline-block bg-orange-200 rounded text-amber-500 text-center mb-1 p-1"
     >
       {animeData?.name || ''}
     </a>

@@ -1,5 +1,31 @@
-@import 'content.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.login-wrapper {
+  @apply w-[34px] absolute top-0 right-[307px];
+}
+
+.anime-title-wrapper {
+  display: inherit;
+}
+
+.anime-rating-wrapper {
+  @apply font-bold text-amber-600 ml-2 inline;
+}
+
+.scroll-none {
+  @apply overflow-hidden;
+}
+
+.epizode.active.watched {
+  --tw-bg-opacity: 1 !important;
+  background: rgb(101 163 13 / var(--tw-bg-opacity)) !important;
+  @apply bg-lime-600 bg-opacity-60;
+}
+
+.epizode.watched:not(.active) {
+  --tw-bg-opacity: 1 !important;
+  background: rgb(163 230 53 / var(--tw-bg-opacity)) !important;
+  @apply bg-lime-400 bg-opacity-60;
+}

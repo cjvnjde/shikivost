@@ -13,7 +13,7 @@ export function ShikimoriLogin() {
       <>
         <Settings isOpen={isOpen} onClose={() => setIsOpen(false)} />
         <div
-          className="login-btn"
+          className="h-[34px] w-[34px] bg-orange-300 rounded inline-flex justify-center items-center text-amber-600"
           style={{
             cursor: 'pointer',
           }}
@@ -27,7 +27,10 @@ export function ShikimoriLogin() {
 
   return (
     <>
-      <a href={authorizationUrl} className="login-btn tooltip">
+      <a
+        href={authorizationUrl}
+        className="tooltip h-[34px] w-[34px] bg-orange-300 rounded inline-flex justify-center items-center text-amber-600"
+      >
         <ShikimoriLoginIcon />
         <span className="tooltiptext">Вход в Shikivost</span>
       </a>

@@ -17,12 +17,11 @@ export const settingsAtom = atom<Settings | null>(null);
 export const accountAtom = atom<Account | null>(null);
 export const animeAtom = atom<Anime | null>(null);
 export const currentRateAtom = atom<null | Rate>(null);
-export const hasRateAtom = atom((get) => Boolean(get(currentRateAtom)?.status));
 export const isAuthorizedAtom = atom((get) => Boolean(get(accountAtom)?.id));
 
 export const defaultStore = getDefaultStore();
 
-defaultStore.sub(animeAtom, () => {
+function checkRating() {
   const animeValue = defaultStore.get(animeAtom);
   const accountValue = defaultStore.get(accountAtom);
 
@@ -33,7 +32,10 @@ defaultStore.sub(animeAtom, () => {
       }
     });
   }
-});
+}
+
+defaultStore.sub(animeAtom, checkRating);
+defaultStore.sub(accountAtom, checkRating);
 
 defaultStore.sub(settingsAtom, () => {
   const value = defaultStore.get(settingsAtom);

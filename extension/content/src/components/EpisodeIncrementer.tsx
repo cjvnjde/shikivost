@@ -12,13 +12,14 @@ export function EpisodeIncrementer() {
   const [rate, setRate] = useAtom(currentRateAtom);
 
   return (
-    <div className="episode-incrementer">
-      <span>Эпизоды</span>
+    <div className="flex items-center justify-between border-b-orange-200 my-1 pb-0.5 border-b border-solid">
+      <span className="font-bold">Эпизоды</span>
 
-      <div>
+      <div className="flex flex-row gap-1.5 items-center leading-5">
         <span>{`${rate?.episodes} / ${animeData?.episodes}`}</span>
         <button
           type="button"
+          className="flex items-center justify-center rounded transition-colors bg-amber-600 text-orange-200 p-0 border-none hover:bg-yellow-700]"
           disabled={isLoading}
           onClick={async () => {
             if (rate?.id) {
