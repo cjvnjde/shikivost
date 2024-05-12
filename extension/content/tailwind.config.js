@@ -11,8 +11,12 @@ module.exports = {
   },
   plugins: [
     scopedPreflightStyles({
-      isolationStrategy: isolateInsideOfContainer('.extension'),
+      isolationStrategy: isolateInsideOfContainer([
+        '.extension',
+        '#headlessui-portal-root',
+      ]),
     }),
+    require('@tailwindcss/forms'),
   ],
   important: true,
 };
