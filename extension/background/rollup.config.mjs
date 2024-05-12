@@ -7,14 +7,14 @@ export default {
   input: 'extension/background/src/index.ts',
   output: {
     dir: 'dist/extension/background',
-    format: 'cjs'
+    format: 'cjs',
   },
   plugins: [
     nodeResolve({ browser: true }),
     commonjs(),
     typescript({
-      tsconfig: 'extension/background/tsconfig.json'
+      tsconfig: 'extension/background/tsconfig.json',
     }),
-    terser()
-  ]
+    terser(),
+  ],
 };

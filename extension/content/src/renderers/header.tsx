@@ -1,4 +1,4 @@
-import { h, render } from 'preact';
+import { createRoot } from 'react-dom/client';
 import { ShikimoriLogin } from '../components/ShikimoriLogin';
 import { fetchAccount } from '../state';
 
@@ -11,5 +11,6 @@ export function renderHeader() {
   searchNode?.parentNode?.insertBefore(topLineBottomBlock, searchNode);
 
   fetchAccount();
-  render(<ShikimoriLogin />, topLineBottomBlock);
+  const root = createRoot(topLineBottomBlock);
+  root.render(<ShikimoriLogin />);
 }

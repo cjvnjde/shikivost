@@ -2,9 +2,9 @@ import { Api } from '@shikivost/api';
 import { Bridge } from '@shikivost/bridge';
 import { checkIsRendered } from './checkIsRendered';
 import { renderContent } from './renderers';
-import { settings } from './state';
+import { defaultStore, settingsAtom } from './state';
 import { tokenChecker } from './tokenChecker';
-import '../../assets/content.css';
+import '../../assets/index.css';
 
 const bridge = Bridge.create();
 const api = Api.create();
@@ -17,10 +17,10 @@ async function init() {
     api.refreshToken = value || '';
   });
   bridge.on('content.set.settings', (value) => {
-    settings.value = {
+    defaultStore.set(settingsAtom, {
       autotrackingType: value?.autotrackingType ?? 'watchedProgress',
       progressValue: value?.progressValue ?? 60,
-    };
+    });
   });
 
   bridge.on('content.set.access_token', (value) => {

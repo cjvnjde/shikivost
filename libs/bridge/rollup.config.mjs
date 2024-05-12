@@ -7,14 +7,14 @@ export default {
   input: 'libs/bridge/src/lib/index.ts',
   output: {
     dir: 'dist/libs/bridge',
-    format: 'cjs'
+    format: 'cjs',
   },
   plugins: [
     nodeResolve({ browser: true }),
     commonjs(),
     typescript({
-      tsconfig: 'libs/bridge/tsconfig.json'
+      tsconfig: 'libs/bridge/tsconfig.json',
     }),
-    terser()
-  ]
+    terser(),
+  ],
 };

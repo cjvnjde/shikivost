@@ -1,28 +1,31 @@
 import { Api } from '@shikivost/api';
-import { useState } from 'preact/hooks';
-import { anime, currentRate } from '../state';
+import { useAtom } from 'jotai';
+import { useAtomValue } from 'jotai/index';
+import { useState } from 'react';
+import { animeAtom, currentRateAtom } from '../state';
 
 const api = Api.create();
 
 export function EpisodeIncrementer() {
   const [isLoading, setIsLoading] = useState(false);
+  const animeData = useAtomValue(animeAtom);
+  const [rate, setRate] = useAtom(currentRateAtom);
 
   return (
-    <div class="episode-incrementer">
-      <span>Эпизоды</span>
+    <div className="flex items-center justify-between border-b-orange-200 my-1 pb-0.5 border-b border-solid">
+      <span className="font-bold">Эпизоды</span>
 
-      <div>
-        <span>{`${currentRate.value?.episodes} / ${anime.value?.episodes}`}</span>
+      <div className="flex flex-row gap-1.5 items-center leading-5">
+        <span>{`${rate?.episodes} / ${animeData?.episodes}`}</span>
         <button
           type="button"
+          className="flex items-center justify-center rounded transition-colors bg-amber-600 text-orange-200 p-0 border-none hover:bg-yellow-700]"
           disabled={isLoading}
           onClick={async () => {
-            if (currentRate.value?.id) {
+            if (rate?.id) {
               try {
                 setIsLoading(true);
-                currentRate.value = await api.incrementEpisode(
-                  currentRate.value.id
-                );
+                setRate(await api.incrementEpisode(rate.id));
               } finally {
                 setIsLoading(false);
               }
@@ -44,11 +47,11 @@ function Plus() {
       width="20"
       height="20"
       viewBox="0 0 24 24"
-      stroke-width="2"
+      strokeWidth="2"
       stroke="currentColor"
       fill="none"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 5l0 14" />
