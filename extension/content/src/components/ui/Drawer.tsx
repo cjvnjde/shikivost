@@ -4,7 +4,7 @@ import {
   Transition,
   TransitionChild,
 } from '@headlessui/react';
-import { PropsWithChildren } from 'react';
+import { memo, PropsWithChildren } from 'react';
 import { TRANSITIONS } from './transitions';
 
 export type DrawerProps = PropsWithChildren<{
@@ -14,26 +14,28 @@ export type DrawerProps = PropsWithChildren<{
 
 const Drawer = ({ children = undefined, isOpen, onClose }: DrawerProps) => {
   return (
-    <Transition show={isOpen}>
-      <Dialog className="relative z-40" onClose={onClose}>
-        <TransitionChild {...TRANSITIONS.OPACITY}>
-          <div className="fixed inset-0 bg-black bg-opacity-25" />
-        </TransitionChild>
-        <div className="fixed inset-0">
-          <TransitionChild {...TRANSITIONS.SLIDE_RIGHT}>
-            <div className="flex h-screen items-center justify-end">
-              <DialogPanel
-                tabIndex={0}
-                className="flex h-screen max-h-screen flex-col overflow-hidden bg-white transition-width"
-              >
-                {children}
-              </DialogPanel>
-            </div>
-          </TransitionChild>
+    <Transition
+      as={Dialog}
+      show={isOpen}
+      className="relative z-40"
+      onClose={onClose}
+    >
+      <TransitionChild
+        as="div"
+        {...TRANSITIONS.SLIDE_RIGHT}
+        className="fixed inset-0 flex justify-end"
+      >
+        <div className="flex right-0 inset-y-0 items-center w-min">
+          <DialogPanel
+            tabIndex={0}
+            className="flex h-screen max-h-screen flex-col overflow-hidden bg-white transition-width"
+          >
+            {children}
+          </DialogPanel>
         </div>
-      </Dialog>
+      </TransitionChild>
     </Transition>
   );
 };
 
-export default Drawer;
+export default memo(Drawer);

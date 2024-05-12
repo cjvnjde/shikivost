@@ -2,10 +2,10 @@ import { TransitionClasses } from '@headlessui/react';
 
 export const TRANSITIONS = {
   OPACITY: {
-    enter: 'transition-opacity ease-out duration-100',
+    enter: 'transition-opacity ease-out duration-300',
     enterFrom: 'opacity-0',
     enterTo: 'opacity-100',
-    leave: 'transition-opacity ease-in duration-100',
+    leave: 'transition-opacity ease-in duration-300',
     leaveFrom: 'opacity-100',
     leaveTo: 'opacity-0',
   },

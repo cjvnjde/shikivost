@@ -1,6 +1,6 @@
 import { authorizationUrl } from '@shikivost/api';
 import { useAtomValue } from 'jotai/index';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { accountAtom } from '../state';
 import { Settings } from './Settings';
 
@@ -8,10 +8,14 @@ export function ShikimoriLogin() {
   const [isOpen, setIsOpen] = useState(false);
   const accountData = useAtomValue(accountAtom);
 
+  const onClose = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   if (accountData?.id) {
     return (
       <>
-        <Settings isOpen={isOpen} onClose={() => setIsOpen(false)} />
+        <Settings isOpen={isOpen} onClose={onClose} />
         <div
           className="h-[34px] w-[34px] bg-orange-300 rounded inline-flex justify-center items-center text-amber-600"
           style={{
