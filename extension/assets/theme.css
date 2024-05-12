@@ -1,13 +1,13 @@
 :root {
-    --amber-300: #FCD34D;
-    --amber-500: #F59E0B;
-    --amber-600: #D97706;
+  --amber-300: #fcd34d;
+  --amber-500: #f59e0b;
+  --amber-600: #d97706;
 
-    --orange-200: #FED7AA;
-    --orange-300: #FDBA74;
+  --orange-200: #fed7aa;
+  --orange-300: #fdba74;
 
-    --yellow-700: #A16207;
+  --yellow-700: #a16207;
 
-    --watched_bg: rgba(163, 230, 53, 0.6);
-    --watched_active_bg: rgba(101, 163, 13, 0.6);
+  --watched_bg: rgba(163, 230, 53, 0.6);
+  --watched_active_bg: rgba(101, 163, 13, 0.6);
 }

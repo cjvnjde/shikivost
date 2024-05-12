@@ -1,13 +1,18 @@
 import { Api } from '@shikivost/api';
-import { h } from 'preact';
-import { useState } from 'preact/hooks';
-import { account, anime, currentRate, hasRate } from '../state';
+import { useAtom } from 'jotai';
+import { useAtomValue } from 'jotai/index';
+import { useState } from 'react';
+import { accountAtom, animeAtom, currentRateAtom, hasRateAtom } from '../state';
 import { statusText } from '../status';
 
 const api = Api.create();
 
 export function StatusSelect() {
   const [isOpen, setIsOpen] = useState(false);
+  const [rate, setRate] = useAtom(currentRateAtom);
+  const accountData = useAtomValue(accountAtom);
+  const animeData = useAtomValue(animeAtom);
+  const hasRateData = useAtomValue(hasRateAtom);
 
   return (
     <div className="status-select">
@@ -16,9 +21,7 @@ export function StatusSelect() {
         onClick={() => setIsOpen((io) => !io)}
       >
         <span className="status-name">
-          {currentRate.value?.status
-            ? statusText[currentRate.value.status]
-            : 'Добавить в список'}
+          {rate?.status ? statusText[rate.status] : 'Добавить в список'}
         </span>
       </button>
       <div
@@ -32,12 +35,14 @@ export function StatusSelect() {
               className="status-select-item"
               key={key}
               onClick={async () => {
-                if (account.value?.id && anime.value?.id) {
-                  currentRate.value = await api.setRate(key, {
-                    id: currentRate.value?.id,
-                    userId: account.value.id,
-                    animeId: anime.value.id,
-                  });
+                if (accountData?.id && animeData?.id) {
+                  setRate(
+                    await api.setRate(key, {
+                      id: rate?.id,
+                      userId: accountData.id,
+                      animeId: animeData.id,
+                    }),
+                  );
                   setIsOpen(false);
                 }
               }}
@@ -46,13 +51,13 @@ export function StatusSelect() {
             </div>
           );
         })}
-        {hasRate.value && (
+        {hasRateData && (
           <div
             className="status-select-item status-select-item--red"
             onClick={async () => {
-              if (currentRate.value?.id) {
-                await api.deleteRate(currentRate.value.id);
-                currentRate.value = null;
+              if (rate?.id) {
+                await api.deleteRate(rate.id);
+                setRate(null);
                 setIsOpen(false);
               }
             }}

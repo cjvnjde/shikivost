@@ -1,15 +1,14 @@
-import { effect } from '@preact/signals';
-import { h, render } from 'preact';
+import { createRoot } from 'react-dom/client';
 import { AnimeInfo } from '../components/AnimeInfo';
 import { AnimeRating } from '../components/AnimeRating';
 import { AnimeTitle } from '../components/AnimeTitle';
-import { currentRate, fetchAnime } from '../state';
+import { currentRateAtom, defaultStore, fetchAnime } from '../state';
 import { getTitle, getYear } from '../titleParser';
 import { videoWatchChecker } from '../videoWatchChecker';
 
 export function renderRating() {
   const ratingBlock = document.querySelector(
-    '.shortstoryContent table div > strong'
+    '.shortstoryContent table div > strong',
   )?.parentNode;
 
   const shikiRatingContainer = document.createElement('div');
@@ -17,19 +16,21 @@ export function renderRating() {
 
   ratingBlock?.appendChild(shikiRatingContainer);
 
-  render(<AnimeRating />, shikiRatingContainer);
+  const root = createRoot(shikiRatingContainer);
+  root.render(<AnimeRating />);
 }
 
 export function renderAnimeInfo() {
   const leftAnimeBlock = document.querySelector(
-    '.shortstoryContent .imgRadius'
+    '.shortstoryContent .imgRadius',
   )?.parentNode;
   const topLineBottomBlock = document.createElement('div');
   topLineBottomBlock.className = 'extension';
 
   leftAnimeBlock?.appendChild(topLineBottomBlock);
 
-  render(<AnimeInfo />, topLineBottomBlock);
+  const root = createRoot(topLineBottomBlock);
+  root.render(<AnimeInfo />);
 }
 
 function removeTitle() {
@@ -47,16 +48,18 @@ export function renderAnimeTitle() {
 
   startAnimeBlock?.parentNode?.insertBefore(
     topLineBottomBlock,
-    startAnimeBlock
+    startAnimeBlock,
   );
-  render(<AnimeTitle />, topLineBottomBlock);
+  const root = createRoot(topLineBottomBlock);
+  root.render(<AnimeTitle />);
 }
 
 export function highlightWatchedEpisodes() {
   const episodes = document.querySelectorAll('#items > .epizode');
 
-  effect(() => {
-    if (currentRate.value?.episodes) {
+  defaultStore.sub(currentRateAtom, () => {
+    const currentRateData = defaultStore.get(currentRateAtom);
+    if (currentRateData?.episodes) {
       episodes.forEach((episode) => {
         const id = episode.getAttribute('id');
 
@@ -64,7 +67,7 @@ export function highlightWatchedEpisodes() {
           const episodeNumber =
             Number.parseInt(id.replaceAll(/\D/g, ''), 10) + 1;
 
-          if (episodeNumber <= (currentRate.value?.episodes || 0)) {
+          if (episodeNumber <= (currentRateData?.episodes || 0)) {
             episode.classList.add('watched');
           } else {
             episode.classList.remove('watched');

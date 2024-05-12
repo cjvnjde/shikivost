@@ -1,13 +1,13 @@
 import { Api } from '@shikivost/api';
 import { Chunk } from './ChunkType';
-import { currentRate, settings } from './state';
+import { currentRateAtom, defaultStore, settingsAtom } from './state';
 import { getTotalWatchedTime } from './utils/getTotalWatchedTime';
 
 const api = Api.create();
 
 function addVideoTracking(
   videoElement: HTMLVideoElement,
-  cb: (progress: number) => void
+  cb: (progress: number) => void,
 ) {
   const chunks: Chunk[] = [];
 
@@ -37,9 +37,10 @@ function addVideoTracking(
         }
       }
 
-      if (settings.value?.autotrackingType === 'watchedProgress') {
+      const settingsData = defaultStore.get(settingsAtom);
+      if (settingsData?.autotrackingType === 'watchedProgress') {
         cb((getTotalWatchedTime(chunks) * 100) / videoElement.duration);
-      } else if (settings.value?.autotrackingType === 'videoProgress') {
+      } else if (settingsData?.autotrackingType === 'videoProgress') {
         cb((videoElement.currentTime * 100) / videoElement.duration);
       }
     }
@@ -72,7 +73,9 @@ let currentEpisodeCache = -1;
 let frameDelayCounter = 0;
 
 function onProgressUpdate(percentageWatched: number) {
-  if (percentageWatched >= (settings.value?.progressValue || 60)) {
+  const settingsData = defaultStore.get(settingsAtom);
+
+  if (percentageWatched >= (settingsData?.progressValue || 60)) {
     const currentEpisode = getCurrentEpisode();
 
     if (frameDelayCounter >= 4) {
@@ -85,16 +88,17 @@ function onProgressUpdate(percentageWatched: number) {
       return;
     }
 
+    const currentRateData = defaultStore.get(currentRateAtom);
     if (
-      currentRate.value?.id &&
-      (currentRate.value?.episodes || 0) < currentEpisode &&
+      currentRateData?.id &&
+      (currentRateData?.episodes || 0) < currentEpisode &&
       !isUpdating
     ) {
       isUpdating = true;
       api
-        .setEpisode(currentRate.value.id, currentEpisode)
+        .setEpisode(currentRateData.id, currentEpisode)
         .then((res) => {
-          currentRate.value = res;
+          defaultStore.set(currentRateAtom, res);
         })
         .finally(() => {
           isUpdating = false;
@@ -138,7 +142,7 @@ function onPlayerFrameLoaded(cb: (e: HTMLIFrameElement) => unknown) {
 
 function onPlayerLoaded(
   container: HTMLIFrameElement,
-  cb: (e: HTMLVideoElement) => unknown
+  cb: (e: HTMLVideoElement) => unknown,
 ) {
   const video = container.contentDocument?.querySelector('video');
 

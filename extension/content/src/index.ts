@@ -2,7 +2,7 @@ import { Api } from '@shikivost/api';
 import { Bridge } from '@shikivost/bridge';
 import { checkIsRendered } from './checkIsRendered';
 import { renderContent } from './renderers';
-import { settings } from './state';
+import { defaultStore, settingsAtom } from './state';
 import { tokenChecker } from './tokenChecker';
 import '../../assets/index.css';
 
@@ -17,15 +17,17 @@ async function init() {
     api.refreshToken = value || '';
   });
   bridge.on('content.set.settings', (value) => {
-    settings.value = {
+    defaultStore.set(settingsAtom, {
       autotrackingType: value?.autotrackingType ?? 'watchedProgress',
       progressValue: value?.progressValue ?? 60,
-    };
+    });
   });
 
+  console.log('herereree');
   bridge.on('content.set.access_token', (value) => {
     api.accessToken = value || '';
 
+    console.log('herereree');
     if (!isRendered && !checkIsRendered()) {
       renderContent();
       isRendered = true;

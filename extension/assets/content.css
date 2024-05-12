@@ -1,280 +1,280 @@
-@import "theme.css";
+@import 'theme.css';
 
 .login-wrapper {
-    width: 34px;
-    position: absolute;
-    top: 0;
-    right: 307px;
+  width: 34px;
+  position: absolute;
+  top: 0;
+  right: 307px;
 }
 
 .anime-title-wrapper {
-    display: inherit;
+  display: inherit;
 }
 
 .anime-rating-wrapper {
-    display: inline;
-    margin-left: 8px;
-    color: var(--amber-600);
-    font-weight: bold;
+  display: inline;
+  margin-left: 8px;
+  color: var(--amber-600);
+  font-weight: bold;
 }
 
 .scroll-none {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .epizode.active.watched {
-    background: var(--watched_active_bg);
+  background: var(--watched_active_bg);
 }
 
 .epizode.watched:not(.active) {
-    background: var(--watched_bg);
+  background: var(--watched_bg);
 }
 
 .extension {
-    .rating-select {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        width: min-content;
-        color: var(--amber-600);
-        cursor: pointer;
+  .rating-select {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: min-content;
+    color: var(--amber-600);
+    cursor: pointer;
+  }
+
+  .rating-select-container {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rating-select-text {
+    margin-left: 8px;
+    width: 18px;
+    text-align: center;
+    color: var(--amber-600);
+  }
+
+  .common-block {
+    margin-top: 12px;
+    display: inline-block;
+    background-color: var(--orange-200);
+    padding: 4px;
+    border-radius: 4px;
+    color: var(--amber-500);
+  }
+
+  .login-btn {
+    height: 34px;
+    width: 34px;
+    background-color: var(--orange-300);
+    border-radius: 4px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--amber-600);
+  }
+
+  .status-select {
+    margin-top: 4px;
+
+    .status-select-button {
+      width: 100%;
+      background-color: var(--orange-300);
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+      padding: 4px;
+      color: var(--yellow-700);
+
+      &:hover {
+        background-color: var(--amber-300);
+      }
     }
 
-    .rating-select-container {
-        margin-top: 4px;
-        margin-bottom: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .status-select-list {
+      transition: max-height 0.2s cubic-bezier(0, 1, 0, 1);
+      overflow: hidden;
+      width: 100%;
+      max-height: 0;
+      border-radius: 4px;
+      margin-top: 2px;
+
+      &--open {
+        transition: max-height 1s ease-in-out;
+        max-height: 600px;
+      }
+
+      & > * + * {
+        border-top: 1px solid var(--amber-600);
+      }
     }
 
-    .rating-select-text {
-        margin-left: 8px;
-        width: 18px;
-        text-align: center;
-        color: var(--amber-600);
+    .status-select-item {
+      width: 100%;
+      background-color: var(--orange-300);
+      transition: background-color 0.2s;
+      padding: 4px;
+      color: var(--yellow-700);
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--amber-300);
+      }
     }
 
-    .common-block {
-        margin-top: 12px;
-        display: inline-block;
-        background-color: var(--orange-200);
-        padding: 4px;
-        border-radius: 4px;
-        color: var(--amber-500);
+    .status-select-item.status-select-item--red {
+      color: red;
+    }
+  }
+
+  .anime-title {
+    display: inline-block;
+    background-color: var(--orange-200);
+    padding: 4px;
+    border-radius: 4px;
+    color: var(--amber-500);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .episode-incrementer {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--orange-200);
+    padding-bottom: 2px;
+
+    & > span {
+      font-weight: bold;
     }
 
-    .login-btn {
-        height: 34px;
-        width: 34px;
-        background-color: var(--orange-300);
-        border-radius: 4px;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        color: var(--amber-600);
+    div {
+      display: flex;
+      flex-direction: row;
+      gap: 6px;
+      align-items: center;
+      line-height: 20px;
     }
 
-    .status-select {
-        margin-top: 4px;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+      padding: 0;
+      background-color: var(--amber-600);
+      color: var(--orange-200);
 
-        .status-select-button {
-            width: 100%;
-            background-color: var(--orange-300);
-            border: none;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-            padding: 4px;
-            color: var(--yellow-700);
-
-            &:hover {
-                background-color: var(--amber-300);
-            }
-        }
-
-        .status-select-list {
-            transition: max-height 0.2s cubic-bezier(0, 1, 0, 1);
-            overflow: hidden;
-            width: 100%;
-            max-height: 0;
-            border-radius: 4px;
-            margin-top: 2px;
-
-            &--open {
-                transition: max-height 1s ease-in-out;
-                max-height: 600px;
-            }
-
-            & > * + * {
-                border-top: 1px solid var(--amber-600);
-            }
-        }
-
-        .status-select-item {
-            width: 100%;
-            background-color: var(--orange-300);
-            transition: background-color 0.2s;
-            padding: 4px;
-            color: var(--yellow-700);
-            cursor: pointer;
-
-            &:hover {
-                background-color: var(--amber-300);
-            }
-        }
-
-        .status-select-item.status-select-item--red {
-            color: red;
-        }
+      &:hover {
+        background-color: var(--yellow-700);
+      }
     }
+  }
 
-    .anime-title {
-        display: inline-block;
-        background-color: var(--orange-200);
-        padding: 4px;
-        border-radius: 4px;
-        color: var(--amber-500);
-        text-align: center;
-        margin-bottom: 4px;
+  .tooltip {
+    position: relative;
+  }
+
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    min-width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .drawer-backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+  }
+
+  .drawer-sidepanel {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+  }
+
+  .form-container {
+    padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    color: #111827;
+  }
+
+  .form-input {
+    display: block;
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    border-width: 0;
+    margin-top: 0.5rem;
+    width: calc(100% - 1.5rem);
+    color: #111827;
+    box-shadow: inset 0 0 0 calc(1px) #d1d5db;
+
+    @media (min-width: 640px) {
+      font-size: 0.875rem;
+      line-height: 1.5rem;
     }
+  }
 
-    .episode-incrementer {
-        margin-top: 4px;
-        margin-bottom: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid var(--orange-200);
-        padding-bottom: 2px;
+  .form-select {
+    background-color: white;
+    display: block;
+    padding: 0.375rem 0.75rem;
+    margin-top: 0.5rem;
+    border-radius: 0.375rem;
+    border-width: 0;
+    box-shadow: inset 0 0 0 calc(1px) #d1d5db;
 
-        & > span {
-            font-weight: bold;
-        }
+    width: 100%;
+    color: #111827;
 
-        div {
-            display: flex;
-            flex-direction: row;
-            gap: 6px;
-            align-items: center;
-            line-height: 20px;
-        }
-
-        button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-            padding: 0;
-            background-color: var(--amber-600);
-            color: var(--orange-200);
-
-            &:hover {
-                background-color: var(--yellow-700);
-            }
-        }
+    @media (min-width: 640px) {
+      font-size: 0.875rem;
+      line-height: 1.5rem;
     }
-
-    .tooltip {
-        position: relative;
-    }
-
-    /* Tooltip text */
-    .tooltip .tooltiptext {
-        visibility: hidden;
-        min-width: 120px;
-        background-color: black;
-        color: #fff;
-        text-align: center;
-        padding: 5px 0;
-        border-radius: 6px;
-
-        /* Position the tooltip text - see examples below! */
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1;
-    }
-
-    /* Show the tooltip text when you mouse over the tooltip container */
-    .tooltip:hover .tooltiptext {
-        visibility: visible;
-    }
-
-    .drawer-backdrop {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-    }
-
-    .drawer {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 999;
-    }
-
-    .drawer-sidepanel {
-        z-index: 10;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        background: white;
-    }
-
-    .form-container {
-        padding: 0 12px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .form-label {
-        display: block;
-        font-size: 0.875rem;
-        font-weight: 500;
-        line-height: 1.5rem;
-        color: #111827;
-    }
-
-    .form-input {
-        display: block;
-        border-radius: 0.375rem;
-        padding: 0.375rem 0.75rem;
-        border-width: 0;
-        margin-top: 0.5rem;
-        width: calc(100% - 1.5rem);
-        color: #111827;
-        box-shadow: inset 0 0 0 calc(1px) #D1D5DB;
-
-        @media (min-width: 640px) {
-            font-size: 0.875rem;
-            line-height: 1.5rem;
-        }
-    }
-
-    .form-select {
-        background-color: white;
-        display: block;
-        padding: 0.375rem 0.75rem;
-        margin-top: 0.5rem;
-        border-radius: 0.375rem;
-        border-width: 0;
-        box-shadow: inset 0 0 0 calc(1px) #D1D5DB;
-
-        width: 100%;
-        color: #111827;
-
-        @media (min-width: 640px) {
-            font-size: 0.875rem;
-            line-height: 1.5rem;
-        }
-    }
+  }
 }

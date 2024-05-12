@@ -1,4 +1,5 @@
-import { settings } from '../state';
+import { useAtom } from 'jotai';
+import { settingsAtom } from '../state';
 import Drawer from './ui/Drawer';
 import DrawerHeader from './ui/DrawerHeader';
 import Input from './ui/Input';
@@ -28,7 +29,9 @@ const trackingOptions: {
 ];
 
 export function Settings({ isOpen, onClose }: SettingsProps) {
-  if (!settings.value) {
+  const [settingsData, setSettingsData] = useAtom(settingsAtom);
+
+  if (!settingsData) {
     return null;
   }
 
@@ -41,15 +44,15 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
           name="autotrackingType"
           selected={
             trackingOptions.find(
-              (o) => o.id === settings.value?.autotrackingType,
+              (o) => o.id === settingsData.autotrackingType,
             ) || trackingOptions[0]
           }
           setSelected={({ id }) => {
-            if (settings.value) {
-              settings.value = {
-                ...settings.value,
+            if (settingsData) {
+              setSettingsData({
+                ...settingsData,
                 autotrackingType: id,
-              };
+              });
             }
           }}
           options={trackingOptions}
@@ -58,18 +61,18 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
           label="Лимит прогресса"
           type="number"
           name="progressValue"
-          value={String(settings.value.progressValue)}
+          value={String(settingsData.progressValue)}
           onChange={(newValue) => {
             const val = Number(newValue);
             const data = Math.max(
               Math.min(Number.isNaN(val) ? 60 : val, 100),
               0,
             );
-            if (settings.value) {
-              settings.value = {
-                ...settings.value,
+            if (settingsData) {
+              setSettingsData({
+                ...settingsData,
                 progressValue: data,
-              };
+              });
             }
           }}
         />

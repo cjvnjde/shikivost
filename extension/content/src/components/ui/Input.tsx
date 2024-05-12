@@ -1,7 +1,5 @@
 import { Input as HInput } from '@headlessui/react';
-import { useCallback, useId } from 'preact/compat';
-import { JSXInternal } from 'preact/src/jsx';
-import GenericEventHandler = JSXInternal.GenericEventHandler;
+import { ChangeEvent, useCallback, useId } from 'react';
 
 type InputProps = {
   label: string;
@@ -22,8 +20,8 @@ const Input = ({
 }: InputProps) => {
   const id = useId();
 
-  const onValueChange = useCallback<GenericEventHandler<HTMLInputElement>>(
-    (e) => {
+  const onValueChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
       onChange(e.currentTarget.value);
     },
     [onChange],

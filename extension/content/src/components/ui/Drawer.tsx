@@ -4,7 +4,7 @@ import {
   Transition,
   TransitionChild,
 } from '@headlessui/react';
-import { PropsWithChildren } from 'preact/compat';
+import { PropsWithChildren } from 'react';
 import { TRANSITIONS } from './transitions';
 
 export type DrawerProps = PropsWithChildren<{

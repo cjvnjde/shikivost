@@ -1,6 +1,6 @@
 {
   "name": "@shikivost/source",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Effortlessly sync your Animevost.org progress with Shikimori.one using Shikivost",
   "license": "MIT",
   "scripts": {
@@ -10,12 +10,13 @@
     "watch:extension:content": "nx run content:watch --skip-nx-cache",
     "build:extension:background": "nx run background:build --skip-nx-cache",
     "watch:extension:background": "nx run background:watch --skip-nx-cache",
-    "start:extension:firefox": "web-ext run -t firefox-desktop --source-dir ./dist/extension --start-url=https://v2.vost.pw/ --keep-profile-changes",
+    "start:extension:firefox": "web-ext run -t firefox-desktop --source-dir ./dist/extension --start-url=https://v2.vost.pw/ --keep-profile-changes --firefox='/opt/firefox/firefox-bin'",
     "serve:extension:firefox": "pnpm run build && concurrently --kill-others 'pnpm run watch:extension:content' 'pnpm run watch:extension:background' 'pnpm run start:extension:firefox'",
     "bundle": "web-ext build -s ./dist/extension -a ./dist --overwrite-dest",
     "build": "pnpm run build:extension:content && pnpm run build:extension:background",
     "build:chrome": "pnpm run build && pnpm run build:extension:static:chrome",
-    "build:libs:bridge": "nx run bridge:build --skip-nx-cache"
+    "build:libs:bridge": "nx run bridge:build --skip-nx-cache",
+    "format:all": "prettier . --write"
   },
   "private": true,
   "devDependencies": {
@@ -28,6 +29,8 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/qs": "^6.9.15",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
     "@types/webextension-polyfill": "^0.10.7",
     "autoprefixer": "^10.4.19",
     "concurrently": "^8.2.2",
@@ -46,13 +49,14 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.0.3",
-    "@preact/signals": "^1.2.3",
     "@tabler/icons-react": "^3.3.0",
     "@tailwindcss/forms": "^0.5.7",
     "class-variance-authority": "^0.7.0",
+    "jotai": "^2.8.0",
     "nanoid": "^5.0.7",
-    "preact": "^10.21.0",
     "qs": "^6.12.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "tslib": "^2.6.2",
     "webextension-polyfill": "^0.11.0"
   }

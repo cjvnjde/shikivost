@@ -23,7 +23,7 @@ export type RequestOptions = Omit<RequestInit, 'headers'> & {
 export function buildUrl(
   url: string,
   params: QueryObject = {},
-  options: queryString.IStringifyOptions | undefined = undefined
+  options: queryString.IStringifyOptions | undefined = undefined,
 ): string {
   let query = queryString.stringify(params, options);
   query = query ? `?${query}` : '';
@@ -158,7 +158,7 @@ export class Api {
 
   async request<T = unknown>(
     url: string,
-    data: Partial<RequestOptions> = {}
+    data: Partial<RequestOptions> = {},
   ): Promise<T> {
     const resp = await fetch(url, {
       ...data,
@@ -189,7 +189,7 @@ export class Api {
       Object.entries({
         search,
         season: year,
-      }).filter(([_, value]) => value)
+      }).filter(([_, value]) => value),
     );
 
     return this.request(buildUrl('/api/animes', query));
@@ -201,7 +201,7 @@ export class Api {
         target_id: animeId,
         target_type: 'Anime',
         user_id: userId,
-      })
+      }),
     );
   }
 
@@ -215,7 +215,7 @@ export class Api {
       id?: number;
       userId: number;
       animeId: number;
-    }
+    },
   ): Promise<Rate> {
     if (id) {
       return this.request(buildUrl(`/api/v2/user_rates/${id}`), {
@@ -263,7 +263,7 @@ export class Api {
       buildUrl(`/api/v2/user_rates/${rateId}/increment`),
       {
         method: 'POST',
-      }
+      },
     );
   }
 
