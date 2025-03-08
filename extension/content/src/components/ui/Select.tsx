@@ -2,90 +2,48 @@ import {
   Listbox,
   ListboxButton,
   ListboxOption,
+  ListboxOptionProps,
   ListboxOptions,
-  Transition,
 } from "@headlessui/react";
-import { IconCheck, IconSelector } from "@tabler/icons-react";
+import { HTMLProps, type Ref } from "react";
+import { DropdownContainer } from "./DropdownContainer";
 
-type SelectProps<Option> = {
-  selected: Option;
-  setSelected: (value: Option) => void;
-  options: Option[];
-  label: string;
-  name: string;
+type SelectContainerProps = HTMLProps<HTMLDivElement> & {
+  ref?: Ref<HTMLDivElement>;
+  placement?: "top" | "bottom";
 };
 
-const Select = <Option extends { name: string; id: string }>({
-  selected,
-  setSelected,
-  options,
-  label,
-  name,
-}: SelectProps<Option>) => {
+export const Select = Listbox;
+
+export const SelectButton = ListboxButton;
+
+export const SelectOption = ({ children, ...props }: ListboxOptionProps) => {
   return (
-    <Listbox value={selected} onChange={setSelected} name={name}>
-      {({ open }) => (
-        <div className="select-group">
-          <label className="select-label">{label}</label>
-          <div className="select-relative-wrapper">
-            <ListboxButton className="select-button">
-              <span className="select-button-text">{selected.name}</span>
-              <span className="select-button-icon">
-                <IconSelector
-                  className="select-icon-selector"
-                  aria-hidden="true"
-                />
-              </span>
-            </ListboxButton>
-
-            <Transition
-              show={open}
-              leave="select-transition"
-              leaveFrom="select-transition-from"
-              leaveTo="select-transition-to"
-            >
-              <ListboxOptions className="select-options">
-                {options.map((option) => (
-                  <ListboxOption
-                    key={option.id}
-                    className={({ focus }) =>
-                      `select-option ${focus ? "select-option-focus" : ""}`
-                    }
-                    value={option}
-                  >
-                    {({ selected, focus }) => (
-                      <>
-                        <span
-                          className={`select-option-text ${selected ? "select-option-selected" : ""}`}
-                        >
-                          {option.name}
-                        </span>
-
-                        {selected ? (
-                          <span
-                            className={`select-option-check ${
-                              focus
-                                ? "select-option-check-focus"
-                                : "select-option-check-active"
-                            }`}
-                          >
-                            <IconCheck
-                              className="select-check-icon"
-                              aria-hidden="true"
-                            />
-                          </span>
-                        ) : null}
-                      </>
-                    )}
-                  </ListboxOption>
-                ))}
-              </ListboxOptions>
-            </Transition>
-          </div>
-        </div>
-      )}
-    </Listbox>
+    <ListboxOption className="select-dropdown-option" {...props}>
+      {children}
+    </ListboxOption>
   );
 };
 
-export default Select;
+export const SelectContainer = ({
+  children,
+  className,
+  placement = "bottom",
+  ...props
+}: SelectContainerProps) => {
+  return (
+    <ListboxOptions
+      portal
+      anchor={{
+        gap: 2,
+        to: placement,
+      }}
+      transition
+      className="select-dropdown"
+      {...props}
+      as={DropdownContainer}
+    >
+      {children}
+    </ListboxOptions>
+  );
+};

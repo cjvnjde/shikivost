@@ -3,17 +3,25 @@ import { settingsAtom } from "../state";
 import Drawer from "./ui/Drawer";
 import DrawerHeader from "./ui/DrawerHeader";
 import Input from "./ui/Input";
-import Select from "./ui/Select";
+import {
+  SelectButton,
+  Select,
+  SelectContainer,
+  SelectOption,
+} from "./ui/Select";
+import { WithLabel } from "extension/content/src/components/ui/WithLabel";
+import { DropdownButton } from "extension/content/src/components/ui/DropdownButton";
 
 type SettingsProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const trackingOptions: {
+type TrakingOption = {
   name: string;
   id: "none" | "videoProgress" | "watchedProgress";
-}[] = [
+};
+const trackingOptions: TrakingOption[] = [
   {
     id: "none",
     name: "Не использовать",
@@ -35,28 +43,38 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
     return null;
   }
 
+  const selectedValue =
+    trackingOptions.find((o) => o.id === settingsData.autotrackingType) ||
+    trackingOptions[0];
+
+  const setSelectedValue = (id: TrakingOption["id"]) => {
+    if (settingsData) {
+      setSettingsData({
+        ...settingsData,
+        autotrackingType: id,
+      });
+    }
+  };
+
   return (
     <Drawer isOpen={isOpen} onClose={onClose}>
       <DrawerHeader onClose={onClose} title="Настройки" />
       <form className="settings-form">
-        <Select
-          label="Тип автотрекинга видео"
-          name="autotrackingType"
-          selected={
-            trackingOptions.find(
-              (o) => o.id === settingsData.autotrackingType,
-            ) || trackingOptions[0]
-          }
-          setSelected={({ id }) => {
-            if (settingsData) {
-              setSettingsData({
-                ...settingsData,
-                autotrackingType: id,
-              });
-            }
-          }}
-          options={trackingOptions}
-        />
+        <WithLabel label="Тип автотрекинга видео">
+          <Select
+            value={settingsData.autotrackingType}
+            onChange={setSelectedValue}
+          >
+            <SelectButton>
+              <DropdownButton>{selectedValue?.name}</DropdownButton>
+            </SelectButton>
+            <SelectContainer>
+              {trackingOptions.map(({ id, name }) => {
+                return <SelectOption value={id}>{name}</SelectOption>;
+              })}
+            </SelectContainer>
+          </Select>
+        </WithLabel>
         <Input
           label="Лимит прогресса"
           type="number"
