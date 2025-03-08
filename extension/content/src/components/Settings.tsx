@@ -65,8 +65,8 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
             value={settingsData.autotrackingType}
             onChange={setSelectedValue}
           >
-            <SelectButton>
-              <DropdownButton>{selectedValue?.name}</DropdownButton>
+            <SelectButton as={DropdownButton}>
+              {selectedValue?.name}
             </SelectButton>
             <SelectContainer>
               {trackingOptions.map(({ id, name }) => {
