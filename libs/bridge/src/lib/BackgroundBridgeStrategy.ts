@@ -1,6 +1,6 @@
-import browser from 'webextension-polyfill';
-import { BridgeStrategy } from './BridgeStrategy';
-import { encodeData } from './dataUtils';
+import browser from "webextension-polyfill";
+import { BridgeStrategy } from "./BridgeStrategy";
+import { encodeData } from "./dataUtils";
 
 export class BackgroundBridgeStrategy extends BridgeStrategy {
   async send(eventName: string, data?: any) {

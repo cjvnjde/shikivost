@@ -1,9 +1,9 @@
-import { Api } from '@shikivost/api';
-import { useAtom, useAtomValue } from 'jotai';
-import { currentRateAtom, isAuthorizedAtom } from '../state';
-import { EpisodeIncrementer } from './EpisodeIncrementer';
-import { RatingSelect } from './RatingSelect';
-import { StatusSelect } from './StatusSelect';
+import { Api } from "@shikivost/api";
+import { useAtom, useAtomValue } from "jotai";
+import { currentRateAtom, isAuthorizedAtom } from "../state";
+import { EpisodeIncrementer } from "./EpisodeIncrementer";
+import { RatingSelect } from "./RatingSelect";
+import { StatusSelect } from "./StatusSelect";
 
 const api = Api.create();
 

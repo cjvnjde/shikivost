@@ -1,9 +1,9 @@
-import { useAtom } from 'jotai';
-import { settingsAtom } from '../state';
-import Drawer from './ui/Drawer';
-import DrawerHeader from './ui/DrawerHeader';
-import Input from './ui/Input';
-import Select from './ui/Select';
+import { useAtom } from "jotai";
+import { settingsAtom } from "../state";
+import Drawer from "./ui/Drawer";
+import DrawerHeader from "./ui/DrawerHeader";
+import Input from "./ui/Input";
+import Select from "./ui/Select";
 
 type SettingsProps = {
   isOpen: boolean;
@@ -12,19 +12,19 @@ type SettingsProps = {
 
 const trackingOptions: {
   name: string;
-  id: 'none' | 'videoProgress' | 'watchedProgress';
+  id: "none" | "videoProgress" | "watchedProgress";
 }[] = [
   {
-    id: 'none',
-    name: 'Не использовать',
+    id: "none",
+    name: "Не использовать",
   },
   {
-    id: 'videoProgress',
-    name: 'Прогресс видео',
+    id: "videoProgress",
+    name: "Прогресс видео",
   },
   {
-    id: 'watchedProgress',
-    name: 'Прогресс просмотра',
+    id: "watchedProgress",
+    name: "Прогресс просмотра",
   },
 ];
 
@@ -38,7 +38,7 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
   return (
     <Drawer isOpen={isOpen} onClose={onClose}>
       <DrawerHeader onClose={onClose} title="Настройки" />
-      <form className="flex flex-col gap-3 w-[300px] px-2 pt-3">
+      <form className="settings-form">
         <Select
           label="Тип автотрекинга видео"
           name="autotrackingType"

@@ -1,15 +1,15 @@
-import { Api } from '@shikivost/api';
-import { Bridge } from '@shikivost/bridge';
-import { atom, getDefaultStore } from 'jotai';
-import { Account } from '../../api/src/types/Account';
-import { Anime } from '../../api/src/types/Anime';
-import { Rate } from '../../api/src/types/Rate';
+import { Api } from "@shikivost/api";
+import { Bridge } from "@shikivost/bridge";
+import { atom, getDefaultStore } from "jotai";
+import { Account } from "../../api/src/types/Account";
+import { Anime } from "../../api/src/types/Anime";
+import { Rate } from "../../api/src/types/Rate";
 
 const bridge = Bridge.create();
 const api = Api.create();
 
 type Settings = {
-  autotrackingType: 'none' | 'videoProgress' | 'watchedProgress';
+  autotrackingType: "none" | "videoProgress" | "watchedProgress";
   progressValue: number;
 };
 
@@ -40,12 +40,12 @@ defaultStore.sub(accountAtom, checkRating);
 defaultStore.sub(settingsAtom, () => {
   const value = defaultStore.get(settingsAtom);
   const updateObj = {
-    autotrackingType: value?.autotrackingType ?? 'watchedProgress',
+    autotrackingType: value?.autotrackingType ?? "watchedProgress",
     progressValue: value?.progressValue ?? 60,
   };
 
   if (value) {
-    bridge.send('background.store.settings', updateObj);
+    bridge.send("background.store.settings", updateObj);
   }
 });
 

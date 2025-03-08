@@ -1,5 +1,5 @@
-import { useAtomValue } from 'jotai/index';
-import { animeAtom } from '../state';
+import { useAtomValue } from "jotai/index";
+import { animeAtom } from "../state";
 
 export function AnimeTitle() {
   const animeData = useAtomValue(animeAtom);
@@ -8,9 +8,9 @@ export function AnimeTitle() {
     <a
       href={`https://shikimori.one${animeData?.url}`}
       target="_blank"
-      className="inline-block bg-orange-200 rounded text-amber-500 text-center mb-1 p-1"
+      className="anime-title-link"
     >
-      {animeData?.name || ''}
+      {animeData?.name || ""}
     </a>
   );
 }

@@ -1,5 +1,5 @@
-import { useAtomValue } from 'jotai';
-import { animeAtom } from '../state';
+import { useAtomValue } from "jotai";
+import { animeAtom } from "../state";
 
 export function AnimeRating() {
   const animeData = useAtomValue(animeAtom);

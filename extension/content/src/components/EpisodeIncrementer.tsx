@@ -1,8 +1,8 @@
-import { Api } from '@shikivost/api';
-import { useAtom } from 'jotai';
-import { useAtomValue } from 'jotai/index';
-import { useState } from 'react';
-import { animeAtom, currentRateAtom } from '../state';
+import { Api } from "@shikivost/api";
+import { useAtom } from "jotai";
+import { useAtomValue } from "jotai/index";
+import { useState } from "react";
+import { animeAtom, currentRateAtom } from "../state";
 
 const api = Api.create();
 
@@ -12,14 +12,14 @@ export function EpisodeIncrementer() {
   const [rate, setRate] = useAtom(currentRateAtom);
 
   return (
-    <div className="flex items-center justify-between border-b-orange-200 my-1 pb-0.5 border-b border-solid">
-      <span className="font-bold">Эпизоды</span>
+    <div className="episode-incrementer">
+      <span className="episode-label">Эпизоды</span>
 
-      <div className="flex flex-row gap-1.5 items-center leading-5">
-        <span>{`${rate?.episodes} / ${animeData?.episodes}`}</span>
+      <div className="episode-controls">
+        <span className="episode-count">{`${rate?.episodes} / ${animeData?.episodes}`}</span>
         <button
           type="button"
-          className="flex items-center justify-center rounded transition-colors bg-amber-600 text-orange-200 p-0 border-none hover:bg-yellow-700]"
+          className="increment-button"
           disabled={isLoading}
           onClick={async () => {
             if (rate?.id) {
@@ -43,7 +43,7 @@ function Plus() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="icon icon-tabler icon-tabler-plus"
+      className="plus-icon"
       width="20"
       height="20"
       viewBox="0 0 24 24"

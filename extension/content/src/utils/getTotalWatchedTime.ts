@@ -1,5 +1,5 @@
-import { Chunk } from '../ChunkType';
-import { mergeWatchedChunks } from './mergeWatchedChunks';
+import { Chunk } from "../ChunkType";
+import { mergeWatchedChunks } from "./mergeWatchedChunks";
 
 export function getTotalWatchedTime(arr: Chunk[]): number {
   const merged = mergeWatchedChunks(arr);

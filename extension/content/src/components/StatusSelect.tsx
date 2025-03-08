@@ -4,14 +4,13 @@ import {
   ListboxOption,
   ListboxOptions,
   Transition,
-} from '@headlessui/react';
-import { Api } from '@shikivost/api';
-import { IconCheck, IconSelector, IconTrash } from '@tabler/icons-react';
-import { cx } from 'class-variance-authority';
-import { useAtom } from 'jotai';
-import { useAtomValue } from 'jotai/index';
-import { accountAtom, animeAtom, currentRateAtom } from '../state';
-import { status, statusText } from '../status';
+} from "@headlessui/react";
+import { Api } from "@shikivost/api";
+import { IconCheck, IconSelector, IconTrash } from "@tabler/icons-react";
+import { useAtom } from "jotai";
+import { useAtomValue } from "jotai/index";
+import { accountAtom, animeAtom, currentRateAtom } from "../state";
+import { status, statusText } from "../status";
 
 const api = Api.create();
 
@@ -23,8 +22,8 @@ const options = Object.values(status).map((statusValue) => {
 });
 
 const deleteOption = {
-  id: 'delete',
-  name: 'Удалить из списка',
+  id: "delete",
+  name: "Удалить из списка",
 };
 
 export function StatusSelect() {
@@ -55,58 +54,55 @@ export function StatusSelect() {
       }}
     >
       {({ open }) => (
-        <div className="relative mt-2">
-          <ListboxButton className="relative w-full cursor-pointer transition-colors rounded-md bg-orange-300 py-1.5 pl-3 pr-10 text-left text-yellow-700 shadow-sm sm:text-sm sm:leading-6">
-            <span className="block truncate">
-              {selected?.name || 'Добавить в список'}
+        <div className="status-select-container">
+          <ListboxButton className="status-select-button">
+            <span className="status-select-button-text">
+              {selected?.name || "Добавить в список"}
             </span>
-            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <IconSelector
-                className="h-5 w-5 text-yellow-800"
-                aria-hidden="true"
-              />
+            <span className="status-select-button-icon">
+              <IconSelector className="status-select-icon" aria-hidden="true" />
             </span>
           </ListboxButton>
 
           <Transition
             show={open}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+            leave="status-select-transition"
+            leaveFrom="status-select-transition-from"
+            leaveTo="status-select-transition-to"
           >
-            <ListboxOptions className="absolute z-10 mt-1 max-h-80 w-full overflow-auto rounded-md bg-orange-300 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <ListboxOptions className="status-select-options">
               {options.map((option) => (
                 <ListboxOption
                   key={option.id}
                   className={({ focus }) =>
-                    cx(
-                      focus
-                        ? 'bg-orange-800 text-orange-200'
-                        : 'text-orange-800',
-                      'relative cursor-pointer select-none py-2 pl-3 pr-9',
-                    )
+                    `status-select-option ${
+                      focus ? "status-select-option-focus" : ""
+                    }`
                   }
                   value={option}
                 >
                   {({ selected, focus }) => (
                     <>
                       <span
-                        className={cx(
-                          selected ? 'font-semibold' : 'font-normal',
-                          'block truncate',
-                        )}
+                        className={`status-select-option-text ${
+                          selected ? "status-select-option-selected" : ""
+                        }`}
                       >
                         {option.name}
                       </span>
 
                       {selected ? (
                         <span
-                          className={cx(
-                            focus ? 'text-orange-200' : 'text-orange-800',
-                            'absolute inset-y-0 right-0 flex items-center pr-4',
-                          )}
+                          className={`status-select-option-check ${
+                            focus
+                              ? "status-select-option-check-focus"
+                              : "status-select-option-check-active"
+                          }`}
                         >
-                          <IconCheck className="h-5 w-5" aria-hidden="true" />
+                          <IconCheck
+                            className="status-select-check-icon"
+                            aria-hidden="true"
+                          />
                         </span>
                       ) : null}
                     </>
@@ -115,25 +111,26 @@ export function StatusSelect() {
               ))}
               <ListboxOption
                 className={({ focus }) =>
-                  cx(
-                    focus ? 'bg-red-800' : 'bg-red-700',
-                    'relative cursor-pointer select-none py-2 pl-3 pr-9  text-orange-200',
-                  )
+                  `status-select-option status-select-delete-option ${
+                    focus ? "status-select-delete-option-focus" : ""
+                  }`
                 }
                 value={deleteOption}
               >
                 {({ selected }) => (
                   <>
                     <span
-                      className={cx(
-                        selected ? 'font-semibold' : 'font-normal',
-                        'block truncate',
-                      )}
+                      className={`status-select-option-text ${
+                        selected ? "status-select-option-selected" : ""
+                      }`}
                     >
                       {deleteOption.name}
                     </span>
-                    <span className="absolute inset-y-0 right-0 text-orange-200 flex items-center pr-4">
-                      <IconTrash className="h-5 w-5" aria-hidden="true" />
+                    <span className="status-select-delete-icon">
+                      <IconTrash
+                        className="status-select-trash-icon"
+                        aria-hidden="true"
+                      />
                     </span>
                   </>
                 )}
