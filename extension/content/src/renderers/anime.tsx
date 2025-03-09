@@ -1,18 +1,18 @@
-import { createRoot } from 'react-dom/client';
-import { AnimeInfo } from '../components/AnimeInfo';
-import { AnimeRating } from '../components/AnimeRating';
-import { AnimeTitle } from '../components/AnimeTitle';
-import { currentRateAtom, defaultStore, fetchAnime } from '../state';
-import { getTitle, getYear } from '../titleParser';
-import { videoWatchChecker } from '../videoWatchChecker';
+import { createRoot } from "react-dom/client";
+import { AnimeInfo } from "../components/AnimeInfo";
+import { AnimeRating } from "../components/AnimeRating";
+import { AnimeTitle } from "../components/AnimeTitle";
+import { currentRateAtom, defaultStore, fetchAnime } from "../state";
+import { getTitle, getYear } from "../titleParser";
+import { videoWatchChecker } from "../videoWatchChecker";
 
 export function renderRating() {
   const ratingBlock = document.querySelector(
-    '.shortstoryContent table div > strong',
+    ".shortstoryContent table div > strong",
   )?.parentNode;
 
-  const shikiRatingContainer = document.createElement('div');
-  shikiRatingContainer.className = 'extension anime-rating-wrapper';
+  const shikiRatingContainer = document.createElement("div");
+  shikiRatingContainer.className = "extension anime-rating-wrapper";
 
   ratingBlock?.appendChild(shikiRatingContainer);
 
@@ -22,10 +22,10 @@ export function renderRating() {
 
 export function renderAnimeInfo() {
   const leftAnimeBlock = document.querySelector(
-    '.shortstoryContent .imgRadius',
+    ".shortstoryContent .imgRadius",
   )?.parentNode;
-  const topLineBottomBlock = document.createElement('div');
-  topLineBottomBlock.className = 'extension';
+  const topLineBottomBlock = document.createElement("div");
+  topLineBottomBlock.className = "extension";
 
   leftAnimeBlock?.appendChild(topLineBottomBlock);
 
@@ -34,7 +34,7 @@ export function renderAnimeInfo() {
 }
 
 function removeTitle() {
-  const title = document.querySelector('.shortstoryContent h4[itemprop=name]');
+  const title = document.querySelector(".shortstoryContent h4[itemprop=name]");
 
   if (title) {
     title.parentNode?.removeChild(title);
@@ -42,9 +42,9 @@ function removeTitle() {
 }
 
 export function renderAnimeTitle() {
-  const startAnimeBlock = document.querySelector('.shortstoryContent td p');
-  const topLineBottomBlock = document.createElement('div');
-  topLineBottomBlock.className = 'extension anime-title-wrapper';
+  const startAnimeBlock = document.querySelector(".shortstoryContent td p");
+  const topLineBottomBlock = document.createElement("div");
+  topLineBottomBlock.className = "extension anime-title-wrapper";
 
   startAnimeBlock?.parentNode?.insertBefore(
     topLineBottomBlock,
@@ -55,22 +55,22 @@ export function renderAnimeTitle() {
 }
 
 export function highlightWatchedEpisodes() {
-  const episodes = document.querySelectorAll('#items > .epizode');
+  const episodes = document.querySelectorAll("#items > .epizode");
 
   defaultStore.sub(currentRateAtom, () => {
     const currentRateData = defaultStore.get(currentRateAtom);
     if (currentRateData?.episodes) {
       episodes.forEach((episode) => {
-        const id = episode.getAttribute('id');
+        const id = episode.getAttribute("id");
 
         if (id) {
           const episodeNumber =
-            Number.parseInt(id.replaceAll(/\D/g, ''), 10) + 1;
+            Number.parseInt(id.replaceAll(/\D/g, ""), 10) + 1;
 
           if (episodeNumber <= (currentRateData?.episodes || 0)) {
-            episode.classList.add('watched');
+            episode.classList.add("watched");
           } else {
-            episode.classList.remove('watched');
+            episode.classList.remove("watched");
           }
         }
       });

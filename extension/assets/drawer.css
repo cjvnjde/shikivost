@@ -1,0 +1,79 @@
+.extension,
+#headlessui-portal-root {
+  .drawer {
+    display: flex;
+    position: fixed;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 40;
+    inset: 0;
+    color: var(--text);
+
+    & .drawer-backdrop {
+      position: fixed;
+      z-index: 41;
+      transition-duration: 100ms;
+      transition-property: opacity;
+      transition-timing-function: ease-out;
+      inset: 0;
+      background-color: var(--backdrop-bg);
+
+      &[data-closed] {
+        opacity: 0;
+      }
+    }
+
+    & .drawer-panel {
+      display: flex;
+      flex-direction: column;
+      z-index: 42;
+      transition-duration: 300ms;
+      transition-property: transform, opacity;
+      transition-timing-function: ease-out;
+      background-color: var(--drawer-background);
+      height: 100vh;
+      max-height: 100vh;
+      overflow: hidden;
+
+      &[data-closed] {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+
+    & .drawer-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--drawer-border);
+      padding: 8px;
+      height: 56px;
+    }
+
+    & .drawer-header__title {
+      color: var(--drawer-header-text);
+      font-weight: 800;
+      font-size: 1rem;
+      line-height: 1rem;
+    }
+
+    & .drawer-header__close {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.1s ease;
+      border: none;
+      border-radius: 4px;
+      background-color: var(--drawer-close-bg);
+      width: 32px;
+      height: 32px;
+      color: var(--drawer-close-text);
+
+      &:hover {
+        background-color: var(--drawer-close-bg-hover);
+        color: var(--drawer-close-text-hover);
+      }
+    }
+  }
+}

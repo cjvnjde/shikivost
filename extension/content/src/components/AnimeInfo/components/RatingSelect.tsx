@@ -2,9 +2,9 @@ import {
   IconStar,
   IconStarFilled,
   IconStarHalfFilled,
-} from '@tabler/icons-react';
-import { useMemo, useRef, useState } from 'react';
-import { Score } from '../../../api/src/types/Score';
+} from "@tabler/icons-react";
+import { useMemo, useRef, useState } from "react";
+import { Score } from "../../../../../api/src/types/Score";
 
 type RatingSelectProps = {
   rating: Score;
@@ -34,10 +34,10 @@ export function RatingSelect({ rating, setRating }: RatingSelectProps) {
   const container = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="flex items-center justify-center my-1">
+    <div className="rating-select-container">
       <div
         ref={container}
-        className="flex items-center flex-row w-min text-amber-600 cursor-pointer"
+        className="rating-stars-container"
         onClick={() => setRating(localRating as Score)}
         onMouseLeave={() => setLocalRating(rating)}
         onMouseMove={(event) => {
@@ -53,9 +53,7 @@ export function RatingSelect({ rating, setRating }: RatingSelectProps) {
       >
         {stars}
       </div>
-      <span className="ml-2 w-4.5 text-center text-amber-600">
-        {localRating}
-      </span>
+      <span className="rating-value">{localRating}</span>
     </div>
   );
 }

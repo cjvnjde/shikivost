@@ -1,3 +1,3 @@
 export function checkIsRendered() {
-  return Boolean(document.querySelector('.extension'));
+  return Boolean(document.querySelector(".extension"));
 }

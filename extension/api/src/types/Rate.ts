@@ -1,4 +1,4 @@
-import { Score } from './Score';
+import { Score } from "./Score";
 
 export type Rate = {
   id: number;

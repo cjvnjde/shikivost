@@ -1,6 +1,6 @@
 const enTitleRegexp = /\/(.*?)\[/;
 
-export function parseTitle(title: string | null = '') {
+export function parseTitle(title: string | null = "") {
   const match = title?.match(enTitleRegexp);
 
   if (match && match[1]) {
@@ -11,13 +11,13 @@ export function parseTitle(title: string | null = '') {
 }
 
 export function getTitle() {
-  const titleContent = document.querySelector('.shortstoryHead > h1');
+  const titleContent = document.querySelector(".shortstoryHead > h1");
 
   return parseTitle(titleContent?.textContent);
 }
 
 export function getYear() {
-  const titleContent = document.querySelector('.shortstoryContent p');
+  const titleContent = document.querySelector(".shortstoryContent p");
 
   const match = titleContent?.textContent?.match(/\d+$/);
 

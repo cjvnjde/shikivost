@@ -1,30 +1,38 @@
-import { useAtom } from 'jotai';
-import { settingsAtom } from '../state';
-import Drawer from './ui/Drawer';
-import DrawerHeader from './ui/DrawerHeader';
-import Input from './ui/Input';
-import Select from './ui/Select';
+import { useAtom } from "jotai";
+import { settingsAtom } from "../state";
+import Drawer from "./ui/Drawer";
+import DrawerHeader from "./ui/DrawerHeader";
+import { Input } from "./ui/Input";
+import {
+  SelectButton,
+  Select,
+  SelectContainer,
+  SelectOption,
+} from "./ui/Select";
+import { WithLabel } from "extension/content/src/components/ui/WithLabel";
+import { DropdownButton } from "extension/content/src/components/ui/DropdownButton";
 
 type SettingsProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const trackingOptions: {
+type TrakingOption = {
   name: string;
-  id: 'none' | 'videoProgress' | 'watchedProgress';
-}[] = [
+  id: "none" | "videoProgress" | "watchedProgress";
+};
+const trackingOptions: TrakingOption[] = [
   {
-    id: 'none',
-    name: 'Не использовать',
+    id: "none",
+    name: "Не использовать",
   },
   {
-    id: 'videoProgress',
-    name: 'Прогресс видео',
+    id: "videoProgress",
+    name: "Прогресс видео",
   },
   {
-    id: 'watchedProgress',
-    name: 'Прогресс просмотра',
+    id: "watchedProgress",
+    name: "Прогресс просмотра",
   },
 ];
 
@@ -35,47 +43,60 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
     return null;
   }
 
+  const selectedValue =
+    trackingOptions.find((o) => o.id === settingsData.autotrackingType) ||
+    trackingOptions[0];
+
+  const setSelectedValue = (id: TrakingOption["id"]) => {
+    if (settingsData) {
+      setSettingsData({
+        ...settingsData,
+        autotrackingType: id,
+      });
+    }
+  };
+
   return (
     <Drawer isOpen={isOpen} onClose={onClose}>
       <DrawerHeader onClose={onClose} title="Настройки" />
-      <form className="flex flex-col gap-3 w-[300px] px-2 pt-3">
-        <Select
-          label="Тип автотрекинга видео"
-          name="autotrackingType"
-          selected={
-            trackingOptions.find(
-              (o) => o.id === settingsData.autotrackingType,
-            ) || trackingOptions[0]
-          }
-          setSelected={({ id }) => {
-            if (settingsData) {
-              setSettingsData({
-                ...settingsData,
-                autotrackingType: id,
-              });
-            }
-          }}
-          options={trackingOptions}
-        />
-        <Input
-          label="Лимит прогресса"
-          type="number"
-          name="progressValue"
-          value={String(settingsData.progressValue)}
-          onChange={(newValue) => {
-            const val = Number(newValue);
-            const data = Math.max(
-              Math.min(Number.isNaN(val) ? 60 : val, 100),
-              0,
-            );
-            if (settingsData) {
-              setSettingsData({
-                ...settingsData,
-                progressValue: data,
-              });
-            }
-          }}
-        />
+      <form className="settings-form">
+        <WithLabel label="Тип автотрекинга видео">
+          <Select
+            value={settingsData.autotrackingType}
+            onChange={setSelectedValue}
+          >
+            <SelectButton as={DropdownButton}>
+              {selectedValue?.name}
+            </SelectButton>
+            <SelectContainer>
+              {trackingOptions.map(({ id, name }) => {
+                return <SelectOption value={id}>{name}</SelectOption>;
+              })}
+            </SelectContainer>
+          </Select>
+        </WithLabel>
+
+        <WithLabel label="Лимит прогресса">
+          <Input
+            type="number"
+            name="progressValue"
+            value={String(settingsData.progressValue)}
+            onChange={(e) => {
+              const newValue = e.target.value;
+              const val = Number(newValue);
+              const data = Math.max(
+                Math.min(Number.isNaN(val) ? 60 : val, 100),
+                0,
+              );
+              if (settingsData) {
+                setSettingsData({
+                  ...settingsData,
+                  progressValue: data,
+                });
+              }
+            }}
+          />
+        </WithLabel>
       </form>
     </Drawer>
   );

@@ -1,0 +1,48 @@
+.extension,
+#headlessui-portal-root {
+  /* WithLabel */
+  .with-label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .with-label__label {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+
+  /* Input */
+  .input-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 4px;
+    background-color: var(--input-bg);
+    padding: 10px 8px;
+    min-height: 36px;
+    overflow: hidden;
+    color: var(--input-text);
+    font-size: 14px;
+
+    &:hover {
+      background-color: var(--input-bg-hover);
+    }
+
+    &:focus-within {
+      background-color: var(--input-bg-hover);
+    }
+  }
+
+  .input {
+    display: flex;
+    flex-grow: 1;
+    outline: none;
+    border: none;
+  }
+}

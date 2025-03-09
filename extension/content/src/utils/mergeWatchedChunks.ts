@@ -1,4 +1,4 @@
-import { Chunk } from '../ChunkType';
+import { Chunk } from "../ChunkType";
 
 export function mergeWatchedChunks(arr: Chunk[]): Chunk[] {
   if (arr.length <= 1) return arr;

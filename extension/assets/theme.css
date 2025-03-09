@@ -1,0 +1,36 @@
+:root {
+  --border: #fdb94e;
+  --title-text: #c47504;
+  --text: #a3721c;
+  --icon-text: var(--title-text);
+  --icon-bg: transparent;
+  --icon-text-hover: var(--title-text);
+  --icon-bg-hover: #fdb94e;
+
+  --header-icon-background: #f9a825;
+  --header-icon-text: #d97706;
+
+  --drawer-background: #f4e0c3;
+  --drawer-border: var(--border);
+  --drawer-header-text: var(--title-text);
+
+  --drawer-close-bg-hover: var(--icon-bg-hover);
+  --drawer-close-text-hover: var(--icon-text-hover);
+  --drawer-close-text: var(--icon-text);
+  --drawer-close-bg: var(--icon-bg);
+
+  --input-bg: #fbc182;
+  --input-bg-hover: #ffb565;
+  --input-text: var(--text);
+
+  --danger-bg: #dc3545;
+  --danger-text: #fffcfd;
+
+  --backdrop-bg: rgba(0, 0, 0, 0.25);
+
+  --success-bg: rgb(163 230 53);
+  --success-bg-active: rgb(101 163 13);
+
+  --tooltip-bg: black;
+  --tooltip-text: white;
+}

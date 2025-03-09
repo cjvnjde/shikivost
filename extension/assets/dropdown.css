@@ -1,0 +1,99 @@
+.extension,
+#headlessui-portal-root {
+  /* DropdownButton */
+  .dropdown-button {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: var(--input-bg);
+    padding: 10px 8px;
+    overflow: hidden;
+    color: var(--input-text);
+    font-size: 14px;
+
+    &:hover {
+      background-color: var(--input-bg-hover);
+    }
+
+    &[data-open] {
+      background-color: var(--input-bg-hover);
+    }
+  }
+
+  .dropdown-button__chevron {
+    transition: transform 0.2s ease;
+    margin-left: auto;
+    width: 16px;
+    height: 16px;
+  }
+
+  .dropdown-button[data-open] .dropdown-button__chevron {
+    transform: rotate(180deg);
+  }
+
+  /* DropdownContainer */
+  .dropdown-container {
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+    border-radius: 4px;
+    background-color: var(--input-bg);
+    overflow: hidden;
+
+    &--select {
+      transform-origin: top;
+      transition-duration: 100ms;
+      transition-property: transform, opacity;
+      transition-timing-function: ease-out;
+      min-width: var(--button-width);
+
+      &[data-closed] {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+    }
+  }
+
+  /* DropdownContent */
+  .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+    overflow-y: auto;
+
+    & > * + * {
+      border-top: 1px solid var(--border);
+    }
+  }
+
+  /* Select */
+  .select-dropdown-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+    background-color: var(--input-bg);
+    padding: 10px 8px;
+    min-height: 36px;
+    color: var(--text);
+    font-weight: normal;
+    font-size: 14px;
+
+    &:hover {
+      background-color: var(--input-bg-hover);
+      color: var(--input-text);
+    }
+
+    &--danger {
+      background-color: var(--danger-bg);
+      color: var(--danger-text);
+    }
+  }
+}

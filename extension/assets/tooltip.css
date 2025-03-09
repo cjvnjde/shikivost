@@ -1,0 +1,28 @@
+.extension,
+#headlessui-portal-root {
+  .tooltip {
+    position: relative;
+  }
+
+  .tooltip .tooltiptext {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    z-index: 1;
+
+    transition: opacity 0.1s ease;
+    border-radius: 6px;
+    background-color: var(--tooltip-bg);
+    padding: 5px 0;
+    width: 120px;
+    pointer-events: none;
+    color: var(--tooltip-text);
+    text-align: center;
+  }
+
+  .tooltip:hover .tooltiptext {
+    opacity: 1;
+  }
+}

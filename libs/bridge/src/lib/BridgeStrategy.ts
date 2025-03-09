@@ -1,16 +1,16 @@
-import browser from 'webextension-polyfill';
-import { decodeData } from './dataUtils';
+import browser from "webextension-polyfill";
+import { decodeData } from "./dataUtils";
 
-export type Listener = Parameters<
-  typeof browser.runtime.onMessage.addListener
->[0];
+export type Listener = (data: string) => void;
 export type ListenerCallback = (data: Parameters<Listener>[0]) => void;
 
 export class BridgeStrategy {
   private listeners = new Map<ListenerCallback, string>();
 
   constructor() {
-    browser.runtime.onMessage.addListener(this.listener);
+    browser.runtime.onMessage.addListener(
+      this.listener as (data: unknown) => void,
+    );
   }
 
   public on(eventName: string, listener: ListenerCallback) {
@@ -21,7 +21,7 @@ export class BridgeStrategy {
     this.listeners.delete(listener);
   }
 
-  private listener: Listener = (data) => {
+  private listener: Listener = (data: string) => {
     const { event: eventType, payload } = decodeData(data) || {};
 
     this.listeners.forEach((event, fn) => {

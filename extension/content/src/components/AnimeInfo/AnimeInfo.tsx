@@ -1,9 +1,9 @@
-import { Api } from '@shikivost/api';
-import { useAtom, useAtomValue } from 'jotai';
-import { currentRateAtom, isAuthorizedAtom } from '../state';
-import { EpisodeIncrementer } from './EpisodeIncrementer';
-import { RatingSelect } from './RatingSelect';
-import { StatusSelect } from './StatusSelect';
+import { Api } from "@shikivost/api";
+import { useAtom, useAtomValue } from "jotai";
+import { currentRateAtom, isAuthorizedAtom } from "../../state";
+import { EpisodeIncrementer } from "./components/EpisodeIncrementer";
+import { RatingSelect } from "./components/RatingSelect";
+import { StatusSelect } from "./components/StatusSelect";
 
 const api = Api.create();
 
@@ -16,7 +16,7 @@ export function AnimeInfo() {
   }
 
   return (
-    <div>
+    <div className="anime-info">
       <StatusSelect />
       {rate?.id && (
         <RatingSelect

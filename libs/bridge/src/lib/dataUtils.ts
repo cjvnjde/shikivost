@@ -1,15 +1,15 @@
-import { nanoid } from 'nanoid';
+import { nanoid } from "nanoid";
 
 export function encodeData({
   event,
   data = null,
   id: eventId,
-  type = 'request',
+  type = "request",
 }: {
   event: string;
   data: unknown | null;
   id?: string;
-  type?: 'request' | 'response';
+  type?: "request" | "response";
 }) {
   const id = eventId || nanoid();
 
