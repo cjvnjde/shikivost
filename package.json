@@ -4,8 +4,8 @@
   "description": "Effortlessly sync your Animevost.org progress with Shikimori.one using Shikivost",
   "license": "MIT",
   "scripts": {
-    "build:firefox": "pnpm run build && pnpm run bundle",
-    "build:chrome": "pnpm run build && pnpm run build:extension:static:chrome && pnpm run bundle",
+    "build:firefox": "pnpm run build",
+    "build:chrome": "pnpm run build && pnpm run build:extension:static:chrome",
     "serve:extension:firefox": "pnpm run build && concurrently --kill-others 'pnpm run watch:extension:content' 'pnpm run watch:extension:background' 'pnpm run start:extension:firefox'",
     "bundle": "web-ext build -s ./dist/extension -a ./dist --overwrite-dest",
     "build:extension:static": "nx run static:build --skip-nx-cache",
