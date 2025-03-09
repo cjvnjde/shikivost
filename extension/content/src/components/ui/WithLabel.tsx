@@ -8,9 +8,7 @@ type WithLabelProps = {
 export const WithLabel = ({ children, label }: WithLabelProps) => {
   return (
     <label className="with-label">
-      {label !== undefined && (
-        <label className="with-label__label">{label}</label>
-      )}
+      <span className="with-label__label">{label}</span>
       {children}
     </label>
   );

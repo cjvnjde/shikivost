@@ -16,7 +16,7 @@ async function init() {
   bridge.on("content.set.refresh_token", (value) => {
     api.refreshToken = value || "";
   });
-  bridge.on("content.set.settings", (value) => {
+  bridge.on("content.set.settings", (value: any) => {
     defaultStore.set(settingsAtom, {
       autotrackingType: value?.autotrackingType ?? "watchedProgress",
       progressValue: value?.progressValue ?? 60,

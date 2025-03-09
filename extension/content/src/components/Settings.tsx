@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { settingsAtom } from "../state";
 import Drawer from "./ui/Drawer";
 import DrawerHeader from "./ui/DrawerHeader";
-import Input from "./ui/Input";
+import { Input } from "./ui/Input";
 import {
   SelectButton,
   Select,
@@ -75,25 +75,28 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
             </SelectContainer>
           </Select>
         </WithLabel>
-        <Input
-          label="Лимит прогресса"
-          type="number"
-          name="progressValue"
-          value={String(settingsData.progressValue)}
-          onChange={(newValue) => {
-            const val = Number(newValue);
-            const data = Math.max(
-              Math.min(Number.isNaN(val) ? 60 : val, 100),
-              0,
-            );
-            if (settingsData) {
-              setSettingsData({
-                ...settingsData,
-                progressValue: data,
-              });
-            }
-          }}
-        />
+
+        <WithLabel label="Лимит прогресса">
+          <Input
+            type="number"
+            name="progressValue"
+            value={String(settingsData.progressValue)}
+            onChange={(e) => {
+              const newValue = e.target.value;
+              const val = Number(newValue);
+              const data = Math.max(
+                Math.min(Number.isNaN(val) ? 60 : val, 100),
+                0,
+              );
+              if (settingsData) {
+                setSettingsData({
+                  ...settingsData,
+                  progressValue: data,
+                });
+              }
+            }}
+          />
+        </WithLabel>
       </form>
     </Drawer>
   );

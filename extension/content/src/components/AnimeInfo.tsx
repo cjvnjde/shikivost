@@ -16,7 +16,7 @@ export function AnimeInfo() {
   }
 
   return (
-    <div>
+    <div className="anime-info">
       <StatusSelect />
       {rate?.id && (
         <RatingSelect

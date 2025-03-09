@@ -7,6 +7,8 @@ import {
 } from "@headlessui/react";
 import { HTMLProps, type Ref } from "react";
 import { DropdownContainer } from "./DropdownContainer";
+import { DropdownContent } from "./DropdownContent";
+import clsx from "clsx";
 
 type SelectContainerProps = HTMLProps<HTMLDivElement> & {
   ref?: Ref<HTMLDivElement>;
@@ -17,9 +19,9 @@ export const Select = Listbox;
 
 export const SelectButton = ListboxButton;
 
-export const SelectOption = ({ children, ...props }: ListboxOptionProps) => {
+export const SelectOption = ({ children, className, ...props }: ListboxOptionProps) => {
   return (
-    <ListboxOption className="select-dropdown-option" {...props}>
+    <ListboxOption className={clsx("select-dropdown-option", className) {...props}>
       {children}
     </ListboxOption>
   );
@@ -39,11 +41,11 @@ export const SelectContainer = ({
         to: placement,
       }}
       transition
-      className="select-dropdown"
+      className="dropdown-container dropdown-container--select"
       {...props}
       as={DropdownContainer}
     >
-      {children}
+      <DropdownContent>{children}</DropdownContent>
     </ListboxOptions>
   );
 };

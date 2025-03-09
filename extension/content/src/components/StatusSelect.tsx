@@ -51,12 +51,19 @@ export function StatusSelect() {
 
   return (
     <Select value={selected?.id} onChange={onChange}>
-      <SelectButton as={DropdownButton}>{selected?.name}</SelectButton>
+      <SelectButton as={DropdownButton} placeholder="Добавить в список">
+        {selected?.name}
+      </SelectButton>
       <SelectContainer>
         {options.map(({ id, name }) => {
           return <SelectOption value={id}>{name}</SelectOption>;
         })}
-        <SelectOption value={deleteOption.id}>{deleteOption.name}</SelectOption>
+        <SelectOption
+          className="select-dropdown-option--danger"
+          value={deleteOption.id}
+        >
+          {deleteOption.name}
+        </SelectOption>
       </SelectContainer>
     </Select>
   );

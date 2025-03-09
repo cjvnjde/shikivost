@@ -1,50 +1,39 @@
-import { Input as HInput } from "@headlessui/react";
-import { ChangeEvent, useCallback, useId } from "react";
+import { Input as InputHUI } from "@headlessui/react";
+import { InputHTMLAttributes, PropsWithChildren, ReactNode, Ref } from "react";
 
-type InputProps = {
-  label: string;
-  name: HTMLInputElement["name"];
-  placeholder?: HTMLInputElement["placeholder"];
-  type: HTMLInputElement["type"];
-  value: string;
-  onChange: (value: string) => void;
-};
+export type BaseInputWrapperProps = PropsWithChildren<{
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
+}>;
 
-const Input = ({
-  label,
-  placeholder,
-  name,
-  type,
-  value,
-  onChange,
-}: InputProps) => {
-  const id = useId();
+export type InputProps = Omit<BaseInputWrapperProps, "children"> &
+  InputHTMLAttributes<HTMLInputElement> & {
+    ref?: Ref<HTMLInputElement>;
+  };
 
-  const onValueChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      onChange(e.currentTarget.value);
-    },
-    [onChange],
-  );
-
+export const InputWrapper = ({
+  children,
+  startIcon = null,
+  endIcon = null,
+}: BaseInputWrapperProps) => {
   return (
-    <div className="input-group">
-      <label htmlFor={id} className="input-label">
-        {label}
-      </label>
-      <div className="input-container">
-        <HInput
-          value={value}
-          type={type}
-          name={name}
-          id={id}
-          className="h-input"
-          placeholder={placeholder}
-          onChange={onValueChange}
-        />
-      </div>
-    </div>
+    <label className="input-wrapper">
+      {startIcon}
+      {children}
+      {endIcon}
+    </label>
   );
 };
 
-export default Input;
+export const Input = ({
+  startIcon,
+  endIcon,
+  ref = undefined,
+  ...props
+}: InputProps) => {
+  return (
+    <InputWrapper startIcon={startIcon} endIcon={endIcon}>
+      <InputHUI ref={ref} className="input" {...props} />
+    </InputWrapper>
+  );
+};

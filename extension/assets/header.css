@@ -1,0 +1,18 @@
+.login-wrapper.extension {
+  position: absolute;
+  top: 0;
+  right: 307px;
+  width: 34px;
+
+  & .shikimori-icon-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: var(--header-icon-background);
+    width: 34px;
+    height: 34px;
+    color: var(--header-icon-text);
+  }
+}
