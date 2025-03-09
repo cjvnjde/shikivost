@@ -4,7 +4,7 @@ import {
   IconStarHalfFilled,
 } from "@tabler/icons-react";
 import { useMemo, useRef, useState } from "react";
-import { Score } from "../../../api/src/types/Score";
+import { Score } from "../../../../../api/src/types/Score";
 
 type RatingSelectProps = {
   rating: Score;

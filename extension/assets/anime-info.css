@@ -1,0 +1,80 @@
+.extension,
+#headlessui-portal-root {
+  .anime-info {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 4px;
+  }
+
+  /* EpisodeIncrementer */
+  .episode-incrementer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px solid #fed7aa;
+    padding-bottom: 0.125rem;
+  }
+
+  .episode-label {
+    font-weight: bold;
+  }
+
+  .episode-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.375rem;
+    line-height: 1.25rem;
+  }
+
+  .increment-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition-duration: 150ms;
+    transition-property: background-color;
+    transition-timing-function: ease-in-out;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #d97706;
+    padding: 0;
+    color: #fed7aa;
+
+    &:hover {
+      background-color: #eab308;
+    }
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+
+  /* RatingSelect  */
+  .rating-select-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .rating-stars-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    width: min-content;
+    color: #d97706;
+  }
+
+  .rating-value {
+    margin-left: 0.5rem;
+    width: 1.125rem;
+    color: #d97706;
+    text-align: center;
+  }
+}

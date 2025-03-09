@@ -19,9 +19,16 @@ export const Select = Listbox;
 
 export const SelectButton = ListboxButton;
 
-export const SelectOption = ({ children, className, ...props }: ListboxOptionProps) => {
+export const SelectOption = ({
+  children,
+  className,
+  ...props
+}: ListboxOptionProps) => {
   return (
-    <ListboxOption className={clsx("select-dropdown-option", className) {...props}>
+    <ListboxOption
+      className={clsx("select-dropdown-option", className)}
+      {...props}
+    >
       {children}
     </ListboxOption>
   );

@@ -9,7 +9,7 @@ type PopupHeaderProps = {
 
 const DrawerHeader = ({ onClose = undefined, title }: PopupHeaderProps) => {
   return (
-    <DialogTitle className="drawer-header extension">
+    <DialogTitle className="drawer-header">
       <span className="drawer-header__title">{title}</span>
       <button type="button" onClick={onClose} className="drawer-header__close">
         <IconX size={20} stroke={2} />

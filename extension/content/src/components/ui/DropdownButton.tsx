@@ -22,9 +22,7 @@ export const DropdownButton = ({
       className="dropdown-button"
       {...props}
     >
-      {children ?? (
-        <span className="dropdown-button__placeholder">{placeholder}</span>
-      )}
+      {children ?? placeholder ?? ""}
       <IconChevronDown size={16} className="dropdown-button__chevron" />
     </ButtonHUI>
   );

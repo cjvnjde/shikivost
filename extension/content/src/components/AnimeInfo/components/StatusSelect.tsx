@@ -1,15 +1,14 @@
-import { Api } from "@shikivost/api";
-import { useAtom } from "jotai";
-import { useAtomValue } from "jotai/index";
-import { accountAtom, animeAtom, currentRateAtom } from "../state";
-import { status, statusText } from "../status";
+import { Api } from "../../../../../api/src";
+import { useAtom, useAtomValue } from "jotai";
+import { accountAtom, animeAtom, currentRateAtom } from "../../../state";
+import { status, statusText } from "../../../status";
 import {
   Select,
   SelectButton,
   SelectContainer,
   SelectOption,
-} from "./ui/Select";
-import { DropdownButton } from "./ui/DropdownButton";
+} from "../../ui/Select";
+import { DropdownButton } from "../../ui/DropdownButton";
 
 const api = Api.create();
 
