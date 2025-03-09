@@ -1,0 +1,59 @@
+name: Build and Release Browser Extensions
+
+on:
+  push:
+    tags:
+      - v*
+  workflow_dispatch:
+
+jobs:
+  build_firefox:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "pnpm"
+      - name: Install packages (`pnpm i`)
+        run: pnpm i
+      - name: Build Firefox extension
+        env:
+          VERSION: ${{ github.ref_name }}
+        run: pnpm run build:firefox
+      - name: Upload Firefox artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firefox-extension-zip
+          path: ./dist/shikivost-*.zip
+  build_chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "pnpm"
+      - name: Install packages (`pnpm i`)
+        run: pnpm i
+      - name: Build Chrome extension
+        env:
+          VERSION: ${{ github.ref_name }}
+        run: pnpm run build:chrome
+      - name: Upload Chrome artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chrome-extension-zip
+          path: ./dist/shikivost-*.zip
