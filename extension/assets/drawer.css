@@ -16,7 +16,7 @@
       transition-property: opacity;
       transition-timing-function: ease-out;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.25);
+      background-color: var(--backdrop-bg);
 
       &[data-closed] {
         opacity: 0;

@@ -14,11 +14,11 @@
 
     transition: opacity 0.1s ease;
     border-radius: 6px;
-    background-color: black;
+    background-color: var(--tooltip-bg);
     padding: 5px 0;
     width: 120px;
     pointer-events: none;
-    color: #fff;
+    color: var(--tooltip-text);
     text-align: center;
   }
 

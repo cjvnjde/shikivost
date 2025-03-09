@@ -13,13 +13,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-    border-bottom: 1px solid #fed7aa;
-    padding-bottom: 0.125rem;
+    border-bottom: 1px solid var(--border);
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: var(--text);
   }
 
   .episode-label {
+    color: var(--title-text);
     font-weight: bold;
   }
 
@@ -40,13 +41,15 @@
     transition-timing-function: ease-in-out;
     border: none;
     border-radius: 0.25rem;
-    background-color: #d97706;
+    background-color: var(--icon-bg);
     padding: 0;
-    color: #fed7aa;
+    color: var(--icon-text);
 
     &:hover {
-      background-color: #eab308;
+      background-color: var(--icon-bg-hover);
+      color: var(--icon-text-hover);
     }
+
     &:disabled {
       opacity: 0.7;
       cursor: not-allowed;
@@ -68,13 +71,13 @@
     align-items: center;
     cursor: pointer;
     width: min-content;
-    color: #d97706;
+    color: var(--icon-text);
   }
 
   .rating-value {
     margin-left: 0.5rem;
     width: 1.125rem;
-    color: #d97706;
+    color: var(--icon-text);
     text-align: center;
   }
 }

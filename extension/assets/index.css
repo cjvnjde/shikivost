@@ -12,17 +12,17 @@
 }
 
 .epizode.active.watched {
-  background: rgb(101 163 13) !important;
+  background: var(--success-bg-active) !important;
 }
 
 .epizode.watched:not(.active) {
-  background: rgb(163 230 53) !important;
+  background: var(--success-bg) !important;
 }
 
 .extension.anime-rating-wrapper {
   display: inline;
   margin-left: 8px;
-  color: oklch(0.666 0.179 58.318);
+  color: var(--title-text);
   font-weight: 600;
 }
 
@@ -34,11 +34,9 @@
 #headlessui-portal-root {
   .anime-title-link {
     display: inline-block;
-    margin-bottom: 0.25rem;
-    border-radius: 0.25rem;
-    background-color: #fed7aa;
-    padding: 0.25rem;
-    color: #d97706;
+    margin-bottom: 8px;
+    color: var(--title-text);
+    font-weight: 600;
     text-align: center;
   }
 
