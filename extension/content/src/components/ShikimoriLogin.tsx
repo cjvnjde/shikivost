@@ -1,5 +1,5 @@
-import { authorizationUrl } from "@shikivost/api";
-import { useAtomValue } from "jotai/index";
+import { Api } from "@shikivost/api";
+import { useAtomValue } from "jotai";
 import { useCallback, useState } from "react";
 import { accountAtom } from "../state";
 import { Settings } from "./Settings";
@@ -24,7 +24,10 @@ export function ShikimoriLogin() {
   }
 
   return (
-    <a href={authorizationUrl} className="shikimori-icon-button tooltip">
+    <a
+      href={Api.getAuthorizationUrl()}
+      className="shikimori-icon-button tooltip"
+    >
       <IconLogin />
       <span className="tooltiptext">Вход в Shikivost</span>
     </a>

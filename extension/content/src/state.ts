@@ -8,7 +8,7 @@ import { Rate } from "../../api/src/types/Rate";
 const bridge = Bridge.create();
 const api = Api.create();
 
-type Settings = {
+export type Settings = {
   autotrackingType: "none" | "videoProgress" | "watchedProgress";
   progressValue: number;
 };
