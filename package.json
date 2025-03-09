@@ -4,6 +4,10 @@
   "description": "Effortlessly sync your Animevost.org progress with Shikimori.one using Shikivost",
   "license": "MIT",
   "scripts": {
+    "build:firefox": "pnpm run build && pnpm run bundle",
+    "build:chrome": "pnpm run build && pnpm run build:extension:static:chrome && pnpm run bundle",
+    "serve:extension:firefox": "pnpm run build && concurrently --kill-others 'pnpm run watch:extension:content' 'pnpm run watch:extension:background' 'pnpm run start:extension:firefox'",
+    "bundle": "web-ext build -s ./dist/extension -a ./dist --overwrite-dest",
     "build:extension:static": "nx run static:build --skip-nx-cache",
     "build:extension:static:chrome": "nx run static:build_chrome --skip-nx-cache",
     "build:extension:content": "nx run content:build --skip-nx-cache",
@@ -11,10 +15,7 @@
     "build:extension:background": "nx run background:build --skip-nx-cache",
     "watch:extension:background": "nx run background:watch --skip-nx-cache",
     "start:extension:firefox": "web-ext run -t firefox-desktop --source-dir ./dist/extension --start-url=https://animevost.org/ --keep-profile-changes",
-    "serve:extension:firefox": "pnpm run build && concurrently --kill-others 'pnpm run watch:extension:content' 'pnpm run watch:extension:background' 'pnpm run start:extension:firefox'",
-    "bundle": "web-ext build -s ./dist/extension -a ./dist --overwrite-dest",
     "build": "pnpm run build:extension:content && pnpm run build:extension:background",
-    "build:chrome": "pnpm run build && pnpm run build:extension:static:chrome",
     "build:libs:bridge": "nx run bridge:build --skip-nx-cache",
     "format:all": "prettier . --write"
   },
