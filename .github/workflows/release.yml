@@ -65,13 +65,13 @@ jobs:
       - name: Download Firefox artifact
         uses: actions/download-artifact@v4
         with:
-          name: firefox-extension-${{ github.ref_name }}
+          name: firefox-extension-${{ github.ref_name }}.zip
           path: ./
       - name: Create Firefox Release
         uses: wdzeng/firefox-addon@v1
         with:
           addon-guid: shikivost@cjvnjde.com
-          xpi-path: firefox-extension-${{ github.ref_name }}.zip
+          xpi-path: firefox-extension-${{ github.ref_name }}
           self-hosted: false
           jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
@@ -89,7 +89,7 @@ jobs:
         uses: wdzeng/chrome-extension@v1
         with:
           extension-id: alfpkdagonppegpjijmcgcccafchklmc
-          zip-path: chrome-extension-${{ github.ref_name }}.zip
+          zip-path: chrome-extension-${{ github.ref_name }}
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
           refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
