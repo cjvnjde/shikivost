@@ -1,6 +1,7 @@
-import { Api } from "../../../../../api/src";
+import { Api } from "../../../api";
 import { useAtom, useAtomValue } from "jotai";
-import { accountAtom, animeAtom, currentRateAtom } from "../../../state";
+import { useAccount } from "../../../api/queries/useAccount";
+import { animeAtom, currentRateAtom } from "../../../state";
 import { status, statusText } from "../../../status";
 import {
   Select,
@@ -26,7 +27,7 @@ const deleteOption = {
 
 export function StatusSelect() {
   const [rate, setRate] = useAtom(currentRateAtom);
-  const accountData = useAtomValue(accountAtom);
+  const { data: accountData } = useAccount();
   const animeData = useAtomValue(animeAtom);
 
   const selected = options.find((option) => option.id === rate?.status);

@@ -1,33 +1,34 @@
-import { Api } from "@shikivost/api";
-import { useAtomValue } from "jotai";
 import { useCallback, useState } from "react";
-import { accountAtom } from "../state";
+import { useAccount } from "../api/queries/useAccount";
+import { config } from "../config";
 import { Settings } from "./Settings";
 import { IconShikimori } from "./icons/IconShikimori";
 import { IconLogin } from "@tabler/icons-react";
 
-export function ShikimoriLogin() {
+const SettingsIcon = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const accountData = useAtomValue(accountAtom);
-
   const onClose = useCallback(() => setIsOpen(false), []);
+  const onOpen = useCallback(() => setIsOpen(true), []);
 
-  if (accountData?.id) {
-    return (
-      <>
-        <Settings isOpen={isOpen} onClose={onClose} />
-        <div className="shikimori-icon-button" onClick={() => setIsOpen(true)}>
-          <IconShikimori />
-        </div>
-      </>
-    );
+  return (
+    <>
+      <Settings isOpen={isOpen} onClose={onClose} />
+      <button type="button" className="shikimori-icon-button" onClick={onOpen}>
+        <IconShikimori />
+      </button>
+    </>
+  );
+};
+
+export function ShikimoriLogin() {
+  const { data: account } = useAccount();
+
+  if (account?.id) {
+    return <SettingsIcon />;
   }
 
   return (
-    <a
-      href={Api.getAuthorizationUrl()}
-      className="shikimori-icon-button tooltip"
-    >
+    <a href={config.authorizationUrl} className="shikimori-icon-button tooltip">
       <IconLogin />
       <span className="tooltiptext">Вход в Shikivost</span>
     </a>

@@ -1,5 +1,5 @@
-import { Api } from "@shikivost/api";
 import { Bridge } from "@shikivost/bridge";
+import { Api } from "./api";
 import { checkIsRendered } from "./checkIsRendered";
 import { renderContent } from "./renderers";
 import { defaultStore, Settings, settingsAtom } from "./state";

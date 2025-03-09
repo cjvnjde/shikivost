@@ -1,9 +1,9 @@
-import { Api } from "@shikivost/api";
 import { Bridge } from "@shikivost/bridge";
 import { atom, getDefaultStore } from "jotai";
-import { Account } from "../../api/src/types/Account";
-import { Anime } from "../../api/src/types/Anime";
-import { Rate } from "../../api/src/types/Rate";
+import { Api } from "./api";
+import { Account } from "./api/types/Account";
+import { Anime } from "./api/types/Anime";
+import { Rate } from "./api/types/Rate";
 
 const bridge = Bridge.create();
 const api = Api.create();
@@ -13,11 +13,13 @@ export type Settings = {
   progressValue: number;
 };
 
-export const settingsAtom = atom<Settings | null>(null);
+export const settingsAtom = atom<Settings>({
+  autotrackingType: "watchedProgress",
+  progressValue: 60,
+});
 export const accountAtom = atom<Account | null>(null);
 export const animeAtom = atom<Anime | null>(null);
 export const currentRateAtom = atom<null | Rate>(null);
-export const isAuthorizedAtom = atom((get) => Boolean(get(accountAtom)?.id));
 
 export const defaultStore = getDefaultStore();
 
@@ -48,16 +50,6 @@ defaultStore.sub(settingsAtom, () => {
     bridge.send("background.store.settings", updateObj);
   }
 });
-
-export function fetchAccount() {
-  const value = defaultStore.get(accountAtom);
-
-  if (!value) {
-    api.whoami().then((accountData) => {
-      defaultStore.set(accountAtom, accountData);
-    });
-  }
-}
 
 export function fetchAnime(title: string, year?: string | null) {
   api.searchAnimes(title, year).then(([animeData]) => {

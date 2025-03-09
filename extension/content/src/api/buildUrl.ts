@@ -1,5 +1,5 @@
 import queryString from "qs";
-import { config } from "./config";
+import { config } from "../config";
 import { QueryObject } from "./types/QueryObject";
 
 export function buildUrl(

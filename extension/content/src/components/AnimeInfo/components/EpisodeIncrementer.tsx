@@ -1,4 +1,4 @@
-import { Api } from "../../../../../api/src";
+import { Api } from "../../../api";
 import { IconPlus } from "@tabler/icons-react";
 import { useAtom, useAtomValue } from "jotai";
 import { useState } from "react";

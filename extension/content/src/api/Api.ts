@@ -1,6 +1,6 @@
-import { Bridge } from "@shikivost/bridge";
+import { Bridge } from "../../../../libs/bridge/src";
 import { buildUrl } from "./buildUrl";
-import { config } from "./config";
+import { config } from "../config";
 import { Account } from "./types/Account";
 import { Anime } from "./types/Anime";
 import { Rate } from "./types/Rate";
@@ -10,12 +10,8 @@ import { Score } from "./types/Score";
 export class Api {
   private _accessToken: string = "";
   private _refreshToken: string = "";
-  static api: Api;
+  private static api: Api;
   private bridge = Bridge.create();
-
-  static getAuthorizationUrl() {
-    return config.authorizationUrl;
-  }
 
   static create() {
     if (this.api) {
@@ -71,7 +67,7 @@ export class Api {
     this._refreshToken = refreshToken;
   }
 
-  async updateToken() {
+  private async updateToken() {
     const form = new FormData();
     form.append("grant_type", "refresh_token");
     form.append("client_id", config.clientId);
@@ -134,7 +130,7 @@ export class Api {
     return defaultHeaders;
   }
 
-  async request<T = unknown>(
+  private async request<T = unknown>(
     url: string,
     data: Partial<RequestOptions> = {},
   ): Promise<T> {
@@ -158,11 +154,14 @@ export class Api {
       .catch(() => null);
   }
 
-  async whoami(): Promise<Account> {
+  public async whoami(): Promise<Account> {
     return this.request(buildUrl("/api/users/whoami"));
   }
 
-  async searchAnimes(search: string, year?: string | null): Promise<Anime[]> {
+  public async searchAnimes(
+    search: string,
+    year?: string | null,
+  ): Promise<Anime[]> {
     const query = Object.fromEntries(
       Object.entries({
         search,
@@ -173,7 +172,7 @@ export class Api {
     return this.request(buildUrl("/api/animes", query));
   }
 
-  async showRate(animeId: number, userId: number): Promise<[Rate]> {
+  public async showRate(animeId: number, userId: number): Promise<[Rate]> {
     return this.request(
       buildUrl(`/api/v2/user_rates`, {
         target_id: animeId,
@@ -183,7 +182,7 @@ export class Api {
     );
   }
 
-  async setRate(
+  public async setRate(
     status: string,
     {
       id,
@@ -219,13 +218,13 @@ export class Api {
     });
   }
 
-  async deleteRate(rateId: number): Promise<void> {
+  public async deleteRate(rateId: number): Promise<void> {
     return this.request(buildUrl(`/api/v2/user_rates/${rateId}`), {
       method: "DELETE",
     });
   }
 
-  async setScore(rateId: number, score: Score): Promise<Rate> {
+  public async setScore(rateId: number, score: Score): Promise<Rate> {
     return this.request(buildUrl(`/api/v2/user_rates/${rateId}`), {
       method: "PATCH",
       body: JSON.stringify({
@@ -236,7 +235,7 @@ export class Api {
     });
   }
 
-  async incrementEpisode(rateId: number) {
+  public async incrementEpisode(rateId: number) {
     return this.request<Rate>(
       buildUrl(`/api/v2/user_rates/${rateId}/increment`),
       {
@@ -245,7 +244,7 @@ export class Api {
     );
   }
 
-  async setEpisode(rateId: number, episodes: number) {
+  public async setEpisode(rateId: number, episodes: number) {
     return this.request<Rate>(buildUrl(`/api/v2/user_rates/${rateId}`), {
       method: "PATCH",
       body: JSON.stringify({
