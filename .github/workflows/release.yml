@@ -7,6 +7,7 @@ on:
 
 jobs:
   build_firefox:
+    name: "Build Firefox"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -36,6 +37,7 @@ jobs:
           compression-level: 0
 
   build_chrome:
+    name: "Build Chrome"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -65,7 +67,8 @@ jobs:
           compression-level: 0
 
   release_firefox:
-    needs: build_firefox
+    name: "Release Firefox"
+    needs: [build_firefox, build_chrome]
     runs-on: ubuntu-latest
     steps:
       - name: Download Firefox artifact
@@ -82,6 +85,7 @@ jobs:
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
 
   release_chrome:
+    name: "Release Chrome"
     needs: build_chrome
     runs-on: ubuntu-latest
     steps:
@@ -98,3 +102,25 @@ jobs:
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
           refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+
+  create_release:
+      name: "Create GitHub Release"
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Download Chrome artifact
+          uses: actions/download-artifact@v4
+          with:
+            name: chrome-extension-${{ github.ref_name }}
+            path: ./
+        - name: Download Firefox artifact
+          uses: actions/download-artifact@v4
+          with:
+            name: firefox-extension-${{ github.ref_name }}
+            path: ./
+        - uses: marvinpinto/action-automatic-releases@latest
+          with:
+            repo_token: "${{ secrets.GITHUB_TOKEN }}"
+            prerelease: false
+            files: |
+              *.zip
