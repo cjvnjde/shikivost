@@ -67,6 +67,8 @@ jobs:
         with:
           name: firefox-extension-${{ github.ref_name }}
           path: ./
+      - name: List Artifacts
+        run: ls ./
       - name: Create Firefox Release
         uses: wdzeng/firefox-addon@v1
         with:
@@ -85,6 +87,8 @@ jobs:
         with:
           name: chrome-extension-${{ github.ref_name }}
           path: ./
+      - name: List Artifacts
+        run: ls ./
       - name: Create Chrome Release
         uses: wdzeng/chrome-extension@v1
         with:
