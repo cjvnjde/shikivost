@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import { AnimeInfo } from "../components/AnimeInfo";
 import { AnimeRating } from "../components/AnimeRating";
 import { AnimeTitle } from "../components/AnimeTitle";
+import Providers from "../components/Providers";
 import { currentRateAtom, defaultStore, fetchAnime } from "../state";
 import { getTitle, getYear } from "../titleParser";
 import { videoWatchChecker } from "../videoWatchChecker";
@@ -17,7 +18,11 @@ export function renderRating() {
   ratingBlock?.appendChild(shikiRatingContainer);
 
   const root = createRoot(shikiRatingContainer);
-  root.render(<AnimeRating />);
+  root.render(
+    <Providers>
+      <AnimeRating />
+    </Providers>,
+  );
 }
 
 export function renderAnimeInfo() {
@@ -30,7 +35,11 @@ export function renderAnimeInfo() {
   leftAnimeBlock?.appendChild(topLineBottomBlock);
 
   const root = createRoot(topLineBottomBlock);
-  root.render(<AnimeInfo />);
+  root.render(
+    <Providers>
+      <AnimeInfo />
+    </Providers>,
+  );
 }
 
 function removeTitle() {
@@ -51,7 +60,11 @@ export function renderAnimeTitle() {
     startAnimeBlock,
   );
   const root = createRoot(topLineBottomBlock);
-  root.render(<AnimeTitle />);
+  root.render(
+    <Providers>
+      <AnimeTitle />
+    </Providers>,
+  );
 }
 
 export function highlightWatchedEpisodes() {

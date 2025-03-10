@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
+import Providers from "../components/Providers";
 import { ShikimoriLogin } from "../components/ShikimoriLogin";
-import { fetchAccount } from "../state";
 
 export function renderHeader() {
   const searchNode = document.querySelector(".search");
@@ -10,7 +10,10 @@ export function renderHeader() {
 
   searchNode?.parentNode?.insertBefore(topLineBottomBlock, searchNode);
 
-  fetchAccount();
   const root = createRoot(topLineBottomBlock);
-  root.render(<ShikimoriLogin />);
+  root.render(
+    <Providers>
+      <ShikimoriLogin />
+    </Providers>,
+  );
 }

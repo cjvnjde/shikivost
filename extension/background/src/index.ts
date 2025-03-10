@@ -30,6 +30,13 @@ function init() {
       bridge.send("content.set.settings", settings);
     });
   });
+
+  bridge.on("background.remove.access_token", () => {
+    browser.storage.local.remove("access_token");
+  });
+  bridge.on("background.remove.refresh_token", () => {
+    browser.storage.local.remove("refresh_token");
+  });
 }
 
 init();

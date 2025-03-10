@@ -1,4 +1,4 @@
-import { Api } from "@shikivost/api";
+import { Api } from "./api";
 import { Chunk } from "./ChunkType";
 import { currentRateAtom, defaultStore, settingsAtom } from "./state";
 import { getTotalWatchedTime } from "./utils/getTotalWatchedTime";

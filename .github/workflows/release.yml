@@ -113,11 +113,17 @@ jobs:
           with:
             name: chrome-extension-${{ github.ref_name }}
             path: ./
+        - name: Rename Chrome Extension file
+          run: |
+            mv shikivost-*.zip shikivost-chrome-${{github.ref_name}}.zip
         - name: Download Firefox artifact
           uses: actions/download-artifact@v4
           with:
             name: firefox-extension-${{ github.ref_name }}
             path: ./
+        - name: Rename Firefox Extension file
+          run: |
+            mv shikivost-*.zip shikivost-firefox-${{github.ref_name}}.zip
         - uses: marvinpinto/action-automatic-releases@latest
           with:
             repo_token: "${{ secrets.GITHUB_TOKEN }}"
