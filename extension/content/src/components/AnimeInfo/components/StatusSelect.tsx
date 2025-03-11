@@ -1,7 +1,9 @@
 import { Api } from "../../../api";
-import { useAtom, useAtomValue } from "jotai";
+import { useCreateRating } from "../../../api/mutations/useCreateRating";
+import { useSetRating } from "../../../api/mutations/useSetRating";
 import { useAccount } from "../../../api/queries/useAccount";
-import { animeAtom, currentRateAtom } from "../../../state";
+import { useAnime } from "../../../api/queries/useAnime";
+import { useRating } from "../../../api/queries/useRating";
 import { status, statusText } from "../../../status";
 import {
   Select,
@@ -10,8 +12,6 @@ import {
   SelectOption,
 } from "../../ui/Select";
 import { DropdownButton } from "../../ui/DropdownButton";
-
-const api = Api.create();
 
 const options = Object.values(status).map((statusValue) => {
   return {
@@ -26,32 +26,44 @@ const deleteOption = {
 };
 
 export function StatusSelect() {
-  const [rate, setRate] = useAtom(currentRateAtom);
+  const { data: rating } = useRating();
   const { data: accountData } = useAccount();
-  const animeData = useAtomValue(animeAtom);
+  const { data: animeData } = useAnime();
+  const { mutate: createRating, isPending: isCreating } = useCreateRating(
+    accountData?.id ?? -1,
+    animeData?.id ?? -1,
+  );
+  const { mutate: setRating, isPending: isUpdating } = useSetRating(
+    accountData?.id ?? -1,
+    animeData?.id ?? -1,
+    rating?.id ?? -1,
+  );
 
-  const selected = options.find((option) => option.id === rate?.status);
+  const isLoading = isUpdating || isCreating;
 
-  const onChange = async (id: string) => {
-    if (accountData?.id && animeData?.id) {
-      if (id === deleteOption.id && rate?.id) {
-        await api.deleteRate(rate.id);
-        setRate(null);
-      } else {
-        setRate(
-          await api.setRate(id, {
-            id: rate?.id,
-            userId: accountData.id,
-            animeId: animeData.id,
-          }),
-        );
+  const selected = options.find((option) => option.id === rating?.status);
+
+  const onChange = async (status: string) => {
+    if (!rating) {
+      createRating(status);
+    } else {
+      if (accountData?.id && animeData?.id) {
+        if (status === deleteOption.id && rating?.id) {
+          setRating(null);
+        } else {
+          setRating(status);
+        }
       }
     }
   };
 
   return (
     <Select value={selected?.id} onChange={onChange}>
-      <SelectButton as={DropdownButton} placeholder="Добавить в список">
+      <SelectButton
+        as={DropdownButton}
+        disabled={isLoading}
+        placeholder="Добавить в список"
+      >
         {selected?.name}
       </SelectButton>
       <SelectContainer>

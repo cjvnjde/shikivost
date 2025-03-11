@@ -1,16 +1,12 @@
-import { useAtom } from "jotai";
-import { Api } from "../../api";
 import { useAccount } from "../../api/queries/useAccount";
-import { currentRateAtom } from "../../state";
 import { EpisodeIncrementer } from "./components/EpisodeIncrementer";
 import { RatingSelect } from "./components/RatingSelect";
 import { StatusSelect } from "./components/StatusSelect";
-
-const api = Api.create();
+import { useRating } from "../../api/queries/useRating";
 
 export function AnimeInfo() {
   const { data: account } = useAccount();
-  const [rate, setRate] = useAtom(currentRateAtom);
+  const { data: rating } = useRating();
 
   if (!account) {
     return null;
@@ -19,17 +15,17 @@ export function AnimeInfo() {
   return (
     <div className="anime-info">
       <StatusSelect />
-      {rate?.id && (
+      {rating?.id && (
         <RatingSelect
-          rating={rate.score || 0}
-          setRating={async (score) => {
-            if (rate?.id) {
-              setRate(await api.setScore(rate.id, score));
+          rating={rating.score || 0}
+          setRating={async () => {
+            if (rating?.id) {
+              // setRate(await api.setScore(rate.id, score));
             }
           }}
         />
       )}
-      {rate?.id && <EpisodeIncrementer />}
+      {rating?.id && <EpisodeIncrementer />}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { AnimeInfo } from "../components/AnimeInfo";
 import { AnimeRating } from "../components/AnimeRating";
 import { AnimeTitle } from "../components/AnimeTitle";
 import Providers from "../components/Providers";
-import { currentRateAtom, defaultStore, fetchAnime } from "../state";
+import { currentRateAtom, defaultStore, setAnimeData } from "../state";
 import { getTitle, getYear } from "../titleParser";
 import { videoWatchChecker } from "../videoWatchChecker";
 
@@ -99,7 +99,8 @@ export function renderAnime() {
   }
 
   const year = getYear();
-  fetchAnime(title, year);
+  setAnimeData(title, year);
+
   removeTitle();
 
   renderRating();

@@ -1,12 +1,9 @@
 import { Bridge } from "@shikivost/bridge";
 import { atom, getDefaultStore } from "jotai";
-import { Api } from "./api";
 import { Account } from "./api/types/Account";
-import { Anime } from "./api/types/Anime";
 import { Rate } from "./api/types/Rate";
 
 const bridge = Bridge.create();
-const api = Api.create();
 
 export type Settings = {
   autotrackingType: "none" | "videoProgress" | "watchedProgress";
@@ -17,27 +14,22 @@ export const settingsAtom = atom<Settings>({
   autotrackingType: "watchedProgress",
   progressValue: 60,
 });
+
+export const animeTitle = atom<string | null>(null);
+export const animeYear = atom<string | null>(null);
 export const accountAtom = atom<Account | null>(null);
-export const animeAtom = atom<Anime | null>(null);
 export const currentRateAtom = atom<null | Rate>(null);
 
 export const defaultStore = getDefaultStore();
 
-function checkRating() {
-  const animeValue = defaultStore.get(animeAtom);
-  const accountValue = defaultStore.get(accountAtom);
-
-  if (animeValue?.id && accountValue?.id) {
-    api.showRate(animeValue.id, accountValue.id).then(([rate]) => {
-      if (rate) {
-        defaultStore.set(currentRateAtom, rate);
-      }
-    });
-  }
+export function setAnimeData(title: string, year: string | null) {
+  defaultStore.set(animeTitle, title);
+  defaultStore.set(animeYear, year);
 }
 
-defaultStore.sub(animeAtom, checkRating);
-defaultStore.sub(accountAtom, checkRating);
+export function setCurrentRating(rate: Rate) {
+  defaultStore.set(currentRateAtom, rate);
+}
 
 defaultStore.sub(settingsAtom, () => {
   const value = defaultStore.get(settingsAtom);
@@ -50,11 +42,3 @@ defaultStore.sub(settingsAtom, () => {
     bridge.send("background.store.settings", updateObj);
   }
 });
-
-export function fetchAnime(title: string, year?: string | null) {
-  api.searchAnimes(title, year).then(([animeData]) => {
-    if (animeData) {
-      defaultStore.set(animeAtom, animeData);
-    }
-  });
-}

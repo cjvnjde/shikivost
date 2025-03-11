@@ -182,29 +182,11 @@ export class Api {
     );
   }
 
-  public async setRate(
+  public async createRating(
+    userId: number,
+    animeId: number,
     status: string,
-    {
-      id,
-      animeId,
-      userId,
-    }: {
-      id?: number;
-      userId: number;
-      animeId: number;
-    },
   ): Promise<Rate> {
-    if (id) {
-      return this.request(buildUrl(`/api/v2/user_rates/${id}`), {
-        method: "PATCH",
-        body: JSON.stringify({
-          user_rate: {
-            status,
-          },
-        }),
-      });
-    }
-
     return this.request(buildUrl("/api/v2/user_rates"), {
       method: "POST",
       body: JSON.stringify({
@@ -218,8 +200,19 @@ export class Api {
     });
   }
 
-  public async deleteRate(rateId: number): Promise<void> {
-    return this.request(buildUrl(`/api/v2/user_rates/${rateId}`), {
+  public async updateRating(id: number, status: string): Promise<Rate> {
+    return this.request(buildUrl(`/api/v2/user_rates/${id}`), {
+      method: "PATCH",
+      body: JSON.stringify({
+        user_rate: {
+          status,
+        },
+      }),
+    });
+  }
+
+  public async deleteRating(id: number): Promise<void> {
+    return this.request(buildUrl(`/api/v2/user_rates/${id}`), {
       method: "DELETE",
     });
   }

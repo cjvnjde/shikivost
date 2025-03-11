@@ -1,8 +1,7 @@
-import { useAtomValue } from "jotai";
-import { animeAtom } from "../state";
+import { useAnime } from "../api/queries/useAnime";
 
 export function AnimeRating() {
-  const animeData = useAtomValue(animeAtom);
+  const { data: animeData } = useAnime();
 
   return <>{animeData?.score}</>;
 }
