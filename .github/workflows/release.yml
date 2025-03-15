@@ -106,7 +106,7 @@ jobs:
   create_release:
       name: "Create GitHub Release"
       runs-on: ubuntu-latest
-
+      needs: [release_firefox, release_chrome]
       steps:
         - name: Download Chrome artifact
           uses: actions/download-artifact@v4
