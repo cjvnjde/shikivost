@@ -9,8 +9,8 @@ import {
   SelectContainer,
   SelectOption,
 } from "./ui/Select";
-import { WithLabel } from "extension/content/src/components/ui/WithLabel";
-import { DropdownButton } from "extension/content/src/components/ui/DropdownButton";
+import { WithLabel } from "./ui/WithLabel";
+import { DropdownButton } from "./ui/DropdownButton";
 
 type SettingsProps = {
   isOpen: boolean;

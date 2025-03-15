@@ -1,4 +1,4 @@
-import { Api } from "../../api/src";
+import { Api } from "./api";
 
 const api = Api.create();
 

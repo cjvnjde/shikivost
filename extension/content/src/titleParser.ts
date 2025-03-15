@@ -1,13 +1,24 @@
 const enTitleRegexp = /\/(.*?)\[/;
+const ruTitleRegexp = /(.*) \/ /;
 
 export function parseTitle(title: string | null = "") {
-  const match = title?.match(enTitleRegexp);
+  const enMatch = title?.match(enTitleRegexp);
+  const ruMatch = title?.match(ruTitleRegexp);
 
-  if (match && match[1]) {
-    return match[1].trim();
+  const titles = {
+    en: "",
+    ru: "",
+  };
+
+  if (enMatch && enMatch[1]) {
+    titles.en = enMatch[1].trim();
   }
 
-  return null;
+  if (ruMatch && ruMatch[1]) {
+    titles.ru = ruMatch[1].trim();
+  }
+
+  return titles;
 }
 
 export function getTitle() {

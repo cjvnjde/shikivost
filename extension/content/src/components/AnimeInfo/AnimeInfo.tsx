@@ -1,34 +1,26 @@
-import { Api } from "@shikivost/api";
-import { useAtom, useAtomValue } from "jotai";
-import { currentRateAtom, isAuthorizedAtom } from "../../state";
+import { useSetScore } from "../../api/mutations/useSetScore";
+import { useAccount } from "../../api/queries/useAccount";
 import { EpisodeIncrementer } from "./components/EpisodeIncrementer";
 import { RatingSelect } from "./components/RatingSelect";
 import { StatusSelect } from "./components/StatusSelect";
-
-const api = Api.create();
+import { useRating } from "../../api/queries/useRating";
 
 export function AnimeInfo() {
-  const isAuth = useAtomValue(isAuthorizedAtom);
-  const [rate, setRate] = useAtom(currentRateAtom);
+  const { data: account } = useAccount();
+  const { data: rating } = useRating();
+  const { mutate: setScore } = useSetScore(rating?.id);
 
-  if (!isAuth) {
+  if (!account) {
     return null;
   }
 
   return (
     <div className="anime-info">
       <StatusSelect />
-      {rate?.id && (
-        <RatingSelect
-          rating={rate.score || 0}
-          setRating={async (score) => {
-            if (rate?.id) {
-              setRate(await api.setScore(rate.id, score));
-            }
-          }}
-        />
+      {rating?.id && (
+        <RatingSelect rating={rating.score || 0} setRating={setScore} />
       )}
-      {rate?.id && <EpisodeIncrementer />}
+      {rating?.id && <EpisodeIncrementer />}
     </div>
   );
 }

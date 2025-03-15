@@ -1,8 +1,8 @@
-import { Api } from "@shikivost/api";
 import { Bridge } from "@shikivost/bridge";
+import { Api } from "./api";
 import { checkIsRendered } from "./checkIsRendered";
 import { renderContent } from "./renderers";
-import { defaultStore, settingsAtom } from "./state";
+import { defaultStore, Settings, settingsAtom } from "./state";
 import { tokenChecker } from "./tokenChecker";
 import "../../assets/index.css";
 
@@ -14,17 +14,24 @@ async function init() {
   let isRendered = false;
 
   bridge.on("content.set.refresh_token", (value) => {
-    api.refreshToken = value || "";
+    if (typeof value === "string") {
+      api.refreshToken = value ?? "";
+    }
   });
-  bridge.on("content.set.settings", (value: any) => {
-    defaultStore.set(settingsAtom, {
-      autotrackingType: value?.autotrackingType ?? "watchedProgress",
-      progressValue: value?.progressValue ?? 60,
-    });
+  bridge.on("content.set.settings", (value) => {
+    if (typeof value === "object" && value !== null) {
+      defaultStore.set(settingsAtom, {
+        autotrackingType:
+          (value as Settings).autotrackingType ?? "watchedProgress",
+        progressValue: (value as Settings)?.progressValue ?? 60,
+      });
+    }
   });
 
   bridge.on("content.set.access_token", (value) => {
-    api.accessToken = value || "";
+    if (typeof value === "string") {
+      api.accessToken = value ?? "";
+    }
 
     if (!isRendered && !checkIsRendered()) {
       renderContent();

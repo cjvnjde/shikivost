@@ -1,16 +1,19 @@
-import { useAtomValue } from "jotai/index";
-import { animeAtom } from "../state";
+import { useAnime } from "../api/queries/useAnime";
 
 export function AnimeTitle() {
-  const animeData = useAtomValue(animeAtom);
+  const { data: animeData } = useAnime();
 
-  return (
-    <a
-      href={`https://shikimori.one${animeData?.url}`}
-      target="_blank"
-      className="anime-title-link"
-    >
-      {animeData?.name || ""}
-    </a>
-  );
+  if (animeData) {
+    return (
+      <a
+        href={`https://shikimori.one${animeData?.url ?? ""}`}
+        target="_blank"
+        className="anime-title-link"
+      >
+        {animeData?.name ?? ""}
+      </a>
+    );
+  }
+
+  return null;
 }

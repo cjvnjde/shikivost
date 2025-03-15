@@ -1,17 +1,16 @@
 import browser from "webextension-polyfill";
 import { decodeData } from "./dataUtils";
 
-export type Listener = (data: string) => void;
-export type ListenerCallback = (data: Parameters<Listener>[0]) => void;
+export type ListenerCallback = (...data: unknown[]) => void;
 
-export class BridgeStrategy {
+export abstract class BridgeStrategy {
   private listeners = new Map<ListenerCallback, string>();
 
   constructor() {
-    browser.runtime.onMessage.addListener(
-      this.listener as (data: unknown) => void,
-    );
+    browser.runtime.onMessage.addListener(this.listener);
   }
+
+  abstract send(eventName: string, data?: unknown): Promise<void>;
 
   public on(eventName: string, listener: ListenerCallback) {
     this.listeners.set(listener, eventName);
@@ -21,13 +20,15 @@ export class BridgeStrategy {
     this.listeners.delete(listener);
   }
 
-  private listener: Listener = (data: string) => {
-    const { event: eventType, payload } = decodeData(data) || {};
+  private listener = (data: unknown) => {
+    if (typeof data === "string") {
+      const { event: eventType, payload } = decodeData(data) || {};
 
-    this.listeners.forEach((event, fn) => {
-      if (eventType === event) {
-        fn(payload);
-      }
-    });
+      this.listeners.forEach((event, fn) => {
+        if (eventType === event) {
+          fn(payload);
+        }
+      });
+    }
   };
 }

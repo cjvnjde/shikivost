@@ -3,7 +3,7 @@ import { BridgeStrategy } from "./BridgeStrategy";
 import { encodeData } from "./dataUtils";
 
 export class BackgroundBridgeStrategy extends BridgeStrategy {
-  async send(eventName: string, data?: any) {
+  async send(eventName: string, data?: unknown) {
     const encodedData = encodeData({
       event: eventName,
       data,
@@ -11,7 +11,7 @@ export class BackgroundBridgeStrategy extends BridgeStrategy {
 
     const allTabIds = await this.getTabIds();
 
-    return Promise.allSettled([
+    await Promise.allSettled([
       browser.runtime.sendMessage(encodedData.data),
       ...allTabIds.map((tabId) => {
         if (tabId) {

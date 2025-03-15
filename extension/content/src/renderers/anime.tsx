@@ -2,9 +2,11 @@ import { createRoot } from "react-dom/client";
 import { AnimeInfo } from "../components/AnimeInfo";
 import { AnimeRating } from "../components/AnimeRating";
 import { AnimeTitle } from "../components/AnimeTitle";
-import { currentRateAtom, defaultStore, fetchAnime } from "../state";
+import Providers from "../components/Providers";
+import { VideoTracker } from "../components/VideoTracker";
+import { WatchedEpisodes } from "../components/WatchedEpisodes";
+import { setAnimeData } from "../state";
 import { getTitle, getYear } from "../titleParser";
-import { videoWatchChecker } from "../videoWatchChecker";
 
 export function renderRating() {
   const ratingBlock = document.querySelector(
@@ -17,7 +19,11 @@ export function renderRating() {
   ratingBlock?.appendChild(shikiRatingContainer);
 
   const root = createRoot(shikiRatingContainer);
-  root.render(<AnimeRating />);
+  root.render(
+    <Providers>
+      <AnimeRating />
+    </Providers>,
+  );
 }
 
 export function renderAnimeInfo() {
@@ -30,7 +36,13 @@ export function renderAnimeInfo() {
   leftAnimeBlock?.appendChild(topLineBottomBlock);
 
   const root = createRoot(topLineBottomBlock);
-  root.render(<AnimeInfo />);
+  root.render(
+    <Providers>
+      <AnimeInfo />
+      <WatchedEpisodes />
+      <VideoTracker />
+    </Providers>,
+  );
 }
 
 function removeTitle() {
@@ -51,49 +63,27 @@ export function renderAnimeTitle() {
     startAnimeBlock,
   );
   const root = createRoot(topLineBottomBlock);
-  root.render(<AnimeTitle />);
-}
-
-export function highlightWatchedEpisodes() {
-  const episodes = document.querySelectorAll("#items > .epizode");
-
-  defaultStore.sub(currentRateAtom, () => {
-    const currentRateData = defaultStore.get(currentRateAtom);
-    if (currentRateData?.episodes) {
-      episodes.forEach((episode) => {
-        const id = episode.getAttribute("id");
-
-        if (id) {
-          const episodeNumber =
-            Number.parseInt(id.replaceAll(/\D/g, ""), 10) + 1;
-
-          if (episodeNumber <= (currentRateData?.episodes || 0)) {
-            episode.classList.add("watched");
-          } else {
-            episode.classList.remove("watched");
-          }
-        }
-      });
-    }
-  });
+  root.render(
+    <Providers>
+      <AnimeTitle />
+    </Providers>,
+  );
 }
 
 export function renderAnime() {
   const title = getTitle();
 
-  if (!title) {
+  if (!title.en && !title.ru) {
     return null;
   }
 
   const year = getYear();
-  fetchAnime(title, year);
+  setAnimeData(title.en, title.ru, year);
+
   removeTitle();
 
   renderRating();
 
   renderAnimeInfo();
   renderAnimeTitle();
-
-  videoWatchChecker();
-  highlightWatchedEpisodes();
 }
