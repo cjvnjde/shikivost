@@ -16,4 +16,6 @@ export type Anime = {
   episodes_aired: number;
   aired_on: string;
   released_on: any;
+} & {
+  suspicious?: boolean;
 };

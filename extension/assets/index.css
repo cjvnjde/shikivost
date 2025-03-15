@@ -32,12 +32,29 @@
 
 .extension,
 #headlessui-portal-root {
+  .loading {
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
   .anime-title-link {
     display: inline-block;
     margin-bottom: 8px;
     color: var(--title-text);
     font-weight: 600;
     text-align: center;
+
+    &--suspicious {
+      color: var(--suspicious-text);
+    }
   }
 
   .settings-form {

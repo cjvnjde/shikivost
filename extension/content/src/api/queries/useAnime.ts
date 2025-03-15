@@ -37,7 +37,11 @@ export function findBestAnimeMatch(
     return ruResults[0].item;
   }
 
-  return animeList[0];
+  const firstAnime = animeList[0];
+
+  firstAnime.suspicious = true;
+
+  return firstAnime;
 }
 
 export function useAnime() {

@@ -1,8 +1,8 @@
 import { Bridge } from "@shikivost/bridge";
 import { Api } from "./api";
-import { checkIsRendered } from "./checkIsRendered";
+import { checkIsRendered } from "./utils/checkIsRendered";
 import { renderContent } from "./renderers";
-import { defaultStore, Settings, settingsAtom } from "./state";
+import { defaultStore, setIsAuthorized, Settings, settingsAtom } from "./state";
 import { tokenChecker } from "./tokenChecker";
 import "../../assets/index.css";
 
@@ -14,10 +14,10 @@ async function init() {
   let isRendered = false;
 
   bridge.on("content.set.refresh_token", (value) => {
-    if (typeof value === "string") {
-      api.refreshToken = value ?? "";
-    }
+    setIsAuthorized(Boolean(value));
+    api.refreshToken = String(value ?? "");
   });
+
   bridge.on("content.set.settings", (value) => {
     if (typeof value === "object" && value !== null) {
       defaultStore.set(settingsAtom, {
@@ -29,9 +29,7 @@ async function init() {
   });
 
   bridge.on("content.set.access_token", (value) => {
-    if (typeof value === "string") {
-      api.accessToken = value ?? "";
-    }
+    api.accessToken = String(value ?? "");
 
     if (!isRendered && !checkIsRendered()) {
       renderContent();
@@ -43,9 +41,11 @@ async function init() {
     window.location.reload();
   });
 
-  await bridge.send("background.get.access_token");
-  await bridge.send("background.get.refresh_token");
-  await bridge.send("background.get.settings");
+  await Promise.all([
+    bridge.send("background.get.access_token"),
+    bridge.send("background.get.refresh_token"),
+    bridge.send("background.get.settings"),
+  ]);
 }
 
 init();

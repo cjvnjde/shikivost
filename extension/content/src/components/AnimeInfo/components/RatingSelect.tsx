@@ -1,18 +1,20 @@
 import {
+  IconLoader2,
   IconStar,
   IconStarFilled,
   IconStarHalfFilled,
 } from "@tabler/icons-react";
 import { useMemo, useRef, useState } from "react";
+import { useSetScore } from "../../../api/mutations/useSetScore";
+import { useRating } from "../../../api/queries/useRating";
 import { Score } from "../../../api/types/Score";
 
-type RatingSelectProps = {
-  rating: Score;
-  setRating: (rating: Score) => void;
-};
+export function RatingSelect() {
+  const { data: rating } = useRating();
+  const { mutate: setRating, isPending } = useSetScore(rating?.id);
+  const score = rating?.score ?? 0;
 
-export function RatingSelect({ rating, setRating }: RatingSelectProps) {
-  const [localRating, setLocalRating] = useState<number>(rating);
+  const [localRating, setLocalRating] = useState<number>(score);
 
   const stars = useMemo(() => {
     const starCount = Math.floor(localRating / 2);
@@ -39,7 +41,7 @@ export function RatingSelect({ rating, setRating }: RatingSelectProps) {
         ref={container}
         className="rating-stars-container"
         onClick={() => setRating(localRating as Score)}
-        onMouseLeave={() => setLocalRating(rating)}
+        onMouseLeave={() => setLocalRating(score)}
         onMouseMove={(event) => {
           const rect = container.current?.getBoundingClientRect();
 
@@ -53,7 +55,13 @@ export function RatingSelect({ rating, setRating }: RatingSelectProps) {
       >
         {stars}
       </div>
-      <span className="rating-value">{localRating}</span>
+      <span className="rating-value">
+        {isPending ? (
+          <IconLoader2 size={16} className="loading" />
+        ) : (
+          localRating
+        )}
+      </span>
     </div>
   );
 }

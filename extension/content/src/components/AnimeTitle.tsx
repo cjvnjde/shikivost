@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useAnime } from "../api/queries/useAnime";
 
 export function AnimeTitle() {
@@ -6,11 +7,14 @@ export function AnimeTitle() {
   if (animeData) {
     return (
       <a
-        href={`https://shikimori.one${animeData?.url ?? ""}`}
+        href={`https://shikimori.one${animeData.url}`}
         target="_blank"
-        className="anime-title-link"
+        className={clsx(
+          "anime-title-link",
+          animeData.suspicious && "anime-title-link--suspicious",
+        )}
       >
-        {animeData?.name ?? ""}
+        {animeData.name}
       </a>
     );
   }

@@ -6,7 +6,7 @@ import Providers from "../components/Providers";
 import { VideoTracker } from "../components/VideoTracker";
 import { WatchedEpisodes } from "../components/WatchedEpisodes";
 import { setAnimeData } from "../state";
-import { getTitle, getYear } from "../titleParser";
+import { getTitle, getYear } from "../utils/titleParser";
 
 export function renderRating() {
   const ratingBlock = document.querySelector(

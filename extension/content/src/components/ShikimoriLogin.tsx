@@ -1,6 +1,7 @@
+import { useAtomValue } from "jotai";
 import { useCallback, useState } from "react";
-import { useAccount } from "../api/queries/useAccount";
 import { config } from "../config";
+import { isAuthorized } from "../state";
 import { Settings } from "./Settings";
 import { IconShikimori } from "./icons/IconShikimori";
 import { IconLogin } from "@tabler/icons-react";
@@ -21,9 +22,9 @@ const SettingsIcon = () => {
 };
 
 export function ShikimoriLogin() {
-  const { data: account } = useAccount();
+  const isLoggedIn = useAtomValue(isAuthorized);
 
-  if (account?.id) {
+  if (isLoggedIn) {
     return <SettingsIcon />;
   }
 

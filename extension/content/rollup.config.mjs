@@ -11,10 +11,16 @@ export default {
     dir: "dist/extension/content",
     format: "cjs",
   },
+  onwarn(warning, warn) {
+    if (warning.code === "MODULE_LEVEL_DIRECTIVE") {
+      return;
+    }
+    warn(warning);
+  },
   plugins: [
     replace({
       preventAssignment: false,
-      "process.env.NODE_ENV": '"development"',
+      "process.env.NODE_ENV": '"production"',
     }),
     postcss({
       extract: true,

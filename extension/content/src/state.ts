@@ -16,8 +16,13 @@ export const settingsAtom = atom<Settings>({
 export const enAnimeTitle = atom<string | null>(null);
 export const ruAnimeTitle = atom<string | null>(null);
 export const animeYear = atom<string | null>(null);
+export const isAuthorized = atom<boolean>(false);
 
 export const defaultStore = getDefaultStore();
+
+export function setIsAuthorized(value: boolean) {
+  defaultStore.set(isAuthorized, value);
+}
 
 export function setAnimeData(
   enTitle: string,
