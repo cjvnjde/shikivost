@@ -68,7 +68,7 @@ jobs:
 
   release_firefox:
     name: "Release Firefox"
-    needs: [build_firefox, build_chrome]
+    needs: build_firefox
     runs-on: ubuntu-latest
     steps:
       - name: Download Firefox artifact
