@@ -1,7 +1,5 @@
 import { Bridge } from "@shikivost/bridge";
 import { atom, getDefaultStore } from "jotai";
-import { Account } from "./api/types/Account";
-import { Rate } from "./api/types/Rate";
 
 const bridge = Bridge.create();
 
@@ -15,20 +13,20 @@ export const settingsAtom = atom<Settings>({
   progressValue: 60,
 });
 
-export const animeTitle = atom<string | null>(null);
+export const enAnimeTitle = atom<string | null>(null);
+export const ruAnimeTitle = atom<string | null>(null);
 export const animeYear = atom<string | null>(null);
-export const accountAtom = atom<Account | null>(null);
-export const currentRateAtom = atom<null | Rate>(null);
 
 export const defaultStore = getDefaultStore();
 
-export function setAnimeData(title: string, year: string | null) {
-  defaultStore.set(animeTitle, title);
+export function setAnimeData(
+  enTitle: string,
+  ruTitle: string,
+  year: string | null,
+) {
+  defaultStore.set(enAnimeTitle, enTitle);
+  defaultStore.set(ruAnimeTitle, ruTitle);
   defaultStore.set(animeYear, year);
-}
-
-export function setCurrentRating(rate: Rate) {
-  defaultStore.set(currentRateAtom, rate);
 }
 
 defaultStore.sub(settingsAtom, () => {

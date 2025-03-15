@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { setCurrentRating } from "../../state";
 import { api } from "../queryClient";
 import { useAccount } from "./useAccount";
 import { useAnime } from "./useAnime";
@@ -17,7 +16,6 @@ export function useRating() {
         accountData?.id ?? -1,
       );
 
-      setCurrentRating(rateData);
       return rateData;
     },
   });

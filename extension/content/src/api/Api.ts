@@ -1,4 +1,4 @@
-import { Bridge } from "../../../../libs/bridge/src";
+import { Bridge } from "@shikivost/bridge";
 import { buildUrl } from "./buildUrl";
 import { config } from "../config";
 import { Account } from "./types/Account";
@@ -166,6 +166,7 @@ export class Api {
       Object.entries({
         search,
         season: year,
+        limit: 10,
       }).filter(([_, value]) => value),
     );
 

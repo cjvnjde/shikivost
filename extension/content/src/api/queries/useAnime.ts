@@ -1,19 +1,57 @@
 import { useQuery } from "@tanstack/react-query";
+import Fuse from "fuse.js";
 import { useAtomValue } from "jotai";
-import { animeTitle, animeYear } from "../../state";
+import { enAnimeTitle, animeYear, ruAnimeTitle } from "../../state";
 import { api } from "../queryClient";
+import { Anime } from "../types/Anime";
+
+export function findBestAnimeMatch(
+  enQuery: string,
+  ruQuery: string,
+  animeList: Anime[],
+): Anime {
+  const fuse = new Fuse(animeList, {
+    keys: ["name", "russian"],
+    threshold: 0.3,
+  });
+
+  const enResults = fuse.search(enQuery);
+  const ruResults = fuse.search(ruQuery);
+
+  if (enResults.length > 0 && ruResults.length > 0) {
+    const enBest = enResults[0];
+    const ruBest = ruResults[0];
+
+    if ((enBest?.score ?? 0) < (ruBest?.score ?? 0)) {
+      return enBest.item;
+    } else {
+      return ruBest.item;
+    }
+  }
+
+  if (enResults.length > 0) {
+    return enResults[0].item;
+  }
+
+  if (ruResults.length > 0) {
+    return ruResults[0].item;
+  }
+
+  return animeList[0];
+}
 
 export function useAnime() {
-  const title = useAtomValue(animeTitle);
+  const enTitle = useAtomValue(enAnimeTitle);
+  const ruTitle = useAtomValue(ruAnimeTitle);
   const year = useAtomValue(animeYear);
 
   return useQuery({
-    queryKey: ["anime", { title, year }],
-    enabled: Boolean(title),
+    queryKey: ["anime", { title: enTitle, year }],
+    enabled: Boolean(enTitle),
     queryFn: async () => {
-      const [animeData] = await api.searchAnimes(title ?? "", year);
+      const animeList = await api.searchAnimes(enTitle ?? "", year);
 
-      return animeData;
+      return findBestAnimeMatch(enTitle ?? "", ruTitle ?? "", animeList);
     },
   });
 }
