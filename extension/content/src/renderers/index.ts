@@ -1,5 +1,5 @@
-import { renderAnime } from "./anime";
-import { renderHeader } from "./header";
+import { renderAnime } from "./renderAnime";
+import { renderHeader } from "./renderHeader";
 
 export function renderContent() {
   renderHeader();
