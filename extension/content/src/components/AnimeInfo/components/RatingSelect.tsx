@@ -54,7 +54,7 @@ export function RatingSelect() {
     [],
   );
 
-  const onMouseLeave = useCallback(() => setLocalRating(score), []);
+  const onMouseLeave = useCallback(() => setLocalRating(score), [score]);
 
   return (
     <div className="rating-select-container">
