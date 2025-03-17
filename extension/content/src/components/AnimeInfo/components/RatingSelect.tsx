@@ -4,12 +4,19 @@ import {
   IconStarFilled,
   IconStarHalfFilled,
 } from "@tabler/icons-react";
-import { useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  MouseEvent as ReactMouseEvent,
+} from "react";
 import { useSetScore } from "../../../api/mutations/useSetScore";
 import { useRating } from "../../../api/queries/useRating";
 import { Score } from "../../../api/types/Score";
 
 export function RatingSelect() {
+  const container = useRef<HTMLDivElement>(null);
   const { data: rating } = useRating();
   const { mutate: setRating, isPending } = useSetScore(rating?.id);
   const score = rating?.score ?? 0;
@@ -33,7 +40,21 @@ export function RatingSelect() {
     });
   }, [localRating]);
 
-  const container = useRef<HTMLDivElement>(null);
+  const onMouseMove = useCallback(
+    (event: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {
+      const rect = container.current?.getBoundingClientRect();
+
+      const x = event.clientX - (rect?.left || 0);
+      const p = (x * 100) / (rect?.width || 1);
+
+      const percent = Math.ceil(p / 10) * 10;
+
+      setLocalRating(percent / 10);
+    },
+    [],
+  );
+
+  const onMouseLeave = useCallback(() => setLocalRating(score), []);
 
   return (
     <div className="rating-select-container">
@@ -41,17 +62,8 @@ export function RatingSelect() {
         ref={container}
         className="rating-stars-container"
         onClick={() => setRating(localRating as Score)}
-        onMouseLeave={() => setLocalRating(score)}
-        onMouseMove={(event) => {
-          const rect = container.current?.getBoundingClientRect();
-
-          const x = event.clientX - (rect?.left || 0);
-          const p = (x * 100) / (rect?.width || 1);
-
-          const percent = Math.ceil(p / 10) * 10;
-
-          setLocalRating(percent / 10);
-        }}
+        onMouseLeave={onMouseLeave}
+        onMouseMove={onMouseMove}
       >
         {stars}
       </div>

@@ -1,4 +1,3 @@
-import { Api } from "../../../api";
 import { useCreateRating } from "../../../api/mutations/useCreateRating";
 import { useSetRating } from "../../../api/mutations/useSetRating";
 import { useAccount } from "../../../api/queries/useAccount";
@@ -44,15 +43,13 @@ export function StatusSelect() {
   const selected = options.find((option) => option.id === rating?.status);
 
   const onChange = async (status: string) => {
-    if (!rating) {
+    if (!rating && status !== deleteOption.id) {
       createRating(status);
-    } else {
-      if (accountData?.id && animeData?.id) {
-        if (status === deleteOption.id && rating?.id) {
-          setRating(null);
-        } else {
-          setRating(status);
-        }
+    } else if (rating) {
+      if (status === deleteOption.id) {
+        setRating(null);
+      } else {
+        setRating(status);
       }
     }
   };
@@ -68,7 +65,11 @@ export function StatusSelect() {
       </SelectButton>
       <SelectContainer>
         {options.map(({ id, name }) => {
-          return <SelectOption value={id}>{name}</SelectOption>;
+          return (
+            <SelectOption key={id} value={id}>
+              {name}
+            </SelectOption>
+          );
         })}
         <SelectOption
           className="select-dropdown-option--danger"

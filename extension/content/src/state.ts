@@ -17,6 +17,8 @@ export const enAnimeTitle = atom<string | null>(null);
 export const ruAnimeTitle = atom<string | null>(null);
 export const animeYear = atom<string | null>(null);
 export const isAuthorized = atom<boolean>(false);
+export const totalEpisodes = atom<number>(0);
+export const currentEpisode = atom<number>(0);
 
 export const defaultStore = getDefaultStore();
 
@@ -25,12 +27,14 @@ export function setIsAuthorized(value: boolean) {
 }
 
 export function setAnimeData(
-  enTitle: string,
-  ruTitle: string,
+  title: { en: string; ru: string },
   year: string | null,
+  episodes: { total: number; current: number },
 ) {
-  defaultStore.set(enAnimeTitle, enTitle);
-  defaultStore.set(ruAnimeTitle, ruTitle);
+  defaultStore.set(enAnimeTitle, title.en);
+  defaultStore.set(ruAnimeTitle, title.ru);
+  defaultStore.set(totalEpisodes, episodes.total);
+  defaultStore.set(currentEpisode, episodes.current);
   defaultStore.set(animeYear, year);
 }
 

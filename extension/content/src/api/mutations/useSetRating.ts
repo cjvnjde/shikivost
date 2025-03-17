@@ -12,7 +12,13 @@ export function useSetRating(accountId = -1, animeId = -1, ratingId = -1) {
         await api.updateRating(ratingId, status);
       }
     },
-    onSuccess: () => {
+    onSuccess: async (_, variables) => {
+      if (variables === null) {
+        return queryClient.resetQueries({
+          queryKey: ["rating", accountId, animeId],
+        });
+      }
+
       return queryClient.invalidateQueries({
         queryKey: ["rating", accountId, animeId],
       });

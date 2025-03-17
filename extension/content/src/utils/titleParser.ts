@@ -38,3 +38,28 @@ export function getYear() {
 
   return null;
 }
+
+const episodeRegexp = /\[\d-(\d+) из (\d+)\+?]/;
+
+export function getEpisodesCount() {
+  const titleContent = document.querySelector(".shortstoryHead > h1");
+
+  const match = titleContent?.textContent?.match(episodeRegexp);
+
+  const episodes = {
+    current: 0,
+    total: 0,
+  };
+
+  if (match) {
+    if (match[1]) {
+      episodes.current = Number.parseInt(match[1], 10);
+    }
+
+    if (match[2]) {
+      episodes.total = Number.parseInt(match[2], 10);
+    }
+  }
+
+  return episodes;
+}

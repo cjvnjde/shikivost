@@ -1,5 +1,5 @@
 import { setAnimeData } from "../state";
-import { getTitle, getYear } from "../utils/titleParser";
+import { getEpisodesCount, getTitle, getYear } from "../utils/titleParser";
 import { renderAnimeInfo } from "./renderAnimeInfo";
 import { renderAnimeTitle } from "./renderAnimeTitle";
 import { renderRating } from "./renderRating";
@@ -7,12 +7,13 @@ import { renderRating } from "./renderRating";
 export function renderAnime() {
   const title = getTitle();
   const year = getYear();
+  const episodes = getEpisodesCount();
 
   if (!title.en && !title.ru) {
     return null;
   }
 
-  setAnimeData(title.en, title.ru, year);
+  setAnimeData(title, year, episodes);
 
   renderRating();
   renderAnimeInfo();
