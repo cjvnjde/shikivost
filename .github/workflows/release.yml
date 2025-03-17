@@ -66,47 +66,47 @@ jobs:
           path: ./dist/*.zip
           compression-level: 0
 
-  release_firefox:
-    name: "Release Firefox"
-    needs: build_firefox
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download Firefox artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: firefox-extension-${{ github.ref_name }}
-          path: ./
-      - name: Create Firefox Release
-        uses: wdzeng/firefox-addon@v1
-        with:
-          addon-guid: shikivost@cjvnjde.com
-          xpi-path: ./shikivost-*.zip
-          jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
-          jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
-
-  release_chrome:
-    name: "Release Chrome"
-    needs: build_chrome
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download Chrome artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: chrome-extension-${{ github.ref_name }}
-          path: ./
-      - name: Create Chrome Release
-        uses: wdzeng/chrome-extension@v1
-        with:
-          extension-id: alfpkdagonppegpjijmcgcccafchklmc
-          zip-path: ./shikivost-*.zip
-          client-id: ${{ secrets.CHROME_CLIENT_ID }}
-          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
-          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+#  release_firefox:
+#    name: "Release Firefox"
+#    needs: build_firefox
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Download Firefox artifact
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: firefox-extension-${{ github.ref_name }}
+#          path: ./
+#      - name: Create Firefox Release
+#        uses: wdzeng/firefox-addon@v1
+#        with:
+#          addon-guid: shikivost@cjvnjde.com
+#          xpi-path: ./shikivost-*.zip
+#          jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
+#          jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
+#
+#  release_chrome:
+#    name: "Release Chrome"
+#    needs: build_chrome
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Download Chrome artifact
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: chrome-extension-${{ github.ref_name }}
+#          path: ./
+#      - name: Create Chrome Release
+#        uses: wdzeng/chrome-extension@v1
+#        with:
+#          extension-id: alfpkdagonppegpjijmcgcccafchklmc
+#          zip-path: ./shikivost-*.zip
+#          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+#          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+#          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
 
   create_release:
       name: "Create GitHub Release"
       runs-on: ubuntu-latest
-      needs: [release_firefox, release_chrome]
+      needs: [build_chrome, build_firefox]
       steps:
         - name: Download Chrome artifact
           uses: actions/download-artifact@v4
