@@ -1,6 +1,6 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "jotai";
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { queryClient } from "../api/queryClient";
 import { defaultStore } from "../state";
 

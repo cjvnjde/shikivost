@@ -38,17 +38,13 @@ export const VideoTracker = () => {
         }
       }
     },
-    [rating, isPending, settingsData],
+    [rating, isPending, settingsData?.progressValue, setEpisode],
   );
 
   useEffect(() => {
-    let clear = () => {};
-
-    onVideoElementLoaded((videoElement) => {
-      clear = onVideoProgress(videoElement, onProgressUpdate);
+    return onVideoElementLoaded((videoElement) => {
+      return onVideoProgress(videoElement, onProgressUpdate);
     });
-
-    return clear;
   }, [onProgressUpdate]);
 
   return null;

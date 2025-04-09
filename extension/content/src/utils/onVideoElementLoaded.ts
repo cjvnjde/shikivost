@@ -1,9 +1,13 @@
-function onPlayerFrameLoaded(cb: (e: HTMLIFrameElement) => unknown) {
+type ClearFn = () => unknown;
+
+function onPlayerFrameLoaded(cb: (e: HTMLIFrameElement) => ClearFn) {
   let playerFrame: HTMLIFrameElement | null =
     document.querySelector<HTMLIFrameElement>("#anime iframe");
 
+  let clearFn: ClearFn | null = null;
+
   if (playerFrame) {
-    cb(playerFrame);
+    clearFn = cb(playerFrame);
   }
 
   const observer = new MutationObserver((mutations) => {
@@ -17,7 +21,8 @@ function onPlayerFrameLoaded(cb: (e: HTMLIFrameElement) => unknown) {
     });
 
     if (iframeChanged) {
-      cb(iframeChanged);
+      clearFn?.();
+      clearFn = cb(iframeChanged);
     }
   });
 
@@ -29,16 +34,23 @@ function onPlayerFrameLoaded(cb: (e: HTMLIFrameElement) => unknown) {
       childList: true,
     });
   }
+
+  return () => {
+    clearFn?.();
+    observer.disconnect();
+  };
 }
 
 function onPlayerLoaded(
   container: HTMLIFrameElement,
-  cb: (e: HTMLVideoElement) => unknown,
+  cb: (e: HTMLVideoElement) => ClearFn,
 ) {
   const video = container.contentDocument?.querySelector("video");
 
+  let clearFn: ClearFn | null = null;
+
   if (video) {
-    cb(video);
+    clearFn = cb(video);
   }
 
   const observer = new MutationObserver((mutations) => {
@@ -52,7 +64,8 @@ function onPlayerLoaded(
     });
 
     if (iframeChanged) {
-      cb(iframeChanged);
+      clearFn?.();
+      clearFn = cb(iframeChanged);
     }
   });
 
@@ -63,26 +76,62 @@ function onPlayerLoaded(
       attributes: true,
     });
   }
+
+  return () => {
+    clearFn?.();
+    observer.disconnect();
+  };
 }
 
-export function onVideoElementLoaded(cb: (e: HTMLVideoElement) => unknown) {
-  onPlayerFrameLoaded((e) => {
-    const onContentLoaded = () => {
-      e.contentWindow?.addEventListener("unload", () => {
-        setTimeout(() => {
-          e.contentWindow?.addEventListener("DOMContentLoaded", () => {
-            setTimeout(onContentLoaded);
-          });
-        });
-      });
+export function onVideoElementLoaded(cb: (e: HTMLVideoElement) => ClearFn) {
+  return onPlayerFrameLoaded((iframe) => {
+    let onClearFn: ClearFn | null = null;
+    let onLoadTimeout: ReturnType<typeof setTimeout> = -1;
+    let onUnloadTimeouts: ReturnType<typeof setTimeout>[] = [];
 
-      onPlayerLoaded(e, (videoElement) => {
-        cb(videoElement);
-      });
+    const onContentLoaded = () => {
+      clearTimeout(onLoadTimeout);
+      onLoadTimeout = setTimeout(() => {
+        onClearFn?.();
+        onClearFn = onPlayerLoaded(iframe, (videoElement) => {
+          onUnloadTimeouts.forEach(clearTimeout);
+          onUnloadTimeouts = [];
+          return cb(videoElement);
+        });
+      }, 500);
     };
 
-    e.contentWindow?.addEventListener("DOMContentLoaded", () => {
-      setTimeout(onContentLoaded);
-    });
+    const onUnload = () => {
+      onUnloadTimeouts.forEach(clearTimeout);
+      onUnloadTimeouts = [];
+
+      iframe.contentWindow?.addEventListener(
+        "DOMContentLoaded",
+        onContentLoaded,
+      );
+
+      for (let i = 0; i < 10; i++) {
+        onUnloadTimeouts.push(
+          setTimeout(() => {
+            iframe.contentWindow?.addEventListener(
+              "DOMContentLoaded",
+              onContentLoaded,
+            );
+          }, 10 * i),
+        );
+      }
+    };
+
+    iframe.contentWindow?.addEventListener("DOMContentLoaded", onContentLoaded);
+    iframe.contentWindow?.addEventListener("unload", onUnload);
+
+    return () => {
+      onClearFn?.();
+      iframe.contentWindow?.removeEventListener("unload", onUnload);
+      iframe.contentWindow?.removeEventListener(
+        "DOMContentLoaded",
+        onContentLoaded,
+      );
+    };
   });
 }

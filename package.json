@@ -1,6 +1,6 @@
 {
   "name": "@shikivost/source",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Effortlessly sync your Animevost.org progress with Shikimori.one using Shikivost",
   "license": "MIT",
   "scripts": {
@@ -14,7 +14,7 @@
     "watch:extension:content": "nx run content:watch --skip-nx-cache",
     "build:extension:background": "nx run background:build --skip-nx-cache",
     "watch:extension:background": "nx run background:watch --skip-nx-cache",
-    "start:extension:firefox": "web-ext run -t firefox-desktop --source-dir ./dist/extension --start-url=https://animevost.org/ --keep-profile-changes",
+    "start:extension:firefox": "web-ext run -t firefox-desktop --source-dir ./dist/extension --start-url=https://animevost.org/ --firefox-profile=test --keep-profile-changes",
     "build": "pnpm run build:extension:content && pnpm run build:extension:background",
     "build:libs:bridge": "nx run bridge:build --skip-nx-cache",
     "format:all": "prettier . --write"
